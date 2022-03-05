@@ -9,6 +9,7 @@ import java.awt.image.BufferedImage;
 public class GameView extends JPanel {
 
     private BufferedImage fieldBgImage;
+    private BufferedImage leftDoor;
 
     public GameView() {
         initInputs();
@@ -21,7 +22,9 @@ public class GameView extends JPanel {
     }
 
     private void importGameField() {
+
         fieldBgImage = HelperClass.getFieldImage();
+        leftDoor = HelperClass.getDoorImage();
     }
 
     @Override
@@ -33,20 +36,14 @@ public class GameView extends JPanel {
         g2.translate(0, 60);
         g2.drawImage(fieldBgImage, 0, 0, null);
 
-        /*
-        double sx = getWidth() / 1000.;
-        double sy = (getHeight() - 60) / 1000.;
-
-        g2.scale(sx, -sy);
-        g2.translate(500, -500); //Lasciamo translate perche' comodo per movimento giocatori
-        */
+        //sistema di rif spostato al centro all'altezza del campo da gioco.
+        g2.translate(500, 386); //sistema di riferimento con origine in centro
+        g2.scale(1,-1);
 
         g2.setColor(Color.red);
-        g2.fillOval((getWidth()) / 2, (getHeight() - 60) / 2, 10, 10);
+        g2.fillOval(0, 0, 5, 5);
+        g2.fillRect(100, 0, 40, 60);
 
     }
-
-
-
 
 }

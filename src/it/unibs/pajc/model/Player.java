@@ -35,6 +35,7 @@ public class Player extends GameObject {
         return false;
     }
 
+    //metodo che imposta le forme di riferimento che fanno da struttura per il personaggio
     @Override
     public void createSkeleton() {
 
