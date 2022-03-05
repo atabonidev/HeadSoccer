@@ -23,8 +23,7 @@ public class GameView extends JPanel {
 
     private void importGameField() {
 
-        fieldBgImage = HelperClass.getFieldImage();
-        leftDoor = HelperClass.getDoorImage();
+        fieldBgImage = HelperClass.getCompleteGameField(HelperClass.getImagesForField());
     }
 
     @Override
@@ -34,6 +33,7 @@ public class GameView extends JPanel {
 
         g2.fillRect(0,0, 1000, 60);
         g2.translate(0, 60);
+        //disegno campo di gioco con porte
         g2.drawImage(fieldBgImage, 0, 0, null);
 
         //sistema di rif spostato al centro all'altezza del campo da gioco.
