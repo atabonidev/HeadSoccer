@@ -72,6 +72,7 @@ public class HelperClass {
         Graphics2D g2 = newImg.createGraphics();
 
         //disegno delle porte
+        g2.drawImage(imgs.get(0), 0, 0, null);
         g2.drawImage(imgs.get(1), 0, 386-168, null); //porta sinistra
         g2.drawImage(imgs.get(2), 1000-80, 386-168, null); //porta destra
 
