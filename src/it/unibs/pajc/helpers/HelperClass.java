@@ -9,36 +9,6 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class HelperClass {
-
-    public static BufferedImage getFieldImage() {
-        BufferedImage field = null;
-        InputStream is = HelperClass.class.getClassLoader().getResourceAsStream("gameField1.jpeg");
-
-        try {
-            assert is != null;
-            field = ImageIO.read(is);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return field;
-    }
-
-    public static BufferedImage getDoorImage() {
-        BufferedImage field = null;
-        InputStream portaSx = HelperClass.class.getClassLoader().getResourceAsStream("leftDoorRect.jpeg");
-        try {
-            assert portaSx != null;
-            field = ImageIO.read(portaSx);
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return field;
-    }
-
     /**
      * metodo che ritorna l'array contenente le immagini utili per formare il campo completo con porte
      * @return
@@ -81,5 +51,4 @@ public class HelperClass {
 
         return newImg; //campo completo con porte
     }
-
 }

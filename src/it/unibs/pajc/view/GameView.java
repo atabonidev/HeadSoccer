@@ -40,6 +40,7 @@ public class GameView extends JPanel {
         g2.translate(500, 386); //sistema di riferimento con origine in centro
         g2.scale(1,-1);
 
+        //cose di prova
         g2.setColor(Color.red);
         g2.fillOval(0, 0, 5, 5);
         g2.fillRect(100, 0, 40, 60);
