@@ -9,6 +9,10 @@ import java.util.ArrayList;
  */
 public class GameField {
 
+    //I player è meglio averli privati in quanto reagiscono agli input dell'utente
+    private Player player1;
+    private Player player2;
+
     private ArrayList<GameObject> gameObjects;  //array contenente tutti gli oggetti coinvolti nel gioco
     private Rectangle2D.Float borders; //bordi dell'area di gioco
 
@@ -21,7 +25,11 @@ public class GameField {
      * metodo che richiama gli update dei singoli oggetti di gioco
      */
     public void update(){
+        player1.update();
+    }
 
+    public Player getPlayer1() {
+        return this.player1;
     }
 
     /**

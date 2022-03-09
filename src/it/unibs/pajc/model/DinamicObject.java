@@ -6,20 +6,13 @@ package it.unibs.pajc.model;
 
 public abstract class DinamicObject extends GameObject{
 
-    public static final double FRICTION = 0.01; //attrito viene sottratto senno' la palla non si ferma
     public static final double GRAVITY = 0.01;
 
-    protected int[] speed;
+    protected double[] speed = { 1, 0 };
 
-    //il delta di cui si sposta la posizione corrisponde alla velocità attuale
-    public void move(int xDelta, int yDelta) {
-        position[0] += xDelta;
-        position[1] += yDelta;
-    }
-
-    public void accelerate(double accelerationX, double accelerationY) {
-        this.speed[0] += accelerationX;
-        this.speed[1] += accelerationY;
+    //Per la gestione della gravità
+    public void accelerateY(double accelerationY) {
+        this.speed[1] = this.speed[1] + accelerationY;
     }
 
     public abstract void update();

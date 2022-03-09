@@ -1,12 +1,13 @@
 package it.unibs.pajc.model;
 
 public class Player extends DinamicObject {
-    public static final double JUMP_STRENGTH = 5;
-    public static final double SPEED = 1;
+    public static final double JUMP_STRENGTH = 5;  //potenza del calcio, con quale velocità parte
 
     private int nPlayer; //Indica il numero del player (1 => sinistra || 2 => destra)
 
-    public Player() {
+    public Player(int posX, int posY) {
+        position[0] = posX;
+        position[1] = posY;
         createSkeleton();
     }
 
@@ -19,15 +20,31 @@ public class Player extends DinamicObject {
          */
     }
 
-    public void jump() {
-
+    //il delta di cui si sposta la posizione corrisponde alla velocità attuale
+    public void move(boolean isMovingRight) {
+        if(isMovingRight) {
+            position[0] += speed[0];
+        } else {
+            position[0] -= speed[0];
+        }
     }
 
+    public void jump() {
+        accelerateY(JUMP_STRENGTH);
+    }
+
+    /**
+     * Si nota che il metodo move() viene richiamatosì solo in presenza di un input, altrimenti si muoverebbe a caso
+     * anche senza premere tasti.
+     */
     @Override
     public void update() {
-        move(speed[0], speed[1]);
-        accelerate(0, -GRAVITY);
-        accelerate(0, -FRICTION);
+        if(position[1] == 0) {
+            speed[1] = 0;
+        } else {
+            position[1] += speed[1];
+        }
+        accelerateY(-GRAVITY);
     }
 
     @Override

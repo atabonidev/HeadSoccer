@@ -1,15 +1,28 @@
 package it.unibs.pajc.view;
 
 import it.unibs.pajc.helpers.HelperClass;
+import it.unibs.pajc.model.GameField;
+import it.unibs.pajc.model.Player;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.util.ArrayList;
 
-public class GameView extends JPanel {
+/*
+    RICORDATI CHE NON C'E NETTA DISTINZIONE TRA VIEW E CONTROLLER IN JAVA SWING QUINDI QUESTO
+    E' UN FOTTUTISSIMO CONTROLLER
+ */
+
+public class GameView extends JPanel implements KeyListener {
 
     private BufferedImage fieldBgImage;
     private BufferedImage leftDoor;
+
+    GameField field = new GameField();
+    private ArrayList<String> currentActiveKeys = new ArrayList<>();
 
     public GameView() {
         initInputs();
@@ -19,7 +32,28 @@ public class GameView extends JPanel {
     private void initInputs() {
         this.setFocusable(true);
         this.requestFocus();
+
+
     }
+
+    /*
+     * aplica i controlli attualmente attivi
+     */
+    private void applyControls() {
+        Player player1 = field.getPlayer1();
+
+        for(String strkeyCode: currentActiveKeys) {
+
+            switch (Integer.parseInt(strkeyCode)) {
+                //se si preme il tasto sinistro la navicella viene ruotata di un tot a sinistra
+                case KeyEvent.VK_LEFT -> player1.move(false);
+                //identifica la pressione del tasto destro della tastiera
+                case KeyEvent.VK_RIGHT -> player1.move(true);
+            }
+        }
+
+    }
+
 
     private void importGameField() {
 
@@ -47,4 +81,26 @@ public class GameView extends JPanel {
 
     }
 
+    @Override
+    public void keyTyped(KeyEvent e) {
+        Player player1 = field.getPlayer1();
+
+        if(e.getKeyCode() == KeyEvent.VK_UP) {
+            player1.jump();
+        }
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+        String skey = "" + e.getKeyCode();
+        if(!currentActiveKeys.contains(skey)) {
+            currentActiveKeys.add(skey);
+        }
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        String key = "" + e.getKeyCode();
+        currentActiveKeys.remove(key);
+    }
 }
