@@ -26,6 +26,7 @@ public class GameField {
      */
     public void update(){
         player1.update();
+        applyCloseField();
     }
 
     public Player getPlayer1() {
@@ -54,7 +55,16 @@ public class GameField {
      * controlla che tutti gli elementi di gioco non escano dall'area di gioco
      */
     public void applyCloseField(){
-
+        borders = new Rectangle2D.Float(-500, 0, 1000, 386);   //bordi del campo di gioco (secondo il nostro sistema di rif.)
+        if(player1.getPosY() < borders.y){
+            player1.setPosY(borders.y);
+        }
+        if(player1.getPosX() < borders.x){
+            player1.setPosX(borders.x);
+        }
+        if(player1.getPosX() > -borders.x){
+            player1.setPosX(-borders.x);
+        }
     }
 
 }

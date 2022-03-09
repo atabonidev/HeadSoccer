@@ -57,4 +57,11 @@ public abstract class GameObject {
         return position[1];
     }
 
+    public void setPosY(double newPosY){
+        this.position[1] = newPosY;
+    }
+
+    public void setPosX(double newPosX){
+        this.position[0] = newPosX;
+    }
 }

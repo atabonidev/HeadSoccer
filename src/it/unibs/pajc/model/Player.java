@@ -1,5 +1,8 @@
 package it.unibs.pajc.model;
 
+import java.awt.*;
+import java.util.ArrayList;
+
 public class Player extends DinamicObject {
     public static final double JUMP_STRENGTH = 5;  //potenza del calcio, con quale velocità parte
 
@@ -60,6 +63,13 @@ public class Player extends DinamicObject {
     //metodo che imposta le forme di riferimento che fanno da struttura per il personaggio
     @Override
     public void createSkeleton() {
+        //lo disegna prendendo di riferimento il sistema di coordinate che abbiamo messo adesso -> disegna le forme
+        //partendo dal loro angolo in basso a sinistra
+        Shape legs = new Rectangle((int)position[0]+15, (int)position[1], 15, 30);
+        Shape body = new Rectangle((int)position[0], legs.getBounds().y+30, 30, 50);
 
+        objectShape = new ArrayList<>();
+        objectShape.add(legs);
+        objectShape.add(body);
     }
 }

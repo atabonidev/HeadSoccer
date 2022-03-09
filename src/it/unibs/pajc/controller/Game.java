@@ -11,6 +11,7 @@ import java.awt.*;
 public class Game {
 
     private JFrame frame;
+    private GameView gameView;
 
     public Game() {
         initialize();
@@ -18,7 +19,7 @@ public class Game {
 
     private void initialize() {
         this.frame = new JFrame();
-        GameView gameView = new GameView();
+        gameView = new GameView();
 
         frame.setLayout(new BorderLayout());
 

@@ -8,7 +8,7 @@ public abstract class DinamicObject extends GameObject{
 
     public static final double GRAVITY = 0.01;
 
-    protected double[] speed = { 1, 0 };
+    protected double[] speed = { 3, 0 };
 
     //Per la gestione della gravità
     public void accelerateY(double accelerationY) {

@@ -27,13 +27,12 @@ public class GameView extends JPanel implements KeyListener {
     public GameView() {
         initInputs();
         importGameField();
+        update();   //anche lui lo mette nel costruttore
     }
 
     private void initInputs() {
         this.setFocusable(true);
         this.requestFocus();
-
-
     }
 
     //copiato un attimo da RED
@@ -50,6 +49,7 @@ public class GameView extends JPanel implements KeyListener {
         });
 
         t.start();
+        this.addKeyListener(this);
     }
 
 
@@ -73,7 +73,6 @@ public class GameView extends JPanel implements KeyListener {
 
 
     private void importGameField() {
-
         fieldBgImage = HelperClass.getCompleteGameField(HelperClass.getImagesForField());
     }
 
