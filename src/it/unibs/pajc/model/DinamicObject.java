@@ -6,7 +6,7 @@ package it.unibs.pajc.model;
 
 public abstract class DinamicObject extends GameObject{
 
-    public static final double GRAVITY = 0.01;
+    public static final double GRAVITY = 0.4;
 
     protected double[] speed = { 3, 0 };
 

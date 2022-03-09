@@ -25,14 +25,14 @@ public class GameView extends JPanel implements KeyListener {
     private ArrayList<String> currentActiveKeys = new ArrayList<>();
 
     public GameView() {
-        initInputs();
         importGameField();
         update();   //anche lui lo mette nel costruttore
     }
 
     private void initInputs() {
         this.setFocusable(true);
-        this.requestFocus();
+        this.requestFocusInWindow();
+        this.addKeyListener(this);
     }
 
     //copiato un attimo da RED
@@ -40,7 +40,7 @@ public class GameView extends JPanel implements KeyListener {
         /*  GAME LOOP
          * mi serve per poter invocare lo step next ogni arco di tempo deciso
          */
-        Timer t = new Timer(50, (e) -> {
+        Timer t = new Timer(20, (e) -> {
             applyControls();
 
             //ora si chiama lo step next direttamente su space
@@ -49,7 +49,8 @@ public class GameView extends JPanel implements KeyListener {
         });
 
         t.start();
-        this.addKeyListener(this);
+        initInputs();
+
     }
 
 
@@ -66,6 +67,7 @@ public class GameView extends JPanel implements KeyListener {
                 case KeyEvent.VK_LEFT -> player1.move(false);
                 //identifica la pressione del tasto destro della tastiera
                 case KeyEvent.VK_RIGHT -> player1.move(true);
+                case KeyEvent.VK_UP -> player1.jump();
             }
         }
 
@@ -97,18 +99,11 @@ public class GameView extends JPanel implements KeyListener {
         //cose di prova
         g2.setColor(Color.red);
         g2.fill(field.getPlayer1().getShape());
-        //g2.fillOval(0, 0, 5, 5);
-        //g2.fillRect(100, 0, 40, 60);
 
     }
 
     @Override
     public void keyTyped(KeyEvent e) {
-        Player player1 = field.getPlayer1();
-
-        if(e.getKeyCode() == KeyEvent.VK_UP) {
-            player1.jump();
-        }
     }
 
     @Override

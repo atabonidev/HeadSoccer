@@ -4,7 +4,7 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Player extends DinamicObject {
-    public static final double JUMP_STRENGTH = 5;  //potenza del calcio, con quale velocità parte
+    public static final double JUMP_STRENGTH = 7;  //potenza del calcio, con quale velocità parte
 
     private int nPlayer; //Indica il numero del player (1 => sinistra || 2 => destra)
 
@@ -33,7 +33,9 @@ public class Player extends DinamicObject {
     }
 
     public void jump() {
-        accelerateY(JUMP_STRENGTH);
+        if(position[1] == 0) {
+            accelerateY(JUMP_STRENGTH);
+        }
     }
 
     /**
@@ -42,7 +44,7 @@ public class Player extends DinamicObject {
      */
     @Override
     public void update() {
-        if(position[1] == 0) {
+        if(position[1] == 0 && speed[1] < 0) {
             speed[1] = 0;
         } else {
             position[1] += speed[1];
