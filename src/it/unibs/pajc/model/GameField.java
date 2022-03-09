@@ -16,9 +16,9 @@ public class GameField {
     private ArrayList<GameObject> gameObjects;  //array contenente tutti gli oggetti coinvolti nel gioco
     private Rectangle2D.Float borders; //bordi dell'area di gioco
 
-    //non saprei esattamente come costruirlo per adesso
+    //bisogna creare il player con le posizioni iniziali
     public GameField(){
-
+        this.player1 = new Player(-100, 0);
     }
 
     /**

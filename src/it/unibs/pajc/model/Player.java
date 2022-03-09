@@ -5,7 +5,7 @@ public class Player extends DinamicObject {
 
     private int nPlayer; //Indica il numero del player (1 => sinistra || 2 => destra)
 
-    public Player(int posX, int posY) {
+    public Player(double posX, double posY) {
         position[0] = posX;
         position[1] = posY;
         createSkeleton();

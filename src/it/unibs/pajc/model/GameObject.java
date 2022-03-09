@@ -1,13 +1,14 @@
 package it.unibs.pajc.model;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class GameObject {
 
-    protected double position[];
+    protected double position[]={0,0};
 
     protected ArrayList<BufferedImage> images; //Immagini di rappresentazione dell'entità
     protected ArrayList<Shape> objectShape; //Shape dell'oggetto data dall'intersezione delle shape dei singoli oggetti
@@ -35,6 +36,13 @@ public abstract class GameObject {
         }
 
         return totalArea;
+    }
+
+    public Shape getShape() {
+        AffineTransform t = new AffineTransform();   //inizialmente coincide con la matrice identità
+        t.translate(position[0], position[1]);
+        //applicazione della trasformata
+        return t.createTransformedShape(getTotalShape());
     }
 
     public abstract void collisionDetected(); //metodo che fa qualcosa nel caso in cui l'oggetto abbia rilevato una collisione

@@ -1,6 +1,6 @@
 package it.unibs.pajc.view;
 
-import it.unibs.pajc.helpers.HelperClass;
+import it.unibs.pajc.helpers.*;
 import it.unibs.pajc.model.GameField;
 import it.unibs.pajc.model.Player;
 
@@ -36,6 +36,23 @@ public class GameView extends JPanel implements KeyListener {
 
     }
 
+    //copiato un attimo da RED
+    public void update(){
+        /*  GAME LOOP
+         * mi serve per poter invocare lo step next ogni arco di tempo deciso
+         */
+        Timer t = new Timer(50, (e) -> {
+            applyControls();
+
+            //ora si chiama lo step next direttamente su space
+            field.update();     //-> update
+            repaint();  //-> render
+        });
+
+        t.start();
+    }
+
+
     /*
      * aplica i controlli attualmente attivi
      */
@@ -60,6 +77,10 @@ public class GameView extends JPanel implements KeyListener {
         fieldBgImage = HelperClass.getCompleteGameField(HelperClass.getImagesForField());
     }
 
+    /**
+     * dubbione -> il campo rimane fisso, non dovrebbe essere messo qui
+     * @param g
+     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -76,8 +97,9 @@ public class GameView extends JPanel implements KeyListener {
 
         //cose di prova
         g2.setColor(Color.red);
-        g2.fillOval(0, 0, 5, 5);
-        g2.fillRect(100, 0, 40, 60);
+        g2.fill(field.getPlayer1().getShape());
+        //g2.fillOval(0, 0, 5, 5);
+        //g2.fillRect(100, 0, 40, 60);
 
     }
 
