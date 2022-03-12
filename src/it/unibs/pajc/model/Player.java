@@ -67,11 +67,10 @@ public class Player extends DinamicObject {
     public void createSkeleton() {
         //lo disegna prendendo di riferimento il sistema di coordinate che abbiamo messo adesso -> disegna le forme
         //partendo dal loro angolo in basso a sinistra
-        Shape legs = new Rectangle((int)position[0]+15, (int)position[1], 15, 30);
-        Shape body = new Rectangle((int)position[0], legs.getBounds().y+30, 30, 50);
+        Shape legs = new Rectangle(15, 0, 15, 30);
+        Shape body = new Rectangle(0, legs.getBounds().y+30, 30, 50);
 
-        objectShape = new ArrayList<>();
-        objectShape.add(legs);
-        objectShape.add(body);
+        super.objectShape.add(legs);
+        super.objectShape.add(body);
     }
 }

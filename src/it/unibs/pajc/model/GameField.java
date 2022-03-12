@@ -18,7 +18,7 @@ public class GameField {
 
     //bisogna creare il player con le posizioni iniziali
     public GameField(){
-        this.player1 = new Player(-100, 0);
+        this.player1 = new Player(-300, 0);
     }
 
     /**
@@ -56,14 +56,15 @@ public class GameField {
      */
     public void applyCloseField(){
         borders = new Rectangle2D.Float(-500, 0, 1000, 386);   //bordi del campo di gioco (secondo il nostro sistema di rif.)
-        if(player1.getPosY() < borders.y){
-            player1.setPosY(borders.y);
+        if(player1.getPosY() < borders.getMinY()){
+            player1.setPosY((float)borders.getMinY());
         }
-        if(player1.getPosX() < borders.x){
-            player1.setPosX(borders.x);
+        if(player1.getPosX() < borders.getMinX()){
+            player1.setPosX((float)borders.getMinX());
+
         }
-        if(player1.getPosX() > -borders.x){
-            player1.setPosX(-borders.x);
+        if(player1.getPosX() > (borders.getMaxX() - player1.getTotalShape().getBounds().width)){
+            player1.setPosX((float)(borders.getMaxX() - player1.getTotalShape().getBounds().width));
         }
     }
 

@@ -11,7 +11,7 @@ public abstract class GameObject {
     protected double position[]={0,0};
 
     protected ArrayList<BufferedImage> images; //Immagini di rappresentazione dell'entità
-    protected ArrayList<Shape> objectShape; //Shape dell'oggetto data dall'intersezione delle shape dei singoli oggetti
+    protected ArrayList<Shape> objectShape = new ArrayList<>(); //Shape dell'oggetto data dall'intersezione delle shape dei singoli oggetti
 
     /**
      * Metodo che restituisce true se l'oggetto che sta richiamando il metodo e l'oggetto parametro hanno l'intersezione non vuota
@@ -39,9 +39,8 @@ public abstract class GameObject {
     }
 
     public Shape getShape() {
-        AffineTransform t = new AffineTransform();   //inizialmente coincide con la matrice identità
-        t.translate(position[0], position[1]);
-        //applicazione della trasformata
+        AffineTransform t = new AffineTransform(); //inizialmente coincide con la matrice identità
+        t.translate(position[0], position[1]); //applicazione della trasformata
         return t.createTransformedShape(getTotalShape());
     }
 
