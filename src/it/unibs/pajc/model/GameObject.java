@@ -44,7 +44,7 @@ public abstract class GameObject {
         return t.createTransformedShape(getTotalShape());
     }
 
-    public abstract void collisionDetected(); //metodo che fa qualcosa nel caso in cui l'oggetto abbia rilevato una collisione
+    public abstract void collisionDetected(); //deve ricevere come parametro l'oggetto con cui ha avuto la collisione
 
     public abstract void createSkeleton(); //Crea lo scheletro(shape) dell'oggetto da utilizzare per le collisioni
 

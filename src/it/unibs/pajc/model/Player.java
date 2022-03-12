@@ -4,17 +4,18 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Player extends DinamicObject {
-    public static final double JUMP_STRENGTH = 7;  //potenza del calcio, con quale velocità parte
+    public static final double JUMP_STRENGTH = 8;  //potenza del calcio, con quale velocità parte
 
-    private int nPlayer; //Indica il numero del player (1 => sinistra || 2 => destra)
+    private int playerID; //Indica il numero del player (1 => sinistra || 2 => destra)
 
     public Player(double posX, double posY) {
+        //this.playerID = playerID
         position[0] = posX;
         position[1] = posY;
         createSkeleton();
     }
 
-    public void kick() {
+    public void kick(int playerID) {
         /*
             if(player == 1)
                 +angolo
@@ -23,7 +24,6 @@ public class Player extends DinamicObject {
          */
     }
 
-    //il delta di cui si sposta la posizione corrisponde alla velocità attuale
     public void move(boolean isMovingRight) {
         if(isMovingRight) {
             position[0] += speed[0];

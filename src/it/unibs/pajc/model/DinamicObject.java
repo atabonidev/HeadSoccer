@@ -15,6 +15,15 @@ public abstract class DinamicObject extends GameObject{
         this.speed[1] = this.speed[1] + accelerationY;
     }
 
+    public void accelerateX(double accelerationX){
+        this.speed[1] = this.speed[1] + accelerationX;
+    }
+
     public abstract void update();
+
+    //getters e setters
+    public double getSpeed(int speedDirection){
+        return speed[speedDirection];
+    }
 
 }
