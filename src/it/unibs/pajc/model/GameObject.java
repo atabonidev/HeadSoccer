@@ -3,12 +3,13 @@ package it.unibs.pajc.model;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
+import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public abstract class GameObject {
 
-    protected double position[]={0,0};
+    protected double position[] = { 0, 0 };
 
     protected ArrayList<BufferedImage> images; //Immagini di rappresentazione dell'entità
     protected ArrayList<Shape> objectShape = new ArrayList<>(); //Shape dell'oggetto data dall'intersezione delle shape dei singoli oggetti
@@ -32,7 +33,7 @@ public abstract class GameObject {
         Area totalArea = new Area();
 
         for (Shape s : objectShape) {
-            totalArea.add(new Area(s.getBounds()));
+            totalArea.add(new Area(s));
         }
 
         return totalArea;

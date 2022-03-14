@@ -2,6 +2,8 @@ package it.unibs.pajc.helpers;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -9,6 +11,12 @@ import java.io.InputStream;
 import java.util.ArrayList;
 
 public class HelperClass {
+
+    private static final int LXC_RIGHT_DOOR = 1000-80;
+    private static final int LYC_RIGHT_DOOR = 386-168;
+    private static final int LXC_LEFT_DOOR = 0;
+    private static final int LYC_LEFT_DOOR = 386-168;
+
     /**
      * metodo che ritorna l'array contenente le immagini utili per formare il campo completo con porte
      * @return
@@ -43,12 +51,24 @@ public class HelperClass {
 
         //disegno delle porte
         g2.drawImage(imgs.get(0), 0, 0, null);
-        g2.drawImage(imgs.get(1), 0, 386-168, null); //porta sinistra
-        g2.drawImage(imgs.get(2), 1000-80, 386-168, null); //porta destra
+        g2.drawImage(imgs.get(1), LXC_LEFT_DOOR, LYC_LEFT_DOOR, null); //porta sinistra
+        g2.drawImage(imgs.get(2), LXC_RIGHT_DOOR, LYC_RIGHT_DOOR, null); //porta destra
 
         //libera le risorse di g2
         g2.dispose();
 
         return newImg; //campo completo con porte
+    }
+
+    /**
+     * Ribalta l'immagine passata come parametro
+     * @param image
+     * @return
+     */
+    public static BufferedImage flipVerticallyImage(BufferedImage image) {
+        AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
+        tx.translate(0, -image.getHeight(null));
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
+        return op.filter(image, null);
     }
 }

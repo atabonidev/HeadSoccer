@@ -8,7 +8,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.Ellipse2D;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.awt.image.BufferedImageFilter;
+import java.awt.image.ReplicateScaleFilter;
 import java.util.ArrayList;
 
 /*
@@ -98,9 +103,9 @@ public class GameView extends JPanel implements KeyListener {
 
         //cose di prova
         g2.setColor(Color.red);
-        g2.fill(field.getPlayer1().getShape());
-        g2.fillOval((int)field.getPlayer1().getPosX() + 40, (int)field.getPlayer1().getPosY(), 23, 23);
+        g2.fill(field.getBall().getShape());
 
+        g2.drawImage(field.getPlayer1().getPngImg(), (int)field.getPlayer1().getPosX(), (int)field.getPlayer1().getPosY(), null);
     }
 
     @Override

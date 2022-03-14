@@ -3,22 +3,57 @@ package it.unibs.pajc.model;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class Ball extends DinamicObject{
+public class Ball extends DinamicObject {
 
-    public static final int[] KICK_STRENGHT = {9, 2};
+    private static final int[] KICK_STRENGHT = {9, 2};
+    private static final double BOUNCING_FRICTION = 2.6;
+    private static final double AIR_FRICTION = 0.02;
 
-    public Ball(){
-        this.position[0] = 0;
-        this.position[1] = 0;
+    public Ball(double posX, double posY, double speedX, double speedY){
+        this.position[0] = posX;
+        this.position[1] = posY; //Parte dall'alto
+        this.speed[0] = speedX;
+        this.speed[1] = speedY;
+        createSkeleton();
+    }
+
+    private boolean isBordersChecked() {
+        if((position[1] == 0 && speed[1] < 0) || (position[0] == -500 && speed[0] < 0) || (position[0] == 477 && speed[0] > 0))
+            return true;
+        return false;
     }
 
     @Override
     public void update() {
-        position[0] += speed[0];
-        position[1] += speed[1];
+        System.out.println(position[0] + " : " + position[1]);
+        System.out.println("Speed: " + speed[0] + " : " + speed[1]);
+
+        if(isBordersChecked()) {
+            if((position[1] == 0 && speed[1] < 0)) {
+                speed[1] = Math.abs(speed[1]) - BOUNCING_FRICTION; //Rimbalzo della palla in basso
+            }
+            if((position[0] == -500 && speed[0] < 0)) {
+                speed[0] = Math.abs(speed[0]) - BOUNCING_FRICTION; //Rimbalzo della palla sul bordo sinistro
+            }
+            if((position[0] == 477 && speed[0] > 0)) {
+                speed[0] = -Math.abs(speed[0]) + BOUNCING_FRICTION; //Rimbalzo della palla sul bordo destro
+            }
+        }
+        else {
+            position[0] += speed[0];
+            position[1] += speed[1];
+        }
 
         //qui mi sa che serve anche l'attrito con l'aria altrimenti non si ferma più
         accelerateY(-GRAVITY);
+
+        //Coefficiente d'attrito aria x
+        if(speed[0] > 0) {
+            accelerateX(-AIR_FRICTION);
+        } else if(speed[0] < 0) {
+            accelerateX(+AIR_FRICTION);
+        }
+
     }
 
     @Override

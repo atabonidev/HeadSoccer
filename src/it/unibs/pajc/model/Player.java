@@ -1,18 +1,29 @@
 package it.unibs.pajc.model;
 
+import it.unibs.pajc.helpers.HelperClass;
+
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 public class Player extends DinamicObject {
     public static final double JUMP_STRENGTH = 8;  //potenza del calcio, con quale velocità parte
 
     private int playerID; //Indica il numero del player (1 => sinistra || 2 => destra)
+    private BufferedImage pngImg;
 
-    public Player(double posX, double posY) {
+    public Player(double posX, double posY, double speedX, double speedY, BufferedImage pngImg) {
         //this.playerID = playerID
-        position[0] = posX;
-        position[1] = posY;
+        this.position[0] = posX;
+        this.position[1] = posY;
+        this.speed[0] = speedX;
+        this.speed[1] = speedY;
+        this.pngImg = HelperClass.flipVerticallyImage(pngImg);
         createSkeleton();
+    }
+
+    public BufferedImage getPngImg() {
+        return pngImg;
     }
 
     public void kick(int playerID) {
@@ -49,6 +60,7 @@ public class Player extends DinamicObject {
         } else {
             position[1] += speed[1];
         }
+
         accelerateY(-GRAVITY);
     }
 
