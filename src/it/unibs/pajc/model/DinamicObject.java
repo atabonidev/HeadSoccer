@@ -16,7 +16,13 @@ public abstract class DinamicObject extends GameObject{
     }
 
     public void accelerateX(double accelerationX){
-        this.speed[0] = this.speed[0] + accelerationX;
+        if(speed[0] > 0 && accelerationX < 0 && (speed[0] + accelerationX) < 0) {
+            speed[0] = 0;
+        } else if(speed[0] < 0 && accelerationX > 0 && (speed[0] + accelerationX) > 0) {
+            speed[0] = 0;
+        } else {
+            this.speed[0] = this.speed[0] + accelerationX;
+        }
     }
 
     public abstract void update();

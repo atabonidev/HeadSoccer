@@ -20,7 +20,7 @@ public class Ball extends DinamicObject {
 
     //Controlla se la palla finisce contro uno dei bordi
     private boolean isBordersChecked() {
-        if((position[1] == 0 && speed[1] < 0) || (position[0] == -500 && speed[0] < 0) || (position[0] == 477 && speed[0] > 0))
+        if((position[1] == 0 && speed[1] < 0) || (position[0] == -500 && speed[0] < 0) || (position[0] == 477 && speed[0] > 0) || (position[1] == 386  && speed[1] > 0))
             return true;
         return false;
     }
@@ -31,6 +31,9 @@ public class Ball extends DinamicObject {
             if((position[1] == 0 && speed[1] < 0)) {
                 speed[1] = Math.abs(speed[1]) - BOUNCING_FRICTION; //Rimbalzo della palla in basso
             }
+            if((position[1] + this.getTotalShape().getBounds().height == 386 && speed[1] > 0)) {
+                speed[1] = -Math.abs(speed[1]) + BOUNCING_FRICTION; //Rimbalzo della palla in basso
+            }
             if((position[0] == -500 && speed[0] < 0)) {
                 speed[0] = Math.abs(speed[0]) - BOUNCING_FRICTION; //Rimbalzo della palla sul bordo sinistro
             }
@@ -38,10 +41,9 @@ public class Ball extends DinamicObject {
                 speed[0] = -Math.abs(speed[0]) + BOUNCING_FRICTION; //Rimbalzo della palla sul bordo destro
             }
         }
-        else {
             position[0] += speed[0];
             position[1] += speed[1];
-        }
+
 
         //qui mi sa che serve anche l'attrito con l'aria altrimenti non si ferma più
         accelerateY(-GRAVITY);
@@ -66,20 +68,35 @@ public class Ball extends DinamicObject {
             if(player.isKicking() && !(IntersectionLegBal.isEmpty())){
                 kicked(player);
             }
+            //controlli in X
             else {
                 //player e palla: versi opposti (es palla isMOvingRight e la palla no) -> opposto della velocità del giocatore (saranno già oppposto quindi basta sommare)
                 if(player.getSpeed(0) > 0 && this.speed[0] < 0)
-                    speed[0] = Math.abs(speed[0]) + player.getSpeed(0) - BOUNCING_FRICTION; //giocatore dx palla sx
+                    speed[0] = Math.abs(speed[0]) + player.getSpeed(0); //giocatore dx palla sx
                 else if(player.getSpeed(0) < 0 && this.speed[0] > 0)
-                    speed[0] = - Math.abs(speed[0]) - player.getSpeed(0) + BOUNCING_FRICTION; //giocatore sx palla dx
+                    speed[0] = - Math.abs(speed[0]) - player.getSpeed(0) ; //giocatore sx palla dx
                 else{  //se si muovono nello stesso verso
                     if(speed[0] > 0)
-                        speed[0] = -Math.abs(speed[0]) + BOUNCING_FRICTION;
+                        speed[0] = -Math.abs(speed[0]);
                     else
-                        speed[0] = Math.abs(speed[0]) - BOUNCING_FRICTION;
+                        speed[0] = Math.abs(speed[0]);
                 }
 
                 //stesso discorso per i controlli in y
+                //player e palla: versi opposti (es palla isMOvingRight e la palla no) -> opposto della velocità del giocatore (saranno già oppposto quindi basta sommare)
+                if(player.getSpeed(1) > 0 && this.speed[1] < 0)
+                    speed[1] = Math.abs(speed[1]) + player.getSpeed(1); //giocatore dx palla sx
+                else if(player.getSpeed(1) < 0 && this.speed[1] > 0)
+                    speed[1] = - Math.abs(speed[1]) - player.getSpeed(1); //giocatore sx palla dx
+                else{  //se si muovono nello stesso verso
+                    if(speed[1] > 0)
+                        speed[1] = Math.abs(speed[1]) + player.getSpeed(1);   //entrambi verso l'alto
+                    else
+                        speed[1] = Math.abs(speed[1]);   //entrambi verso il basso (es. palla in testa)
+                }
+
+                //palla ferma
+                speed[0] = player.speed[0];
             }
         }
     }

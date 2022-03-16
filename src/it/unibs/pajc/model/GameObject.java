@@ -20,8 +20,8 @@ public abstract class GameObject {
      * @return
      */
     public boolean checkCollision(GameObject o) {
-        Area myArea = this.getTotalShape();
-        myArea.intersect(o.getTotalShape());
+        Area myArea = new Area(this.getShape());
+        myArea.intersect(new Area(o.getShape()));
         return !myArea.isEmpty();
     }
 
@@ -31,7 +31,6 @@ public abstract class GameObject {
      */
     public Area getTotalShape() {
         Area totalArea = new Area();
-
         for (Shape s : objectShape) {
             totalArea.add(new Area(s));
         }

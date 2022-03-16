@@ -46,6 +46,7 @@ public class GameField {
             o.update();
             applyCloseField(o);
         }
+        checkCollisions();
     }
 
     public Player getPlayer1() {
@@ -67,8 +68,8 @@ public class GameField {
     public void checkCollisions(){
         int nobjs = gameObjects.size();
 
-        for(int i=0; i<nobjs; i++) {
-            for(int j = 0; j<nobjs; j++) {
+        for(int i =0 ; i < nobjs-1; i++) {
+            for(int j = i+1; j<nobjs; j++) {
                 if(gameObjects.get(i).checkCollision(gameObjects.get(j))) {
                     //si informano gli oggetti che si ha avuto un urto
                     gameObjects.get(i).collisionDetected(gameObjects.get(j));
@@ -86,6 +87,10 @@ public class GameField {
         if(o.getPosY() < borders.getMinY()){
             o.setPosY((float)borders.getMinY());
         }
+        if(o.getPosY() > (borders.getMaxY() - o.getTotalShape().getBounds().height)){
+            o.setPosY((float)borders.getMaxY() - o.getTotalShape().getBounds().height);
+        }
+
         if(o.getPosX() < borders.getMinX()){
             o.setPosX((float)borders.getMinX());
         }
