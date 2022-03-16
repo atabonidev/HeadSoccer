@@ -18,6 +18,7 @@ public class Ball extends DinamicObject {
         createSkeleton();
     }
 
+    //Controlla se la palla finisce contro uno dei bordi
     private boolean isBordersChecked() {
         if((position[1] == 0 && speed[1] < 0) || (position[0] == -500 && speed[0] < 0) || (position[0] == 477 && speed[0] > 0))
             return true;
@@ -26,9 +27,6 @@ public class Ball extends DinamicObject {
 
     @Override
     public void update() {
-        System.out.println(position[0] + " : " + position[1]);
-        System.out.println("Speed: " + speed[0] + " : " + speed[1]);
-
         if(isBordersChecked()) {
             if((position[1] == 0 && speed[1] < 0)) {
                 speed[1] = Math.abs(speed[1]) - BOUNCING_FRICTION; //Rimbalzo della palla in basso
