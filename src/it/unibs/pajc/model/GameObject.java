@@ -45,9 +45,11 @@ public abstract class GameObject {
         return t.createTransformedShape(getTotalShape());
     }
 
-    public abstract void collisionDetected(); //deve ricevere come parametro l'oggetto con cui ha avuto la collisione
+    public abstract void collisionDetected(GameObject o); //deve ricevere come parametro l'oggetto con cui ha avuto la collisione
 
     public abstract void createSkeleton(); //Crea lo scheletro(shape) dell'oggetto da utilizzare per le collisioni
+
+    //getters e setters
 
     public double getPosX() {
         return position[0];
@@ -63,5 +65,9 @@ public abstract class GameObject {
 
     public void setPosX(double newPosX){
         this.position[0] = newPosX;
+    }
+
+    public Shape getSingleShape(int shapeIndex){
+        return objectShape.get(shapeIndex);
     }
 }

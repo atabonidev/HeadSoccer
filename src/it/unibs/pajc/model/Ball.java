@@ -1,6 +1,7 @@
 package it.unibs.pajc.model;
 
 import java.awt.*;
+import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 
 public class Ball extends DinamicObject {
@@ -57,18 +58,32 @@ public class Ball extends DinamicObject {
     }
 
     @Override
-    public void collisionDetected() {
-        //si controlla se la palla ha fatto collisione con la gamba del giocatore e si richiama kicked()
+    public void collisionDetected(GameObject o) {
+        if(o instanceof Player) {
+            Player player = (Player)o;
 
-        /*
-        if(gameObj.class == Player)
-           if : palla intercetta piede
-                if : isKicking
-                    kicked();
-            else
-                accelerateY(speedY giocatore)
-                accelerateX(speedX giocatore)
-         */
+            Area IntersectionLegBal = new Area(this.getShape());
+            IntersectionLegBal.intersect(new Area(player.getSingleShape(0)));    //intersezione gamba palla
+
+            if(player.isKicking() && !(IntersectionLegBal.isEmpty())){
+                kicked(player);
+            }
+            else {
+                //player e palla: versi opposti (es palla isMOvingRight e la palla no) -> opposto della velocità del giocatore (saranno già oppposto quindi basta sommare)
+                if(player.getSpeed(0) > 0 && this.speed[0] < 0)
+                    speed[0] = Math.abs(speed[0]) + player.getSpeed(0) - BOUNCING_FRICTION; //giocatore dx palla sx
+                else if(player.getSpeed(0) < 0 && this.speed[0] > 0)
+                    speed[0] = - Math.abs(speed[0]) - player.getSpeed(0) + BOUNCING_FRICTION; //giocatore sx palla dx
+                else{  //se si muovono nello stesso verso
+                    if(speed[0] > 0)
+                        speed[0] = -Math.abs(speed[0]) + BOUNCING_FRICTION;
+                    else
+                        speed[0] = Math.abs(speed[0]) - BOUNCING_FRICTION;
+                }
+
+                //stesso discorso per i controlli in y
+            }
+        }
     }
 
     @Override

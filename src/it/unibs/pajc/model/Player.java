@@ -12,6 +12,8 @@ public class Player extends DinamicObject {
     private int playerID; //Indica il numero del player (1 => sinistra || 2 => destra)
     private BufferedImage pngImg;
 
+    private boolean isKicking;
+
     public Player(double posX, double posY, double speedX, double speedY, BufferedImage pngImg) {
         //this.playerID = playerID
         this.position[0] = posX;
@@ -27,6 +29,7 @@ public class Player extends DinamicObject {
     }
 
     public void kick(int playerID) {
+        isKicking = true;               //viene reimpostato a false in key released
         /*
             if(player == 1)
                 +angolo
@@ -65,12 +68,7 @@ public class Player extends DinamicObject {
     }
 
     @Override
-    public boolean checkCollision(GameObject o) {
-        return false;
-    }
-
-    @Override
-    public void collisionDetected() {
+    public void collisionDetected(GameObject o) {
 
     }
 
@@ -85,4 +83,7 @@ public class Player extends DinamicObject {
         super.objectShape.add(legs);
         super.objectShape.add(body);
     }
+
+    //GETTERS e SETTERS
+    public boolean isKicking(){return isKicking;}
 }

@@ -25,7 +25,7 @@ public class GameField {
 
     //bisogna creare il player con le posizioni iniziali
     public GameField() {
-        InputStream png = this.getClass().getClassLoader().getResourceAsStream("Personaggio sinistro Nostro.png");
+        InputStream png = this.getClass().getClassLoader().getResourceAsStream("LeftMan.png");
         BufferedImage pngImg = null;
         try {
             pngImg = ImageIO.read(png);
@@ -71,8 +71,8 @@ public class GameField {
             for(int j = 0; j<nobjs; j++) {
                 if(gameObjects.get(i).checkCollision(gameObjects.get(j))) {
                     //si informano gli oggetti che si ha avuto un urto
-                    gameObjects.get(i).collisionDetected();
-                    gameObjects.get(j).collisionDetected();
+                    gameObjects.get(i).collisionDetected(gameObjects.get(j));
+                    gameObjects.get(j).collisionDetected(gameObjects.get(i));
                 }
             }
         }
@@ -92,6 +92,7 @@ public class GameField {
         if(o.getPosX() > (borders.getMaxX() - o.getTotalShape().getBounds().width)){
             o.setPosX((float)(borders.getMaxX() - o.getTotalShape().getBounds().width));
         }
+        //fare applyclosefield per singole entità e chiamarlo qui dentro che diventerebbe quello generale
     }
 
 }

@@ -7,7 +7,7 @@ public class FootballGoal extends GameObject{
     }
 
     @Override
-    public void collisionDetected() {
+    public void collisionDetected(GameObject o) {
 
     }
 
