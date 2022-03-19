@@ -32,7 +32,7 @@ public class GameField {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.player1 = new Player(-300, 0, 3, 0, pngImg);
+        this.player1 = new Player(-300, 0, 0, 0, pngImg);
         this.ball = new Ball(0, 356, 10, 0);
         gameObjects.add(player1);
         gameObjects.add(ball);

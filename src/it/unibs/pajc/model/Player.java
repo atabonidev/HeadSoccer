@@ -8,6 +8,7 @@ import java.util.ArrayList;
 
 public class Player extends DinamicObject {
     public static final double JUMP_STRENGTH = 8;  //potenza del calcio, con quale velocità parte
+    public static final double CONST_SPEED_X = 3.0;
 
     private int playerID; //Indica il numero del player (1 => sinistra || 2 => destra)
     private BufferedImage pngImg;
@@ -40,10 +41,11 @@ public class Player extends DinamicObject {
 
     public void move(boolean isMovingRight) {
         if(isMovingRight) {
-            position[0] += speed[0];
+            speed[0] = CONST_SPEED_X;
         } else {
-            position[0] -= speed[0];
+            speed[0] = - CONST_SPEED_X;
         }
+        position[0] += speed[0];
     }
 
     public void jump() {
@@ -60,11 +62,10 @@ public class Player extends DinamicObject {
     public void update() {
         if(position[1] == 0 && speed[1] < 0) {
             speed[1] = 0;
-        } else {
+        } else{
             position[1] += speed[1];
         }
-
-        accelerateY(-GRAVITY);
+        gravityApplication();
     }
 
     @Override
@@ -73,11 +74,11 @@ public class Player extends DinamicObject {
             //se ci si mette sopra la palla ferma non succede niente
             Ball ball = (Ball)o;
             //se la palla è a terra ferma
-            if(ball.getSpeed(0) == 0 && ball.getPosY() == 0 && ball.getSpeed(1) == 0)
-                if(this.speed[1] < 0){   //se il giocatore salta sulla palla mentre è ferma
+            if(ball.getSpeed(0) == 0 && ball.getSpeed(1) == 0) {
+                if (this.speed[1] < 0) {   //se il giocatore salta sulla palla mentre è ferma
                     this.speed[1] = 0;  //si ferma sulla palla
-                    this.position[1] = ball.getShape().getBounds().height;
                 }
+            }
         }
     }
 
@@ -95,4 +96,7 @@ public class Player extends DinamicObject {
 
     //GETTERS e SETTERS
     public boolean isKicking(){return isKicking;}
+    public void setSpeed(int speedIndex, double newSpeed){
+        speed[speedIndex] = newSpeed;
+    }
 }

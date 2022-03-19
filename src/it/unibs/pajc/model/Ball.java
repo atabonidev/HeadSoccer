@@ -30,24 +30,22 @@ public class Ball extends DinamicObject {
     public void update() {
         if(isBordersChecked()) {
             if((position[1] == 0 && speed[1] < 0)) {
-                speed[1] = Math.abs(speed[1]) - BOUNCING_FRICTION; //Rimbalzo della palla in basso
+                bouncingY(-1, BOUNCING_FRICTION); //Rimbalzo della palla in basso
             }
             if((position[1] + this.getTotalShape().getBounds().height == 386 && speed[1] > 0)) {
-                speed[1] = -Math.abs(speed[1]) + BOUNCING_FRICTION; //Rimbalzo della palla in basso
-
+                bouncingY(1, BOUNCING_FRICTION); //Rimbalzo della palla in basso
             }
             if((position[0] == -500 && speed[0] < 0)) {
-                speed[0] = Math.abs(speed[0]) - BOUNCING_FRICTION; //Rimbalzo della palla sul bordo sinistro
+                bouncingX(-1, BOUNCING_FRICTION); //Rimbalzo della palla sul bordo sinistro
             }
             if((position[0] == 477 && speed[0] > 0)) {
-                speed[0] = -Math.abs(speed[0]) + BOUNCING_FRICTION; //Rimbalzo della palla sul bordo destro
+                bouncingX(1, BOUNCING_FRICTION); //Rimbalzo della palla sul bordo destro
             }
         }
         position[0] += speed[0];
         position[1] += speed[1];
 
-        //qui mi sa che serve anche l'attrito con l'aria altrimenti non si ferma più
-        accelerateY(-GRAVITY);
+        gravityApplication();
 
         //Coefficiente d'attrito aria y
         if(speed[1] > 0) {
@@ -62,7 +60,22 @@ public class Ball extends DinamicObject {
         } else if(speed[0] < 0) {
             accelerateX(+AIR_FRICTION);
         }
+        //System.out.println(speed[0] + ", " + speed[1]);
+    }
 
+    /**
+     * metodo che fa rimbalzare (e fermare la palla)
+     * @param acceleration
+     * @param accelerationSign   segno dell'accelerazione
+     */
+    private void bouncingX(int accelerationSign, double acceleration){
+        speed[0] = -speed[0];
+        accelerateX(accelerationSign * acceleration);
+    }
+
+    private void bouncingY(double acceleration, double accelerationSign){
+        speed[1] = -speed[1];
+        accelerateY(accelerationSign * acceleration);
     }
 
     @Override
@@ -78,33 +91,47 @@ public class Ball extends DinamicObject {
             }
             //controlli in X
             else {
+                if(player.getSpeed(0) == 0)
+                    speed[0] = -speed[0];
                 //player e palla: versi opposti (es palla isMOvingRight e la palla no) -> opposto della velocità del giocatore (saranno già oppposto quindi basta sommare)
-                if(player.getSpeed(0) > 0 && this.speed[0] < 0)
+                else if(player.getSpeed(0) > 0 && this.speed[0] < 0) {
                     speed[0] = Math.abs(speed[0]) + player.getSpeed(0); //giocatore dx palla sx
-                else if(player.getSpeed(0) < 0 && this.speed[0] > 0)
-                    speed[0] = - Math.abs(speed[0]) + player.getSpeed(0) ; //giocatore sx palla dx
+                }
+                else if(player.getSpeed(0) < 0 && this.speed[0] > 0) {
+                    speed[0] = -Math.abs(speed[0]) + player.getSpeed(0); //giocatore sx palla dx
+                }
                 else{  //se si muovono nello stesso verso
-                    if(speed[0] > 0)
-                        speed[0] = -Math.abs(speed[0]);
-                    else if(speed[0] < 0)
-                        speed[0] = Math.abs(speed[0]);
-                    else if (player.getSpeed(1) == 0)    //se il player si sta muovendo solo in orizzontale
+                    if (player.getSpeed(1) == 0 && speed[0] == 0) {    //se il player si sta muovendo solo in orizzontale
                         speed[0] = player.getSpeed(0);   //se la palla è ferma prende la velocità del giocatore
+                    }
+                    else if(speed[0] > 0) {
+                        if((position[0]+getShape().getBounds().width) < player.getPosX()) { //se la palla arriva da dietro
+                            speed[0] = -speed[0];
+                        }
+                        else speed[0] += player.getSpeed(0);   //palla davanti al player
+                    }
+                    else if(speed[0] < 0){
+                        if(position[0] > player.getPosX()) //se la palla arriva da dietro
+                            speed[0] = -speed[0];
+                        else speed[0] += player.getSpeed(0);   //palla davanti al player
+                    }
                 }
 
                 //stesso discorso per i controlli in y
                 //player e palla: versi opposti (es palla isMOvingRight e la palla no) -> opposto della velocità del giocatore (saranno già oppposto quindi basta sommare)
-                if(player.getSpeed(1) > 0 && this.speed[1] < 0)
+                if(player.getSpeed(1) > 0 && this.speed[1] < 0) {    //player su e palla giù
                     speed[1] = Math.abs(speed[1]) + player.getSpeed(1);
-                else if(player.getSpeed(1) < 0 && this.speed[1] > 0)
-                    speed[1] = - Math.abs(speed[1]) + player.getSpeed(1);
+                }
+                else if(player.getSpeed(1) < 0 && this.speed[1] > 0) {    //player giù e palla su
+                    speed[1] = -Math.abs(speed[1]) + player.getSpeed(1);
+                }
                 else{  //se si muovono nello stesso verso
-                    if(speed[1] > 0)
+                    if(speed[1] > 0 && player.getSpeed(1) >= 0)
                         speed[1] = Math.abs(speed[1]) + player.getSpeed(1);   //entrambi verso l'alto
-                    else if (speed[1] < 0)
+                    else if (speed[1] < 0 && player.getSpeed(1) <= 0)
                         speed[1] = Math.abs(speed[1]);   //entrambi verso il basso (es. palla in testa)
                     /*
-                    se il giocatore atterra sulla palla mentre questa è ferma non succede niente
+                    se il giocatore atterra sulla palla mentre questa è ferma non succede niente -> è il giocatore che deve fermarsi sulla palla
                      */
                 }
 

@@ -122,6 +122,9 @@ public class GameView extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_LEFT)    //si impone velocità in x nulla se si smette di premere i tasti
+            field.getPlayer1().setSpeed(0,0);
+
         String key = "" + e.getKeyCode();
         currentActiveKeys.remove(key);
     }

@@ -6,13 +6,22 @@ package it.unibs.pajc.model;
 
 public abstract class DinamicObject extends GameObject{
 
-    public static final double GRAVITY = 0.4;
+    private static final double GRAVITY = 0.4;
 
     protected double[] speed = { 0, 0 };
 
     //Per la gestione della gravità
     public void accelerateY(double accelerationY) {
-        this.speed[1] = this.speed[1] + accelerationY;
+        if(speed[1] > 0 && accelerationY < 0 && (speed[1] + accelerationY) < 0) {
+            speed[1] = 0;
+        } else {
+            this.speed[1] = this.speed[1] + accelerationY;
+        }
+    }
+
+    public void gravityApplication() {
+        if(speed[1] != 0 || position[1] != 0)
+            this.speed[1] = this.speed[1] -GRAVITY;
     }
 
     public void accelerateX(double accelerationX){

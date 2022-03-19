@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="69b2ba44-435f-4791-ad49-90621f5ea97e" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameObject.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/Ball.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/DinamicObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/DinamicObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/Player.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -37,7 +39,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../serina_intellij.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Esempi utili/ballbounce" />
     <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.40408805" />
     <property name="project.structure.side.proportion" value="0.2" />
