@@ -69,7 +69,16 @@ public class Player extends DinamicObject {
 
     @Override
     public void collisionDetected(GameObject o) {
-
+        if(o instanceof Ball){
+            //se ci si mette sopra la palla ferma non succede niente
+            Ball ball = (Ball)o;
+            //se la palla è a terra ferma
+            if(ball.getSpeed(0) == 0 && ball.getPosY() == 0 && ball.getSpeed(1) == 0)
+                if(this.speed[1] < 0){   //se il giocatore salta sulla palla mentre è ferma
+                    this.speed[1] = 0;  //si ferma sulla palla
+                    this.position[1] = ball.getShape().getBounds().height;
+                }
+        }
     }
 
     //metodo che imposta le forme di riferimento che fanno da struttura per il personaggio

@@ -98,6 +98,7 @@ public class GameField {
             o.setPosX((float)(borders.getMaxX() - o.getTotalShape().getBounds().width));
         }
         //fare applyclosefield per singole entità e chiamarlo qui dentro che diventerebbe quello generale
+        //System.out.println(ball.speed[1]);
     }
 
 }
