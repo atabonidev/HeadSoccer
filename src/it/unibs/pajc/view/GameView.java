@@ -105,6 +105,8 @@ public class GameView extends JPanel implements KeyListener {
         g2.setColor(Color.red);
         g2.fill(field.getBall().getShape());
 
+        g2.setColor(Color.BLUE);
+        //g2.fill(field.getPlayer1().getShape());
         g2.drawImage(field.getPlayer1().getPngImg(), (int)field.getPlayer1().getPosX(), (int)field.getPlayer1().getPosY(), null);
     }
 

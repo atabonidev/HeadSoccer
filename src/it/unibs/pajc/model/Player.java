@@ -49,7 +49,7 @@ public class Player extends DinamicObject {
     }
 
     public void jump() {
-        if(position[1] == 0) {
+        if(speed[1] == 0) {
             accelerateY(JUMP_STRENGTH);
         }
     }
@@ -74,7 +74,7 @@ public class Player extends DinamicObject {
             //se ci si mette sopra la palla ferma non succede niente
             Ball ball = (Ball)o;
             //se la palla è a terra ferma
-            if(ball.getSpeed(0) == 0 && ball.getSpeed(1) == 0) {
+            if(ball.getSpeed(1) == 0) {
                 if (this.speed[1] < 0) {   //se il giocatore salta sulla palla mentre è ferma
                     this.speed[1] = 0;  //si ferma sulla palla
                 }
@@ -87,11 +87,10 @@ public class Player extends DinamicObject {
     public void createSkeleton() {
         //lo disegna prendendo di riferimento il sistema di coordinate che abbiamo messo adesso -> disegna le forme
         //partendo dal loro angolo in basso a sinistra
-        Shape legs = new Rectangle(15, 0, 15, 30);
-        Shape body = new Rectangle(0, legs.getBounds().y+30, 30, 50);
+        //Shape legs = new Rectangle(15, 0, 15, 30);
+        Shape bodyAndlegs = new Rectangle(0, 0, 30, 80);
 
-        super.objectShape.add(legs);
-        super.objectShape.add(body);
+        super.objectShape.add(bodyAndlegs);
     }
 
     //GETTERS e SETTERS
