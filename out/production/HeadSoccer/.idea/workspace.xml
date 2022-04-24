@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="69b2ba44-435f-4791-ad49-90621f5ea97e" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/resources/Ball01.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="f5906d2d-ddd5-4bfa-8a19-395fd94cbed1" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Ball.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/DinamicObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/DinamicObject.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameField.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameField.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameObject.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Player.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/GameView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/GameView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/helpers/HelperClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/helpers/HelperClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/Ball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/DinamicObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/DinamicObject.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/FootballGoal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/FootballGoal.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameField.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/Player.java" afterDir="false" />
@@ -39,22 +39,26 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="ProjectId" id="25vdf6NVmMqgoHYzG1m0Ffd3Yz3" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
+  <component name="ProjectId" id="25qLqviJvktxLzdU2FvYdQl4Jf9" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
   </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Esempi utili/ballbounce" />
     <property name="project.structure.last.edited" value="Modules" />
-    <property name="project.structure.proportion" value="0.40408805" />
-    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\user\IdeaProjects\HeadSoccer\resources" />
+    </key>
   </component>
   <component name="RunManager">
     <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
@@ -79,11 +83,11 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="69b2ba44-435f-4791-ad49-90621f5ea97e" name="Default Changelist" comment="" />
-      <created>1646411597403</created>
+      <changelist id="f5906d2d-ddd5-4bfa-8a19-395fd94cbed1" name="Changes" comment="" />
+      <created>1646249863389</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1646411597403</updated>
+      <updated>1646249863389</updated>
     </task>
     <servers />
   </component>
@@ -98,8 +102,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

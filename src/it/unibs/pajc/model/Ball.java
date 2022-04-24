@@ -13,14 +13,12 @@ public class Ball extends DinamicObject {
     private static final double BOUNCING_FRICTION = 2.6;
     private static final double AIR_FRICTION = 0.02;
 
-    private BufferedImage pngImg;
-
     public Ball(double posX, double posY, double speedX, double speedY, BufferedImage pngImg){
         this.position[0] = posX;
         this.position[1] = posY; //Parte dall'alto
         this.speed[0] = speedX;
         this.speed[1] = speedY;
-        this.pngImg = HelperClass.flipVerticallyImage(pngImg);
+        this.images.add(HelperClass.flipVerticallyImage(pngImg));
         createSkeleton();
     }
 
@@ -148,6 +146,6 @@ public class Ball extends DinamicObject {
 
     //dovremo toglierlo
     public BufferedImage getPngImg() {
-        return pngImg;
+        return this.images.get(0);
     }
 }

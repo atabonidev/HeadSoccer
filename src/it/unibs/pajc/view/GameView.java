@@ -80,7 +80,7 @@ public class GameView extends JPanel implements KeyListener {
 
 
     private void importGameField() {
-        fieldBgImage = HelperClass.getCompleteGameField(HelperClass.getImagesForField());
+        fieldBgImage = HelperClass.getCompleteGameField();
     }
 
     /**
@@ -101,13 +101,14 @@ public class GameView extends JPanel implements KeyListener {
         g2.translate(500, 386); //sistema di riferimento con origine in centro
         g2.scale(1,-1);
 
-        //cose di prova
-        g2.setColor(Color.red);
-        //g2.fill(field.getBall().getShape());
+        //DISEGNO PORTE
+        g2.drawImage(field.getLeftFootballGoal().getPngImg(), (int)field.getLeftFootballGoal().getPosX(), (int)field.getLeftFootballGoal().getPosY(), null);
+        g2.drawImage(field.getRightFootballGoal().getPngImg(), (int)field.getRightFootballGoal().getPosX(), (int)field.getRightFootballGoal().getPosY(), null);
+
+        //DISEGNO PALLA
         g2.drawImage(field.getBall().getPngImg(), (int)field.getBall().getPosX(), (int)field.getBall().getPosY(), null);
 
-        g2.setColor(Color.BLUE);
-        //g2.fill(field.getPlayer1().getShape());
+        //DISEGNO PERSONAGGIO
         g2.drawImage(field.getPlayer1().getPngImg(), (int)field.getPlayer1().getPosX(), (int)field.getPlayer1().getPosY(), null);
     }
 

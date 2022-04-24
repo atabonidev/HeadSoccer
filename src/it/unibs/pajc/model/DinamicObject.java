@@ -1,5 +1,6 @@
 package it.unibs.pajc.model;
 
+
 /**
  * classe base per ogni oggetto che si muove all'interno del gioco: palla, giocatore.
  */

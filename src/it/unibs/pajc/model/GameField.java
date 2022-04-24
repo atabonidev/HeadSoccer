@@ -16,27 +16,43 @@ import java.util.ArrayList;
 public class GameField {
 
     //I player è meglio averli privati in quanto reagiscono agli input dell'utente
+    private FootballGoal leftFootballGoal;
+    private FootballGoal rightFootballGoal;
     private Player player1;
     private Player player2;
     private Ball ball;
 
-    private ArrayList<DinamicObject> gameObjects = new ArrayList<>();  //array contenente tutti gli oggetti coinvolti nel gioco
+    private ArrayList<GameObject> gameObjects = new ArrayList<>();  //array contenente tutti gli oggetti coinvolti nel gioco
     private Rectangle2D.Float borders; //bordi dell'area di gioco
 
     //bisogna creare il player con le posizioni iniziali
     public GameField() {
-        InputStream png = this.getClass().getClassLoader().getResourceAsStream("LeftMan.png");
-        InputStream pngB = this.getClass().getClassLoader().getResourceAsStream("Ball01.png");
-        BufferedImage pngImg = null;
+        InputStream streamLeftFootballGoal = this.getClass().getClassLoader().getResourceAsStream("leftDoorRect.jpeg");
+        InputStream streamRightFootballGoal = this.getClass().getClassLoader().getResourceAsStream("rightDoorRect.jpeg");
+        InputStream streamPlayer1 = this.getClass().getClassLoader().getResourceAsStream("LeftMan.png");
+        InputStream streamBall = this.getClass().getClassLoader().getResourceAsStream("Ball01.png");
+
+        BufferedImage pngLeftFootballGoal = null;
+        BufferedImage pngRightFootballGoal = null;
         BufferedImage pngBall = null;
+        BufferedImage pngPlayer1 = null;
+
         try {
-            pngImg = ImageIO.read(png);
-            pngBall = ImageIO.read(pngB);
+            pngLeftFootballGoal = ImageIO.read(streamLeftFootballGoal);
+            pngRightFootballGoal = ImageIO.read(streamRightFootballGoal);
+            pngPlayer1 = ImageIO.read(streamPlayer1);
+            pngBall = ImageIO.read(streamBall);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        this.player1 = new Player(-300, 0, 0, 0, pngImg);
+
+        this.leftFootballGoal = new FootballGoal(true, pngLeftFootballGoal);
+        this.rightFootballGoal = new FootballGoal(false, pngRightFootballGoal);
+        this.player1 = new Player(-300, 0, 0, 0, pngPlayer1);
         this.ball = new Ball(0, 356, 10, 0, pngBall);
+
+        gameObjects.add(leftFootballGoal);
+        gameObjects.add(rightFootballGoal);
         gameObjects.add(player1);
         gameObjects.add(ball);
     }
@@ -45,12 +61,18 @@ public class GameField {
      * metodo che richiama gli update dei singoli oggetti di gioco
      */
     public void update(){
-        for (DinamicObject o : gameObjects) {
-            o.update();
-            applyCloseField(o);
+        for (GameObject o : gameObjects) {
+            if(o instanceof DinamicObject dynamicObject) {
+                dynamicObject.update();
+                applyCloseField(dynamicObject);
+            }
         }
         checkCollisions();
     }
+
+    public FootballGoal getLeftFootballGoal() { return leftFootballGoal; }
+
+    public FootballGoal getRightFootballGoal() { return rightFootballGoal; }
 
     public Player getPlayer1() {
         return this.player1;
@@ -79,6 +101,7 @@ public class GameField {
                     gameObjects.get(j).collisionDetected(gameObjects.get(i));
                 }
             }
+
         }
     }
 

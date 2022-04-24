@@ -1,17 +1,13 @@
 package it.unibs.pajc.model;
-
 import it.unibs.pajc.helpers.HelperClass;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 public class Player extends DinamicObject {
-    public static final double JUMP_STRENGTH = 8;  //potenza del calcio, con quale velocità parte
+    public static final double JUMP_STRENGTH = 15;  //potenza del calcio, con quale velocità parte
     public static final double CONST_SPEED_X = 3.0;
 
     private int playerID; //Indica il numero del player (1 => sinistra || 2 => destra)
-    private BufferedImage pngImg;
 
     private boolean isKicking;
 
@@ -21,13 +17,13 @@ public class Player extends DinamicObject {
         this.position[1] = posY;
         this.speed[0] = speedX;
         this.speed[1] = speedY;
-        this.pngImg = HelperClass.flipVerticallyImage(pngImg);
+        this.images.add(HelperClass.flipVerticallyImage(pngImg));
         createSkeleton();
     }
 
     //dovremo toglierlo
     public BufferedImage getPngImg() {
-        return pngImg;
+        return this.images.get(0);
     }
 
     public void kick(int playerID) {
@@ -71,14 +67,28 @@ public class Player extends DinamicObject {
 
     @Override
     public void collisionDetected(GameObject o) {
-        if(o instanceof Ball){
-            //se ci si mette sopra la palla ferma non succede niente
-            Ball ball = (Ball)o;
+        if(o instanceof Ball ball){
             //se la palla è a terra ferma
             if(ball.getSpeed(1) == 0) {
                 if (this.speed[1] < 0) {   //se il giocatore salta sulla palla mentre è ferma
                     this.speed[1] = 0;  //si ferma sulla palla
                 }
+            }
+        }
+        if(o instanceof FootballGoal footballGoal) {
+            if((this.getPosX() + this.getTotalShape().getBounds().width) >= footballGoal.getPosX()) {
+                if(this.getPosX() >= footballGoal.getPosX() && this.speed[1] == 0) {
+                    this.setPosX(footballGoal.getPosX() - this.getTotalShape().getBounds().width);
+                } else {
+                    this.speed[1] = 0;
+                    this.setPosY(footballGoal.getTotalShape().getBounds().height);
+                }
+            }
+            else if(this.getPosY() < footballGoal.getTotalShape().getBounds().height) {
+                if(footballGoal.isLeft())
+                    this.setPosX(footballGoal.getPosX() + footballGoal.getTotalShape().getBounds().width);
+                else
+                    this.setPosX(footballGoal.getPosX() - this.getTotalShape().getBounds().width);
             }
         }
     }
