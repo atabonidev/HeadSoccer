@@ -11,7 +11,7 @@ public abstract class GameObject {
 
     protected double position[] = { 0, 0 };
 
-    protected ArrayList<BufferedImage> images; //Immagini di rappresentazione dell'entità
+    protected ArrayList<BufferedImage> images = new ArrayList<>(); //Immagini di rappresentazione dell'entità
     protected ArrayList<Shape> objectShape = new ArrayList<>(); //Shape dell'oggetto data dall'intersezione delle shape dei singoli oggetti
 
     /**

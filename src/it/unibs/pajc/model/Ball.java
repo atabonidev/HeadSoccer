@@ -1,8 +1,11 @@
 package it.unibs.pajc.model;
 
+import it.unibs.pajc.helpers.HelperClass;
+
 import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
+import java.awt.image.BufferedImage;
 
 public class Ball extends DinamicObject {
 
@@ -10,11 +13,14 @@ public class Ball extends DinamicObject {
     private static final double BOUNCING_FRICTION = 2.6;
     private static final double AIR_FRICTION = 0.02;
 
-    public Ball(double posX, double posY, double speedX, double speedY){
+    private BufferedImage pngImg;
+
+    public Ball(double posX, double posY, double speedX, double speedY, BufferedImage pngImg){
         this.position[0] = posX;
         this.position[1] = posY; //Parte dall'alto
         this.speed[0] = speedX;
         this.speed[1] = speedY;
+        this.pngImg = HelperClass.flipVerticallyImage(pngImg);
         createSkeleton();
     }
 
@@ -72,7 +78,7 @@ public class Ball extends DinamicObject {
         accelerateX(accelerationSign * acceleration);
     }
 
-    private void bouncingY(double acceleration, double accelerationSign){
+    private void bouncingY(double accelerationSign, double acceleration){
         speed[1] = -speed[1];
         accelerateY(accelerationSign * acceleration);
     }
@@ -140,4 +146,8 @@ public class Ball extends DinamicObject {
         accelerateY(player.getSpeed(1) + KICK_STRENGHT[1]);
     }
 
+    //dovremo toglierlo
+    public BufferedImage getPngImg() {
+        return pngImg;
+    }
 }

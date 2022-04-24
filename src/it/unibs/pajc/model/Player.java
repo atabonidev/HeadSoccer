@@ -25,6 +25,7 @@ public class Player extends DinamicObject {
         createSkeleton();
     }
 
+    //dovremo toglierlo
     public BufferedImage getPngImg() {
         return pngImg;
     }
