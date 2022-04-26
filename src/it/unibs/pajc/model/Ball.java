@@ -83,6 +83,7 @@ public class Ball extends DinamicObject {
 
     @Override
     public void collisionDetected(GameObject o) {
+        //palla e giocatore
         if(o instanceof Player) {
             Player player = (Player)o;
 
@@ -129,6 +130,27 @@ public class Ball extends DinamicObject {
                         speed[1] += player.getSpeed(1);
                 }
                 else speed[1] = -speed[1] + player.getSpeed(1);   //versi opposti di spostamento
+            }
+        }
+        //palla - porta
+
+        /*
+            1) palla contro traversa -> cambio di direzione sia in x che y
+            2) palla dentro porta (nella seconda shape) (else) -> goal
+     */
+        else if(o instanceof  FootballGoal footballGoal){
+            //PALLA - TRAVERSA
+
+            //lato superiore della traversa
+            if(this.getPosY() - speed[1] >= footballGoal.getSingleShape(0).getBounds().y + footballGoal.getSingleShape(0).getBounds().height){
+                System.out.println( this.getPosY());
+                bouncingY(-1,BOUNCING_FRICTION);
+                System.out.println("true");
+            }
+            //lato della traversa (dx o sx)
+            else if(this.getPosY() - speed[1] >= footballGoal.getSingleShape(0).getBounds().y &&
+                    this.getPosY() - speed[1] <= footballGoal.getSingleShape(0).getBounds().y + footballGoal.getSingleShape(0).getBounds().height){
+                bouncingX(0, 0);
             }
         }
     }

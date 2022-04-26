@@ -61,6 +61,7 @@ public class GameField {
      * metodo che richiama gli update dei singoli oggetti di gioco
      */
     public void update(){
+
         for (GameObject o : gameObjects) {
             if(o instanceof DinamicObject dynamicObject) {
                 dynamicObject.update();

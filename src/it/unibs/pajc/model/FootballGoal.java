@@ -39,8 +39,8 @@ public class FootballGoal extends GameObject {
         Shape crossBar = new Rectangle(0, 157, 80, 11);
         Shape net = new Rectangle(0, 0, 80, 157);
 
-        super.objectShape.add(net);
         super.objectShape.add(crossBar);
+        super.objectShape.add(net);
     }
 
     public boolean isLeft() {

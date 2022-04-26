@@ -72,25 +72,30 @@ public class Player extends DinamicObject {
             if(ball.getSpeed(1) == 0) {
                 if (this.speed[1] < 0) {   //se il giocatore salta sulla palla mentre è ferma
                     this.speed[1] = 0;  //si ferma sulla palla
+                    this.setPosY(ball.getTotalShape().getBounds().height);
                 }
             }
         }
+        /*
+        controllo collisioni player e porta -> nel primo if sottraiamo la velocità in Y perché altrimenti succedono macelli: quando il player atterra sulla porta in realtà gli
+        viene sottratta ancora la velocità e quindi risulterebbe in ogni caso più in basso rispetto all'altezza effettiva della porta. Per questo settiamo anche la posizione
+        oltre che impostare la velocità in Y = 0.
+         */
         if(o instanceof FootballGoal footballGoal) {
-            if((this.getPosX() + this.getTotalShape().getBounds().width) >= footballGoal.getPosX()) {
-                if(this.getPosX() >= footballGoal.getPosX() && this.speed[1] == 0) {
-                    this.setPosX(footballGoal.getPosX() - this.getTotalShape().getBounds().width);
-                } else {
-                    this.speed[1] = 0;
-                    this.setPosY(footballGoal.getTotalShape().getBounds().height);
-                }
-            }
-            else if(this.getPosY() < footballGoal.getTotalShape().getBounds().height) {
+            if(this.getPosY() - speed[1] < footballGoal.getTotalShape().getBounds().height) {    //controlla se il giocatore sta al di sotto della porta
                 if(footballGoal.isLeft())
                     this.setPosX(footballGoal.getPosX() + footballGoal.getTotalShape().getBounds().width);
                 else
                     this.setPosX(footballGoal.getPosX() - this.getTotalShape().getBounds().width);
             }
+            else{
+                this.speed[1] = 0;
+                this.setPosY(footballGoal.getTotalShape().getBounds().height);
+            }
         }
+
+        //collisione giocatore e giocatore
+
     }
 
     //metodo che imposta le forme di riferimento che fanno da struttura per il personaggio
