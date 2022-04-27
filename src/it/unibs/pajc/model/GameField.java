@@ -30,17 +30,20 @@ public class GameField {
         InputStream streamLeftFootballGoal = this.getClass().getClassLoader().getResourceAsStream("leftDoorRect.jpeg");
         InputStream streamRightFootballGoal = this.getClass().getClassLoader().getResourceAsStream("rightDoorRect.jpeg");
         InputStream streamPlayer1 = this.getClass().getClassLoader().getResourceAsStream("LeftMan.png");
+        InputStream streamPlayer2 = this.getClass().getClassLoader().getResourceAsStream("RightMan.jpeg");
         InputStream streamBall = this.getClass().getClassLoader().getResourceAsStream("Ball01.png");
 
         BufferedImage pngLeftFootballGoal = null;
         BufferedImage pngRightFootballGoal = null;
         BufferedImage pngBall = null;
         BufferedImage pngPlayer1 = null;
+        BufferedImage pngPlayer2 = null;
 
         try {
             pngLeftFootballGoal = ImageIO.read(streamLeftFootballGoal);
             pngRightFootballGoal = ImageIO.read(streamRightFootballGoal);
             pngPlayer1 = ImageIO.read(streamPlayer1);
+            pngPlayer2 = ImageIO.read(streamPlayer2);
             pngBall = ImageIO.read(streamBall);
         } catch (IOException e) {
             e.printStackTrace();
@@ -48,12 +51,14 @@ public class GameField {
 
         this.leftFootballGoal = new FootballGoal(true, pngLeftFootballGoal);
         this.rightFootballGoal = new FootballGoal(false, pngRightFootballGoal);
-        this.player1 = new Player(-300, 0, 0, 0, pngPlayer1);
-        this.ball = new Ball(0, 356, 10, 0, pngBall);
+        this.player1 = new Player(1, pngPlayer1);
+        this.player2 = new Player(2, pngPlayer2);
+        this.ball = new Ball(pngBall, this);
 
         gameObjects.add(leftFootballGoal);
         gameObjects.add(rightFootballGoal);
         gameObjects.add(player1);
+        gameObjects.add(player2);
         gameObjects.add(ball);
     }
 
@@ -80,11 +85,21 @@ public class GameField {
     }
 
     public Player getPlayer2() {
-        return player2;
+        return this.player2;
     }
 
     public Ball getBall() {
-        return ball;
+        return this.ball;
+    }
+
+
+    /**
+     * reset degli oggetti dinamici di gioco
+     */
+    public void reset() {
+        this.player1.setDefault();
+        this.player2.setDefault();
+        this.ball.setDefault();
     }
 
     /**

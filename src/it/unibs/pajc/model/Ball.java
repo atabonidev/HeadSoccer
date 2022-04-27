@@ -8,18 +8,28 @@ import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
 public class Ball extends DinamicObject {
-
+    private static final int DEFAULT_POS_Y = 356;
     private static final int[] KICK_STRENGHT = {9, 2};
     private static final double BOUNCING_FRICTION = 2.6;
     private static final double AIR_FRICTION = 0.02;
 
-    public Ball(double posX, double posY, double speedX, double speedY, BufferedImage pngImg){
-        this.position[0] = posX;
-        this.position[1] = posY; //Parte dall'alto
-        this.speed[0] = speedX;
-        this.speed[1] = speedY;
+    private GameField gameField;
+
+    public Ball(BufferedImage pngImg, GameField gameField){
+        setDefault();
+
         this.images.add(HelperClass.flipVerticallyImage(pngImg));
+
+        this.gameField = gameField;
+
         createSkeleton();
+    }
+
+    public void setDefault() {
+        this.position[0] = -480;//-this.getTotalShape().getBounds().width / 2.0;
+        this.position[1] = DEFAULT_POS_Y;
+        this.speed[0] = 0;
+        this.speed[1] = -10;
     }
 
     //Controlla se la palla finisce contro uno dei bordi
@@ -37,7 +47,8 @@ public class Ball extends DinamicObject {
                 bouncingY(-1, BOUNCING_FRICTION); //Rimbalzo della palla in basso
             }
             if((position[1] + this.getTotalShape().getBounds().height == 386 && speed[1] > 0)) {
-                bouncingY(1, BOUNCING_FRICTION); //Rimbalzo della palla in alto
+                //bouncingY(1, BOUNCING_FRICTION); //Rimbalzo della palla in alto
+                bouncingY(0, 0); //pezza al codice
             }
             if((position[0] == -500 && speed[0] < 0)) {
                 bouncingX(-1, BOUNCING_FRICTION); //Rimbalzo della palla sul bordo sinistro
@@ -46,10 +57,6 @@ public class Ball extends DinamicObject {
                 bouncingX(1, BOUNCING_FRICTION); //Rimbalzo della palla sul bordo destro
             }
         }
-        position[0] += speed[0];
-        position[1] += speed[1];
-
-        gravityApplication();
 
         //Coefficiente d'attrito aria y
         if(speed[1] > 0) {
@@ -64,6 +71,14 @@ public class Ball extends DinamicObject {
         } else if(speed[0] < 0) {
             accelerateX(+AIR_FRICTION);
         }
+
+        gravityApplication();
+
+        position[0] += speed[0];
+        position[1] += speed[1];
+
+
+        System.out.println(this.speed[0] + " | " + this.speed[1]);
     }
 
     /**
@@ -139,18 +154,23 @@ public class Ball extends DinamicObject {
             2) palla dentro porta (nella seconda shape) (else) -> goal
      */
         else if(o instanceof  FootballGoal footballGoal){
-            //PALLA - TRAVERSA
-
             //lato superiore della traversa
             if(this.getPosY() - speed[1] >= footballGoal.getSingleShape(0).getBounds().y + footballGoal.getSingleShape(0).getBounds().height){
-                bouncingY(-1, BOUNCING_FRICTION);
-                this.setPosY(footballGoal.getShape().getBounds().height);
-                System.out.println("true");
+                if(this.speed[1] == -DinamicObject.GRAVITY && this.speed[0] == 0) {
+                    this.gameField.reset();
+                } else {
+                    this.setPosY(footballGoal.getShape().getBounds().height);
+                    bouncingY(-1, BOUNCING_FRICTION);
+                }
             }
             //lato della traversa (dx o sx)
-            else if(this.getPosY() - speed[1] >= footballGoal.getSingleShape(0).getBounds().y &&
+            else if(this.getPosY() + this.getTotalShape().getBounds().height - speed[1] >= footballGoal.getSingleShape(0).getBounds().y &&
                     this.getPosY() - speed[1] <= footballGoal.getSingleShape(0).getBounds().y + footballGoal.getSingleShape(0).getBounds().height){
                 bouncingX(0, 0);
+            }
+            //controllo nella rete
+            else {
+                this.gameField.reset();
             }
         }
     }

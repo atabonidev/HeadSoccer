@@ -4,21 +4,32 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class Player extends DinamicObject {
+    public static final double DEFAULT_POS_X = 300; //posizione iniziale del giocatore e d
     public static final double JUMP_STRENGTH = 15;  //potenza del calcio, con quale velocità parte
     public static final double CONST_SPEED_X = 3.0;
 
     private int playerID; //Indica il numero del player (1 => sinistra || 2 => destra)
-
     private boolean isKicking;
 
-    public Player(double posX, double posY, double speedX, double speedY, BufferedImage pngImg) {
-        //this.playerID = playerID
-        this.position[0] = posX;
-        this.position[1] = posY;
-        this.speed[0] = speedX;
-        this.speed[1] = speedY;
+    public Player(int playerID, BufferedImage pngImg) {
+        this.playerID = playerID;
+
+        setDefault();
+
         this.images.add(HelperClass.flipVerticallyImage(pngImg));
+
         createSkeleton();
+    }
+
+    public void setDefault() {
+        if(playerID == 1) {
+            this.position[0] = -DEFAULT_POS_X;
+        } else {
+            this.position[0] = DEFAULT_POS_X;
+        }
+        this.position[1] = 0;
+        this.speed[0] = 0;
+        this.speed[1] = 0;
     }
 
     //dovremo toglierlo

@@ -108,8 +108,9 @@ public class GameView extends JPanel implements KeyListener {
         //DISEGNO PALLA
         g2.drawImage(field.getBall().getPngImg(), (int)field.getBall().getPosX(), (int)field.getBall().getPosY(), null);
 
-        //DISEGNO PERSONAGGIO
+        //DISEGNO PERSONAGGI
         g2.drawImage(field.getPlayer1().getPngImg(), (int)field.getPlayer1().getPosX(), (int)field.getPlayer1().getPosY(), null);
+        g2.drawImage(field.getPlayer2().getPngImg(), (int)field.getPlayer2().getPosX(), (int)field.getPlayer2().getPosY(), null);
     }
 
     @Override
