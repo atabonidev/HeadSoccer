@@ -37,7 +37,7 @@ public class Ball extends DinamicObject {
                 bouncingY(-1, BOUNCING_FRICTION); //Rimbalzo della palla in basso
             }
             if((position[1] + this.getTotalShape().getBounds().height == 386 && speed[1] > 0)) {
-                bouncingY(1, BOUNCING_FRICTION); //Rimbalzo della palla in basso
+                bouncingY(1, BOUNCING_FRICTION); //Rimbalzo della palla in alto
             }
             if((position[0] == -500 && speed[0] < 0)) {
                 bouncingX(-1, BOUNCING_FRICTION); //Rimbalzo della palla sul bordo sinistro
@@ -143,8 +143,8 @@ public class Ball extends DinamicObject {
 
             //lato superiore della traversa
             if(this.getPosY() - speed[1] >= footballGoal.getSingleShape(0).getBounds().y + footballGoal.getSingleShape(0).getBounds().height){
-                System.out.println( this.getPosY());
-                bouncingY(-1,BOUNCING_FRICTION);
+                bouncingY(-1, BOUNCING_FRICTION);
+                this.setPosY(footballGoal.getShape().getBounds().height);
                 System.out.println("true");
             }
             //lato della traversa (dx o sx)
