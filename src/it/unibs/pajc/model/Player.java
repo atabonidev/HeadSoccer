@@ -1,6 +1,7 @@
 package it.unibs.pajc.model;
 import it.unibs.pajc.helpers.HelperClass;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 
 public class Player extends DinamicObject {
@@ -37,14 +38,35 @@ public class Player extends DinamicObject {
         return this.images.get(0);
     }
 
-    public void kick(int playerID) {
-        isKicking = true;               //viene reimpostato a false in key released
-        /*
-            if(player == 1)
-                +angolo
-            else
-                -angolo
-         */
+    public void kick() {
+        isKicking = true;               //viene reimpostato a false in key released, serve per le collisioni nella palla
+        legRotation(1);   //posizione del calcio
+    }
+
+    //riporta la gamba calciante nello stato iniziale
+    public void stopKicking(){
+        isKicking = false;
+        legRotation(-1);
+    }
+
+    /*
+    ruota la gamba in base al giocatore che si sta usando, se il coefficiente è 1 -> si calcia, se è -1 ri riporta la gamba alla posizione originale
+     */
+    private void legRotation(int rotationCoefficient){
+        Shape rotatedLeg;
+        AffineTransform tx = new AffineTransform();
+        tx.rotate(rotationCoefficient * 45);
+
+        //se il giocatore è il sinistro -> si ruota la shape[2], ossia la gamba destra
+        if(playerID == 1){
+            rotatedLeg = tx.createTransformedShape(this.getSingleShape(2));
+            this.setSingleShape(2,rotatedLeg);
+        }
+
+        else{
+            rotatedLeg = tx.createTransformedShape(this.getSingleShape(1));
+            this.setSingleShape(1,rotatedLeg);
+        }
     }
 
     public void move(boolean isMovingRight) {
@@ -109,15 +131,22 @@ public class Player extends DinamicObject {
 
     }
 
-    //metodo che imposta le forme di riferimento che fanno da struttura per il personaggio
+    /*
+    Altro metodo che anzi ché usare una forma singola ne usa 3: una per il busto e le altre due per le gambe.
+    All'array viene aggiunta prima la gamba sinistra e poi la gamba destra (dal punto di vista dell'osservatore esterno).
+    Il player1 (a sinistra) utilizzerà la gamba destra per calciare
+    viceversa.
+    Considero la gamba scheletro come metà porzione dell rettangolo in basso che identifica la parte bassa del corpo
+     */
     @Override
     public void createSkeleton() {
-        //lo disegna prendendo di riferimento il sistema di coordinate che abbiamo messo adesso -> disegna le forme
-        //partendo dal loro angolo in basso a sinistra
-        //Shape legs = new Rectangle(15, 0, 15, 30);
-        Shape bodyAndlegs = new Rectangle(0, 0, 30, 80);
+        Shape body = new Rectangle(0, 19, 30, 61);   //busto (19 = altezza gambe)
+        Shape leftLeg = new Rectangle(0, 0, 15, 19);
+        Shape rightLeg = new Rectangle(15, 0, 15, 19);
 
-        super.objectShape.add(bodyAndlegs);
+        super.objectShape.add(body);
+        super.objectShape.add(leftLeg);
+        super.objectShape.add(rightLeg);
     }
 
     //GETTERS e SETTERS

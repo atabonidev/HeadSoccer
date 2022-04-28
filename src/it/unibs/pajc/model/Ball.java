@@ -26,7 +26,7 @@ public class Ball extends DinamicObject {
     }
 
     public void setDefault() {
-        this.position[0] = -480;//-this.getTotalShape().getBounds().width / 2.0;
+        this.position[0] = -this.getTotalShape().getBounds().width / 2.0;
         this.position[1] = DEFAULT_POS_Y;
         this.speed[0] = 0;
         this.speed[1] = -10;

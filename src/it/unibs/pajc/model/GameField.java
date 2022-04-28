@@ -30,7 +30,7 @@ public class GameField {
         InputStream streamLeftFootballGoal = this.getClass().getClassLoader().getResourceAsStream("leftDoorRect.jpeg");
         InputStream streamRightFootballGoal = this.getClass().getClassLoader().getResourceAsStream("rightDoorRect.jpeg");
         InputStream streamPlayer1 = this.getClass().getClassLoader().getResourceAsStream("LeftMan.png");
-        InputStream streamPlayer2 = this.getClass().getClassLoader().getResourceAsStream("RightMan.jpeg");
+        InputStream streamPlayer2 = this.getClass().getClassLoader().getResourceAsStream("RightMan.png");
         InputStream streamBall = this.getClass().getClassLoader().getResourceAsStream("Ball01.png");
 
         BufferedImage pngLeftFootballGoal = null;

@@ -68,4 +68,9 @@ public abstract class GameObject {
     public Shape getSingleShape(int shapeIndex){
         return objectShape.get(shapeIndex);
     }
+
+    public void setSingleShape(int shapeIndex, Shape newShape){
+        this.objectShape.set(shapeIndex, newShape);
+    }
+
 }
