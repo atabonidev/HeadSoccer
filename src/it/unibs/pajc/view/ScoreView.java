@@ -15,7 +15,7 @@ public class ScoreView {
         this.y = y;
         this.width = width;
         this.height = height;
-        this.score = new Score();
+        this.score = score;
         initScoreBoard();
     }
 
@@ -26,6 +26,10 @@ public class ScoreView {
 
     public void draw(Graphics2D g) {
         g.fillRect(x, y, width, height);
+
+        scorePl1.setText(""+score.getScorePl1());
+
+        scorePl2.setText(""+score.getScorePl2());
 
         scorePl1.draw(g);
 

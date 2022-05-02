@@ -78,7 +78,7 @@ public class GameField {
             }
         }
 
-        System.out.println(score.getScorePl1() + " | " + score.getScorePl2());
+        //System.out.println(score.getScorePl1() + " | " + score.getScorePl2());
 
         checkCollisions();
     }

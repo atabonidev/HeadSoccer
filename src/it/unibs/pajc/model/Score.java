@@ -2,6 +2,8 @@ package it.unibs.pajc.model;
 
 public class Score {
 
+    private static final int MAX_SCORE = 3;
+
     private int scorePl1;
     private int scorePl2;
     private int winner;
@@ -31,18 +33,18 @@ public class Score {
         return scorePl2;
     }
 
-    public void setScorePl1(int scorePl1) {
-        if(scorePl1 < 3) {
-            this.scorePl1 = scorePl1;
+    public void setScorePl1(int newScorePl1) {
+        if(newScorePl1 < MAX_SCORE) {
+            this.scorePl1 = newScorePl1;
         } else {
             this.isFinished = true;
             this.winner = 1;
         }
     }
 
-    public void setScorePl2(int scorePl2) {
-        if(scorePl1 < 3) {
-            this.scorePl2 = scorePl2;
+    public void setScorePl2(int newScorePl2) {
+        if(newScorePl2 < MAX_SCORE) {
+            this.scorePl2 = newScorePl2;
         } else {
             this.isFinished = true;
             this.winner = 2;

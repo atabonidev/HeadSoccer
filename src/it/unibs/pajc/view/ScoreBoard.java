@@ -22,6 +22,7 @@ public class ScoreBoard {
 
         g.setColor(Color.gray);
         g.setStroke(new BasicStroke(3f));
+        g.drawRect(x, y, width, height);
 
         drawText(g);
     }
@@ -37,5 +38,9 @@ public class ScoreBoard {
 
         g.setColor(Color.white);
         g.drawString(this.text, textX, textY);
+    }
+
+    public void setText(String text) {
+        this.text = text;
     }
 }
