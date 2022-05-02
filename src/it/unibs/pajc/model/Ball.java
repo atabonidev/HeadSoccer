@@ -78,7 +78,7 @@ public class Ball extends DinamicObject {
         position[1] += speed[1];
 
 
-        System.out.println(this.speed[0] + " | " + this.speed[1]);
+        //System.out.println(this.speed[0] + " | " + this.speed[1]);
     }
 
     /**
@@ -98,59 +98,63 @@ public class Ball extends DinamicObject {
 
     @Override
     public void collisionDetected(GameObject o) {
-        //palla e giocatore
+        //PALLA E GIOCATORE
         if(o instanceof Player) {
             Player player = (Player)o;
 
             Area IntersectionLegBal = new Area(this.getShape());
-            IntersectionLegBal.intersect(new Area(player.getSingleShape(0)));    //intersezione gamba palla
+            IntersectionLegBal.intersect(new Area(player.getSingleShape(2)));    //intersezione gamba palla
 
-            if(player.isKicking() && !(IntersectionLegBal.isEmpty())){
-                kicked(player);
+            //System.out.println(IntersectionLegBal.isEmpty());
+            System.out.println(this.speed[1]);
+            //Player che calcia
+            if(player.getKickStatus() && !(IntersectionLegBal.isEmpty())){
+                // System.out.println("true111 ");
+                // kicked(player);
             }
 
             else {
                 //controlli in X
-                if(speed[0] == 0){ // se la palla è ferma
+                if (speed[0] == 0) { // se la palla è ferma
                     speed[0] = player.getSpeed(0);
                 }
                 //stesso verso di spostamento
-                if(speed[0] > 0 && player.getSpeed(0) > 0) {   //entrambi ->
-                    if(position[0]  < player.getPosX()){ //palla da dietro e verso ->
+                if (speed[0] > 0 && player.getSpeed(0) > 0) {   //entrambi ->
+                    if (position[0] < player.getPosX()) { //palla da dietro e verso ->
                         speed[0] = -speed[0];
-                    }else
+                    } else
                         speed[0] += player.getSpeed(0);
-                }
-                else if(speed[0] < 0 && player.getSpeed(0) < 0){  //embtrambi <-
-                    if(position[0]  > player.getPosX()){ //palla da dietro e verso <-
+                } else if (speed[0] < 0 && player.getSpeed(0) < 0) {  //embtrambi <-
+                    if (position[0] > player.getPosX()) { //palla da dietro e verso <-
                         speed[0] = -speed[0];
-                    }else
+                    } else
                         speed[0] += player.getSpeed(0);
-                }
-                else if(!(player.getPosY() > position[1] && player.getPosX() >= position[0] && player.getPosX() <= (position[0] + 23))){  //si cambia velocità solo se la palla non è sotto il player
+                } else if (!(player.getPosY() > position[1] && player.getPosX() >= position[0] && player.getPosX() <= (position[0] + 23))) {  //si cambia velocità solo se la palla non è sotto il player
                     speed[0] = -speed[0] + player.getSpeed(0);   //versi opposti di spostamento
                 }
 
                 //stesso discorso per i controlli in y
-                if(speed[1] > 0 && player.getSpeed(1) > 0) {   //entrambi su
-                    if(position[1]  < player.getPosY()){ //palla da sotto
+                if (speed[1] > 0 && player.getSpeed(1) > 0) {   //entrambi su
+                    if (position[1] < player.getPosY()) { //palla da sotto
                         speed[1] = -speed[1];
-                    }else
+                    } else
                         speed[1] += player.getSpeed(1);
-                }
-                else if(speed[1] < 0 && player.getSpeed(1) < 0){  //embtrambi giù
-                    if(position[1]  > player.getPosY()){ //palla da sopra
+                } else if (speed[1] < 0 && player.getSpeed(1) < 0) {  //embtrambi giù
+                    if (position[1] > player.getPosY()) { //palla da sopra
                         speed[1] = -speed[1];
-                    }else
+                    } else
                         speed[1] += player.getSpeed(1);
-                }
-                else {
-                    System.out.println(true);
-                    speed[1] = -speed[1] + player.getSpeed(1);   //versi opposti di spostamento
+                } else
+                    speed[1] = -speed[1] + player.getSpeed(1);;//versi opposti di spostamento
+
+                //palla rimbalza su giocatore fermo in y
+                if (this.speed[1] == -DinamicObject.GRAVITY && this.speed[0] == 0) {
+                    this.speed[1] = 0;
+                    this.setPosY(player.getTotalShape().getBounds().height);
                 }
             }
         }
-        //palla - porta
+        //PALLA - PORTA
 
         /*
             1) palla contro traversa -> cambio di direzione sia in x che y

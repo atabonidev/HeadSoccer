@@ -75,7 +75,7 @@ public class GameView extends JPanel implements KeyListener {
                 //identifica la pressione del tasto destro della tastiera
                 case KeyEvent.VK_RIGHT -> player1.move(true);
                 case KeyEvent.VK_UP -> player1.jump();
-                case KeyEvent.VK_SPACE -> player1.kick();
+                case KeyEvent.VK_SPACE -> player1.kick(true);
             }
         }
 
@@ -115,6 +115,10 @@ public class GameView extends JPanel implements KeyListener {
         //DISEGNO PERSONAGGI
         g2.drawImage(field.getPlayer1().getPngImg(), (int)field.getPlayer1().getPosX(), (int)field.getPlayer1().getPosY(), null);
         g2.drawImage(field.getPlayer2().getPngImg(), (int)field.getPlayer2().getPosX(), (int)field.getPlayer2().getPosY(), null);
+
+        //prove stampa gamba pl1
+        g2.setColor(Color.darkGray);
+        g2.fill(field.getPlayer1().getShape());
     }
 
     @Override

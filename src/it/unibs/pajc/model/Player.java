@@ -6,11 +6,11 @@ import java.awt.image.BufferedImage;
 
 public class Player extends DinamicObject {
     public static final double DEFAULT_POS_X = 300; //posizione iniziale del giocatore e d
-    public static final double JUMP_STRENGTH = 15;  //potenza del calcio, con quale velocità parte
+    public static final double JUMP_STRENGTH = 10;  //potenza del calcio, con quale velocità parte
     public static final double CONST_SPEED_X = 3.0;
 
     private int playerID; //Indica il numero del player (1 => sinistra || 2 => destra)
-    private boolean isKicking;
+    private boolean kickStatus;
 
     public Player(int playerID, BufferedImage pngImg) {
         this.playerID = playerID;
@@ -38,34 +38,48 @@ public class Player extends DinamicObject {
         return this.images.get(0);
     }
 
-    public void kick() {
-        isKicking = true;               //viene reimpostato a false in key released, serve per le collisioni nella palla
-        legRotation(1);   //posizione del calcio
+    public void kick(boolean isKicking) {
+
+        if(!kickStatus && isKicking) {  //viene reimpostato a false in key released, serve per le collisioni nella palla
+            kickStatus = isKicking;  //viene reimpostato a false in key released, serve per le collisioni nella palla
+            legRotation(1);   //posizione del calcio
+        }
     }
 
     //riporta la gamba calciante nello stato iniziale
     public void stopKicking(){
-        isKicking = false;
-        legRotation(-1);
+        kickStatus = false;
+        legRotation( -1);
     }
 
     /*
     ruota la gamba in base al giocatore che si sta usando, se il coefficiente è 1 -> si calcia, se è -1 ri riporta la gamba alla posizione originale
      */
     private void legRotation(int rotationCoefficient){
-        Shape rotatedLeg;
-        AffineTransform tx = new AffineTransform();
-        tx.rotate(rotationCoefficient * 45);
 
-        //se il giocatore è il sinistro -> si ruota la shape[2], ossia la gamba destra
-        if(playerID == 1){
-            rotatedLeg = tx.createTransformedShape(this.getSingleShape(2));
-            this.setSingleShape(2,rotatedLeg);
+        if (rotationCoefficient == 1) {  //se sta calciando
+            Shape rotatedLeg;
+            AffineTransform tx = AffineTransform.getRotateInstance(Math.PI / 4, this.getSingleShape(2).getBounds().x + this.getSingleShape(2).getBounds().width /2.0,
+                    this.getSingleShape(2).getBounds().height);
+
+            //se il giocatore è il sinistro -> si ruota la shape[2], ossia la gamba destra
+            if(playerID == 1){
+
+                rotatedLeg = tx.createTransformedShape(this.getSingleShape(2));
+                this.setSingleShape(2,rotatedLeg);
+            }
+
+            else{
+                rotatedLeg = tx.createTransformedShape(this.getSingleShape(1));
+                this.setSingleShape(1,rotatedLeg);
+            }
         }
+        else {   //se ha smesso di calciare
 
-        else{
-            rotatedLeg = tx.createTransformedShape(this.getSingleShape(1));
-            this.setSingleShape(1,rotatedLeg);
+            //aggiungere modifiche per player 2
+
+            Shape rightLeg = new Rectangle(15, 0, 15, 32);
+            this.setSingleShape(2, rightLeg);
         }
     }
 
@@ -128,6 +142,11 @@ public class Player extends DinamicObject {
         }
 
         //collisione giocatore e giocatore
+        if(o instanceof Player otherPlayer){
+            if(playerID == 1) {
+                this.setPosX(otherPlayer.getPosX() - this.getTotalShape().getBounds().width);
+            }
+        }
 
     }
 
@@ -140,9 +159,9 @@ public class Player extends DinamicObject {
      */
     @Override
     public void createSkeleton() {
-        Shape body = new Rectangle(0, 19, 30, 61);   //busto (19 = altezza gambe)
-        Shape leftLeg = new Rectangle(0, 0, 15, 19);
-        Shape rightLeg = new Rectangle(15, 0, 15, 19);
+        Shape body = new Rectangle(0, 32 , 30, 48);   //busto (19 = altezza gambe)
+        Shape leftLeg = new Rectangle(0, 0, 15, 32);
+        Shape rightLeg = new Rectangle(15, 0, 15, 32);
 
         super.objectShape.add(body);
         super.objectShape.add(leftLeg);
@@ -150,7 +169,7 @@ public class Player extends DinamicObject {
     }
 
     //GETTERS e SETTERS
-    public boolean isKicking(){return isKicking;}
+    public boolean getKickStatus(){return kickStatus;}
     public void setSpeed(int speedIndex, double newSpeed){
         speed[speedIndex] = newSpeed;
     }
