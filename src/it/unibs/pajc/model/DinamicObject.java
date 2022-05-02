@@ -13,7 +13,7 @@ public abstract class DinamicObject extends GameObject{
 
     //Per la gestione della gravità
     public void accelerateY(double accelerationY) {
-        if(speed[1] > 0 && accelerationY < 0 && (speed[1] + accelerationY) < 0) {
+        if((speed[1] > 0 && accelerationY < 0 && (speed[1] + accelerationY) < 0)) {
             speed[1] = 0;
         } else {
             this.speed[1] = this.speed[1] + accelerationY;

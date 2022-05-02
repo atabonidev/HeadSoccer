@@ -144,7 +144,10 @@ public class Ball extends DinamicObject {
                     }else
                         speed[1] += player.getSpeed(1);
                 }
-                else speed[1] = -speed[1] + player.getSpeed(1);   //versi opposti di spostamento
+                else {
+                    System.out.println(true);
+                    speed[1] = -speed[1] + player.getSpeed(1);   //versi opposti di spostamento
+                }
             }
         }
         //palla - porta
@@ -171,6 +174,7 @@ public class Ball extends DinamicObject {
             //controllo nella rete
             else {
                 this.gameField.reset();
+                this.gameField.incrementScore(footballGoal);
             }
         }
     }

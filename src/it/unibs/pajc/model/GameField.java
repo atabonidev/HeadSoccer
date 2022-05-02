@@ -21,6 +21,7 @@ public class GameField {
     private Player player1;
     private Player player2;
     private Ball ball;
+    private Score score;
 
     private ArrayList<GameObject> gameObjects = new ArrayList<>();  //array contenente tutti gli oggetti coinvolti nel gioco
     private Rectangle2D.Float borders; //bordi dell'area di gioco
@@ -55,6 +56,9 @@ public class GameField {
         this.player2 = new Player(2, pngPlayer2);
         this.ball = new Ball(pngBall, this);
 
+        //Classe che rappresenta il punteggio
+        this.score = new Score();
+
         gameObjects.add(leftFootballGoal);
         gameObjects.add(rightFootballGoal);
         gameObjects.add(player1);
@@ -73,6 +77,9 @@ public class GameField {
                 applyCloseField(dynamicObject);
             }
         }
+
+        System.out.println(score.getScorePl1() + " | " + score.getScorePl2());
+
         checkCollisions();
     }
 
@@ -92,6 +99,9 @@ public class GameField {
         return this.ball;
     }
 
+    public Score getScore() {
+        return score;
+    }
 
     /**
      * reset degli oggetti dinamici di gioco
@@ -101,6 +111,18 @@ public class GameField {
         this.player2.setDefault();
         this.ball.setDefault();
     }
+
+    /**
+     * Metodo che si occupa della gestione di un goal
+     */
+    public void incrementScore(FootballGoal footballGoal) {
+        if(footballGoal.isLeft()) {
+            score.incrementScore(player2.getPlayerID());
+        } else {
+            score.incrementScore(player1.getPlayerID());
+        }
+    }
+
 
     /**
      * controlla le collisioni fra le varie coppie di elementi di gioco.

@@ -154,4 +154,8 @@ public class Player extends DinamicObject {
     public void setSpeed(int speedIndex, double newSpeed){
         speed[speedIndex] = newSpeed;
     }
+
+    public int getPlayerID() {
+        return playerID;
+    }
 }

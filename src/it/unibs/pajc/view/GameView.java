@@ -26,8 +26,10 @@ public class GameView extends JPanel implements KeyListener {
     private BufferedImage fieldBgImage;
     private BufferedImage leftDoor;
 
-    GameField field = new GameField();
+    private GameField field = new GameField();
     private ArrayList<String> currentActiveKeys = new ArrayList<>();
+
+    private ScoreView scoreView = new ScoreView(0, 0, 1000, 60, field.getScore());
 
     public GameView() {
         importGameField();
@@ -93,7 +95,8 @@ public class GameView extends JPanel implements KeyListener {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-        g2.fillRect(0,0, 1000, 60);
+
+        scoreView.draw(g2);
         g2.translate(0, 60);
         //disegno campo di gioco con porte
         g2.drawImage(fieldBgImage, 0, 0, null);
