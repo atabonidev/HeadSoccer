@@ -20,6 +20,7 @@ public class Player extends DinamicObject {
         this.images.add(HelperClass.flipVerticallyImage(pngImg));
 
         createSkeleton();
+        calculateCdm();
     }
 
     public void setDefault() {
@@ -143,8 +144,18 @@ public class Player extends DinamicObject {
 
         //collisione giocatore e giocatore
         if(o instanceof Player otherPlayer){
-            if(playerID == 1) {
-                this.setPosX(otherPlayer.getPosX() - this.getTotalShape().getBounds().width);
+            //controlli in y
+            if(this.getActualCdmY() >= otherPlayer.getActualCdmY()) {  //player sopra l'altro
+                this.speed[1] = 0;
+                this.position[1] = otherPlayer.getObjHeight();
+            }
+            //se il player è sotto l'altro non succede nulla
+            else {
+                //controlli in x
+                if (this.getActualCdmX() < otherPlayer.getActualCdmX()) { //player a sinistra
+                    this.position[0] = otherPlayer.getPosX() - otherPlayer.getObjWidth();
+                } else
+                    this.position[0] = otherPlayer.getPosX() + otherPlayer.getObjWidth();
             }
         }
 

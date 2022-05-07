@@ -23,6 +23,7 @@ public class Ball extends DinamicObject {
         this.gameField = gameField;
 
         createSkeleton();
+        calculateCdm();
     }
 
     public void setDefault() {
@@ -121,7 +122,7 @@ public class Ball extends DinamicObject {
                 //stesso verso di spostamento
                 if (speed[0] > 0 && player.getSpeed(0) > 0) {   //entrambi ->
                     if (position[0] < player.getPosX()) { //palla da dietro e verso ->
-                        speed[0] = -speed[0];
+                        speed[0] = -speed[0];   //non va bene perché se la palla colpisse il player dall'alto non dovrebbe cambiare direzione
                     } else
                         speed[0] += player.getSpeed(0);
                 } else if (speed[0] < 0 && player.getSpeed(0) < 0) {  //embtrambi <-
@@ -132,6 +133,7 @@ public class Ball extends DinamicObject {
                 } else if (!(player.getPosY() > position[1] && player.getPosX() >= position[0] && player.getPosX() <= (position[0] + 23))) {  //si cambia velocità solo se la palla non è sotto il player
                     speed[0] = -speed[0] + player.getSpeed(0);   //versi opposti di spostamento
                 }
+
 
                 //stesso discorso per i controlli in y
                 if (speed[1] > 0 && player.getSpeed(1) > 0) {   //entrambi su
@@ -147,8 +149,8 @@ public class Ball extends DinamicObject {
                 } else
                     speed[1] = -speed[1] + player.getSpeed(1);;//versi opposti di spostamento
 
-                //palla rimbalza su giocatore fermo in y
-                if (this.speed[1] == -DinamicObject.GRAVITY && this.speed[0] == 0) {
+                //palla rimbalza su giocatore fermo in y -> cut off per impedire che la palla entri nel giocatore quando è quasi ferma
+                if (Math.abs(this.speed[1]) <= 5.28 && this.speed[0] == 0) {
                     this.speed[1] = 0;
                     this.setPosY(player.getTotalShape().getBounds().height);
                 }
@@ -182,6 +184,7 @@ public class Ball extends DinamicObject {
             }
         }
     }
+
 
     @Override
     public void createSkeleton() {
