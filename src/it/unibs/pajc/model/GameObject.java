@@ -9,7 +9,7 @@ import java.util.ArrayList;
 public abstract class GameObject {
 
     protected double[] position = { 0, 0 };
-    protected double[] cdm = {0 , 0};  //centro di massa dell'oggetto
+    protected double[] cdm = {0, 0};  //centro di massa dell'oggetto
 
     protected ArrayList<BufferedImage> images = new ArrayList<>(); //Immagini di rappresentazione dell'entità
     protected ArrayList<Shape> objectShape = new ArrayList<>(); //Shape dell'oggetto data dall'intersezione delle shape dei singoli oggetti
@@ -97,6 +97,10 @@ public abstract class GameObject {
 
     public double getObjHeight(){
         return this.getTotalShape().getBounds().height;
+    }
+
+    public ArrayList<BufferedImage> getImages(){
+        return this.images;
     }
 
 }

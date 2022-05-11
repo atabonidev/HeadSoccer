@@ -2,13 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="760acc8e-2e3d-4c38-9f9c-69155b32ee72" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/runConfigurations.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Ball.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameField.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameField.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameObject.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/Ball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/GameView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/GameView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameField.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/view/GameView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,6 +27,9 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="project.structure.last.edited" value="Modules" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RunManager">
     <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">

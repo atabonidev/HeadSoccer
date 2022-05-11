@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
+import java.util.Timer;
 
 public class Player extends DinamicObject {
     public static final double DEFAULT_POS_X = 300; //posizione iniziale del giocatore e d
@@ -14,6 +15,8 @@ public class Player extends DinamicObject {
     private boolean kickStatus;
     public Shape legDIMERDA;
 
+    //per animazione personaggio
+    Timer animationTimer;
 
     public Player(int playerID, BufferedImage pngImg) {
         this.playerID = playerID;
@@ -37,9 +40,15 @@ public class Player extends DinamicObject {
         this.speed[1] = 0;
     }
 
-    //dovremo toglierlo
+    /**
+     * metodo che ritorna l'immagine del giocatore relativa allo status in cui si trova
+     * @return
+     */
     public BufferedImage getPngImg() {
+        if(kickStatus)
+            return this.images.get(1);
         return this.images.get(0);
+
     }
 
     public void kick(boolean isKicking) {

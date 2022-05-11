@@ -117,8 +117,8 @@ public class GameView extends JPanel implements KeyListener {
         g2.drawImage(field.getPlayer2().getPngImg(), (int)field.getPlayer2().getPosX(), (int)field.getPlayer2().getPosY(), null);
 
         //prove stampa gamba pl1
-        g2.setColor(Color.darkGray);
-        g2.fill(field.getPlayer1().getShape());
+        //g2.setColor(Color.darkGray);
+        //g2.fill(field.getPlayer1().getShape());
 
     }
 

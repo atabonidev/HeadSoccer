@@ -28,10 +28,19 @@ public class GameField {
 
     //bisogna creare il player con le posizioni iniziali
     public GameField() {
+        //immagini delle porte
         InputStream streamLeftFootballGoal = this.getClass().getClassLoader().getResourceAsStream("leftDoorRect.jpeg");
         InputStream streamRightFootballGoal = this.getClass().getClassLoader().getResourceAsStream("rightDoorRect.jpeg");
+
+        //personaggi
         InputStream streamPlayer1 = this.getClass().getClassLoader().getResourceAsStream("LeftMan.png");
         InputStream streamPlayer2 = this.getClass().getClassLoader().getResourceAsStream("RightMan.png");
+
+        //personaggi che calciano che per adesso li aggiungo qui
+        InputStream KickLeftMan = this.getClass().getClassLoader().getResourceAsStream("KickLeftMan.png");
+        InputStream KickRightMan = this.getClass().getClassLoader().getResourceAsStream("KickRightMan.png");
+
+        //palla
         InputStream streamBall = this.getClass().getClassLoader().getResourceAsStream("Ball01.png");
 
         BufferedImage pngLeftFootballGoal = null;
@@ -39,6 +48,8 @@ public class GameField {
         BufferedImage pngBall = null;
         BufferedImage pngPlayer1 = null;
         BufferedImage pngPlayer2 = null;
+        BufferedImage pngKickLeftMan = null;
+        BufferedImage pngKickRightMan = null;
 
         try {
             pngLeftFootballGoal = ImageIO.read(streamLeftFootballGoal);
@@ -46,6 +57,9 @@ public class GameField {
             pngPlayer1 = ImageIO.read(streamPlayer1);
             pngPlayer2 = ImageIO.read(streamPlayer2);
             pngBall = ImageIO.read(streamBall);
+            pngKickLeftMan =  ImageIO.read(KickLeftMan);
+            pngKickRightMan = ImageIO.read(KickRightMan);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -64,6 +78,10 @@ public class GameField {
         gameObjects.add(player1);
         gameObjects.add(player2);
         gameObjects.add(ball);
+
+        //aggiunta delle immagini dei player che calciano ai rispettivi arraylist di immaigni
+        player1.getImages().add(HelperClass.flipVerticallyImage(pngKickLeftMan));
+        player2.getImages().add(HelperClass.flipVerticallyImage(pngKickRightMan));
     }
 
     /**
