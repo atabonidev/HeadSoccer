@@ -79,7 +79,7 @@ public class GameField {
         }
 
         //System.out.println(score.getScorePl1() + " | " + score.getScorePl2());
-        System.out.println(ball.speed[0] + " | " + ball.speed[1]);
+        //System.out.println(ball.speed[0] + " | " + ball.speed[1]);
 
         checkCollisions();
     }

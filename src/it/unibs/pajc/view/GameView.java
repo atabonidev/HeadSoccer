@@ -9,6 +9,7 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -95,7 +96,6 @@ public class GameView extends JPanel implements KeyListener {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D) g;
 
-
         scoreView.draw(g2);
         g2.translate(0, 60);
         //disegno campo di gioco con porte
@@ -119,6 +119,7 @@ public class GameView extends JPanel implements KeyListener {
         //prove stampa gamba pl1
         g2.setColor(Color.darkGray);
         g2.fill(field.getPlayer1().getShape());
+
     }
 
     @Override

@@ -2,6 +2,7 @@ package it.unibs.pajc.model;
 import it.unibs.pajc.helpers.HelperClass;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
 
 public class Player extends DinamicObject {
@@ -11,6 +12,8 @@ public class Player extends DinamicObject {
 
     private int playerID; //Indica il numero del player (1 => sinistra || 2 => destra)
     private boolean kickStatus;
+    public Shape legDIMERDA;
+
 
     public Player(int playerID, BufferedImage pngImg) {
         this.playerID = playerID;
@@ -41,6 +44,8 @@ public class Player extends DinamicObject {
 
     public void kick(boolean isKicking) {
 
+        legDIMERDA = new Area(this.getSingleShape(2));
+
         if(!kickStatus && isKicking) {  //viene reimpostato a false in key released, serve per le collisioni nella palla
             kickStatus = isKicking;  //viene reimpostato a false in key released, serve per le collisioni nella palla
             legRotation(1);   //posizione del calcio
@@ -49,8 +54,9 @@ public class Player extends DinamicObject {
 
     //riporta la gamba calciante nello stato iniziale
     public void stopKicking(){
-        kickStatus = false;
         legRotation( -1);
+        kickStatus = false;
+
     }
 
     /*
@@ -60,27 +66,32 @@ public class Player extends DinamicObject {
 
         if (rotationCoefficient == 1) {  //se sta calciando
             Shape rotatedLeg;
-            AffineTransform tx = AffineTransform.getRotateInstance(Math.PI / 4, this.getSingleShape(2).getBounds().x + this.getSingleShape(2).getBounds().width /2.0,
-                    this.getSingleShape(2).getBounds().height);
 
             //se il giocatore è il sinistro -> si ruota la shape[2], ossia la gamba destra
             if(playerID == 1){
-
+                AffineTransform tx = AffineTransform.getRotateInstance(Math.PI / 4, this.getSingleShape(2).getBounds().x + this.getSingleShape(2).getBounds().width /2.0,
+                        this.getSingleShape(2).getBounds().height);
                 rotatedLeg = tx.createTransformedShape(this.getSingleShape(2));
                 this.setSingleShape(2,rotatedLeg);
             }
 
             else{
+                AffineTransform tx = AffineTransform.getRotateInstance(-Math.PI / 4, this.getSingleShape(1).getBounds().x + this.getSingleShape(1).getBounds().width /2.0,
+                        this.getSingleShape(1).getBounds().height);
                 rotatedLeg = tx.createTransformedShape(this.getSingleShape(1));
                 this.setSingleShape(1,rotatedLeg);
             }
         }
         else {   //se ha smesso di calciare
 
-            //aggiungere modifiche per player 2
-
-            Shape rightLeg = new Rectangle(15, 0, 15, 32);
-            this.setSingleShape(2, rightLeg);
+            if(playerID == 1){
+                Shape rightLeg = new Rectangle(15, 0, 15, 32);
+                this.setSingleShape(2, rightLeg);
+            }
+            else{
+                Shape lefttLeg = new Rectangle(0, 0, 15, 32);
+                this.setSingleShape(1, lefttLeg);
+            }
         }
     }
 
@@ -193,5 +204,11 @@ public class Player extends DinamicObject {
 
     public int getPlayerID() {
         return playerID;
+    }
+
+    public Shape getSingleShapeTransformed(int shapeIndex) {
+        AffineTransform t = new AffineTransform(); //inizialmente coincide con la matrice identità
+        t.translate(this.position[0] + this.getObjWidth() / 2, position[1]); //applicazione della trasformata
+        return t.createTransformedShape(this.getSingleShape(2));
     }
 }

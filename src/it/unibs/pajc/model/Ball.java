@@ -3,13 +3,14 @@ package it.unibs.pajc.model;
 import it.unibs.pajc.helpers.HelperClass;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 
 public class Ball extends DinamicObject {
     private static final int DEFAULT_POS_Y = 356;
-    private static final int[] KICK_STRENGHT = {9, 2};
+    private static final int[] KICK_STRENGHT = {20, 30};
     private static final double BOUNCING_FRICTION = 2.6;
     private static final double AIR_FRICTION = 0.02;
 
@@ -100,18 +101,13 @@ public class Ball extends DinamicObject {
     @Override
     public void collisionDetected(GameObject o) {
         //PALLA E GIOCATORE
-        if(o instanceof Player) {
-            Player player = (Player)o;
-
+        if(o instanceof Player player) {
             Area IntersectionLegBal = new Area(this.getShape());
-            IntersectionLegBal.intersect(new Area(player.getSingleShape(2)));    //intersezione gamba palla
+            IntersectionLegBal.intersect(new Area(player.getSingleShapeTransformed(2)));    //intersezione gamba palla
 
-            //System.out.println(IntersectionLegBal.isEmpty());
-            System.out.println(this.speed[1]);
             //Player che calcia
             if(player.getKickStatus() && !(IntersectionLegBal.isEmpty())){
-                // System.out.println("true111 ");
-                // kicked(player);
+                kicked();
             }
 
             else {
@@ -155,6 +151,7 @@ public class Ball extends DinamicObject {
                     this.setPosY(player.getTotalShape().getBounds().height);
                 }
             }
+            //betweenPlayers();
         }
         //PALLA - PORTA
 
@@ -185,6 +182,24 @@ public class Ball extends DinamicObject {
         }
     }
 
+    /*
+    Metodo che si occupa della gestione della velocità della palla quanot questa si trova fra i due player che sono abbastanza vicini.
+    Serve per evitare che la palla continui a rimbalzare in maniera strana.
+     */
+    private void betweenPlayers(){
+        //player 1 a sinistra e player 2 a destra  ||  player 1 a destra e player 2 a sinistra
+        if(this.getActualCdmX() >= gameField.getPlayer1().getActualCdmX() && this.getActualCdmX() <= gameField.getPlayer2().getActualCdmX() ||
+                this.getActualCdmX()  <= gameField.getPlayer1().getActualCdmX()  && this.getActualCdmX()  >= gameField.getPlayer2().getActualCdmX() ){
+
+            System.out.println(Math.abs(gameField.getPlayer1().getActualCdmX()  - gameField.getPlayer2().getActualCdmX()));
+            //si controlla la distanza fra i due player
+            if(Math.abs(gameField.getPlayer1().getActualCdmX()  - gameField.getPlayer2().getActualCdmX()) <= 200){
+                    this.speed[0] = speed[0] * 0.5;
+                System.out.println(true);
+
+            }
+        }
+    }
 
     @Override
     public void createSkeleton() {
@@ -192,9 +207,9 @@ public class Ball extends DinamicObject {
         super.objectShape.add(ballShape);
     }
 
-    public void kicked(Player player){
-        accelerateX(player.getSpeed(0) + KICK_STRENGHT[0]);
-        accelerateY(player.getSpeed(1) + KICK_STRENGHT[1]);
+    public void kicked(){
+        speed[0] = KICK_STRENGHT[0];
+        speed[1] = KICK_STRENGHT[1];
     }
 
     //dovremo toglierlo
