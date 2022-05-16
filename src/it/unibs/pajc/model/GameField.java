@@ -40,6 +40,10 @@ public class GameField {
         InputStream KickLeftMan = this.getClass().getClassLoader().getResourceAsStream("KickLeftMan.png");
         InputStream KickRightMan = this.getClass().getClassLoader().getResourceAsStream("KickRightMan.png");
 
+        //personaggi che camminano
+        InputStream walkingLeftMan = this.getClass().getClassLoader().getResourceAsStream("WalkingLeftMan.png");
+        InputStream walkingRightMan = this.getClass().getClassLoader().getResourceAsStream("WalkingRightMan.png");
+
         //palla
         InputStream streamBall = this.getClass().getClassLoader().getResourceAsStream("Ball01.png");
 
@@ -50,6 +54,8 @@ public class GameField {
         BufferedImage pngPlayer2 = null;
         BufferedImage pngKickLeftMan = null;
         BufferedImage pngKickRightMan = null;
+        BufferedImage pngWalkingLeftMan = null;
+        BufferedImage pngWalkingRightMan = null;
 
         try {
             pngLeftFootballGoal = ImageIO.read(streamLeftFootballGoal);
@@ -59,6 +65,8 @@ public class GameField {
             pngBall = ImageIO.read(streamBall);
             pngKickLeftMan =  ImageIO.read(KickLeftMan);
             pngKickRightMan = ImageIO.read(KickRightMan);
+            pngWalkingLeftMan =  ImageIO.read(walkingLeftMan);
+            pngWalkingRightMan = ImageIO.read(walkingRightMan);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -78,6 +86,10 @@ public class GameField {
         gameObjects.add(player1);
         gameObjects.add(player2);
         gameObjects.add(ball);
+
+        //aggiunta delle immagini dei player che camminano
+        player1.getImages().add(HelperClass.flipVerticallyImage(pngWalkingLeftMan));
+        player2.getImages().add(HelperClass.flipVerticallyImage(pngWalkingRightMan));
 
         //aggiunta delle immagini dei player che calciano ai rispettivi arraylist di immaigni
         player1.getImages().add(HelperClass.flipVerticallyImage(pngKickLeftMan));

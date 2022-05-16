@@ -72,9 +72,15 @@ public class GameView extends JPanel implements KeyListener {
 
             switch (Integer.parseInt(strkeyCode)) {
                 //se si preme il tasto sinistro la navicella viene ruotata di un tot a sinistra
-                case KeyEvent.VK_LEFT -> player1.move(false);
+                case KeyEvent.VK_LEFT -> {
+                    player1.move(false);
+                    player1.startAnimation();
+                }
                 //identifica la pressione del tasto destro della tastiera
-                case KeyEvent.VK_RIGHT -> player1.move(true);
+                case KeyEvent.VK_RIGHT -> {
+                    player1.move(true);
+                    player1.startAnimation();
+                }
                 case KeyEvent.VK_UP -> player1.jump();
                 case KeyEvent.VK_SPACE -> player1.kick(true);
             }
@@ -136,8 +142,10 @@ public class GameView extends JPanel implements KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_LEFT)    //si impone velocità in x nulla se si smette di premere i tasti
-            field.getPlayer1().setSpeed(0,0);
+        if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_LEFT) {    //si impone velocità in x nulla se si smette di premere i tasti
+            field.getPlayer1().setSpeed(0, 0);
+            field.getPlayer1().stopAnimation();
+        }
 
         if(e.getKeyCode() == KeyEvent.VK_SPACE)    //se si ha appena calciato
             field.getPlayer1().stopKicking();                       //si riporta la gamba nella posizione originale

@@ -1,10 +1,11 @@
 package it.unibs.pajc.model;
 import it.unibs.pajc.helpers.HelperClass;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
-import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
-import java.util.Timer;
+import javax.swing.Timer;
 
 public class Player extends DinamicObject {
     public static final double DEFAULT_POS_X = 300; //posizione iniziale del giocatore e d
@@ -13,7 +14,11 @@ public class Player extends DinamicObject {
 
     private int playerID; //Indica il numero del player (1 => sinistra || 2 => destra)
     private boolean kickStatus;
+    private boolean isWalking;    //indica se il player sta camminando oppure no
 
+    private int currentIMG = 0;    //indice dell'immagine da visualizzare
+
+    private Timer timerAnimation;
 
     public Player(int playerID, BufferedImage pngImg) {
         this.playerID = playerID;
@@ -24,6 +29,10 @@ public class Player extends DinamicObject {
 
         createSkeleton();
         calculateCdm();
+
+        timerAnimation = new Timer(100, e -> {
+            setCurrentIMGIndex();
+        });
     }
 
     public void setDefault() {
@@ -42,10 +51,32 @@ public class Player extends DinamicObject {
      * @return
      */
     public BufferedImage getPngImg() {
-        if(kickStatus)
-            return this.images.get(1);
-        return this.images.get(0);
+        if(kickStatus) {
+            this.timerAnimation.stop();
+            this.currentIMG = 2;
+        }
 
+        return this.images.get(this.currentIMG);
+
+    }
+
+    public void startAnimation(){
+        timerAnimation.start();
+    }
+
+    public void stopAnimation() {
+        this.timerAnimation.stop();
+        this.currentIMG = 0;
+    }
+
+    /*
+    in base allo stato in cui si trova il player.
+     */
+    public void setCurrentIMGIndex(){
+        if(this.currentIMG == 0)
+            this.currentIMG = 1;
+        else
+            this.currentIMG = 0;
     }
 
     public void kick(boolean isKicking) {
@@ -59,7 +90,7 @@ public class Player extends DinamicObject {
     public void stopKicking(){
         legRotation( -1);
         kickStatus = false;
-
+        this.currentIMG = 0;
     }
 
     /*
