@@ -109,7 +109,6 @@ public class Ball extends DinamicObject {
             if(player.getKickStatus() && !(IntersectionLegBal.isEmpty())){
                 kicked();
             }
-
             else {
                 //controlli in X
                 if (speed[0] == 0) { // se la palla è ferma
@@ -146,12 +145,11 @@ public class Ball extends DinamicObject {
                     speed[1] = -speed[1] + player.getSpeed(1);;//versi opposti di spostamento
 
                 //palla rimbalza su giocatore fermo in y -> cut off per impedire che la palla entri nel giocatore quando è quasi ferma
-                if (Math.abs(this.speed[1]) <= 5.28 && this.speed[0] == 0) {
+                if (Math.abs(this.speed[1]) <= 5.28 && this.speed[0] == 0 && this.getActualCdmY() >= player.getActualCdmY()) {
                     this.speed[1] = 0;
                     this.setPosY(player.getTotalShape().getBounds().height);
                 }
             }
-            //betweenPlayers();
         }
         //PALLA - PORTA
 
@@ -194,12 +192,30 @@ public class Ball extends DinamicObject {
             System.out.println(Math.abs(gameField.getPlayer1().getActualCdmX()  - gameField.getPlayer2().getActualCdmX()));
             //si controlla la distanza fra i due player
             if(Math.abs(gameField.getPlayer1().getActualCdmX()  - gameField.getPlayer2().getActualCdmX()) <= 200){
-                    this.speed[0] = speed[0] * 0.5;
+                this.speed[0] = speed[0] * 0.5;
                 System.out.println(true);
 
             }
         }
     }
+
+    private void between2(){
+        //player 1 a sinistra e player 2 a destra  ||  player 1 a destra e player 2 a sinistra
+        if(isBetweenTwoPlayers()){
+            this.speed[0] = 0;
+        }
+    }
+
+    private boolean isBetweenTwoPlayers() {
+        double collisionDistanceBallPlayer = (this.getObjWidth() / 2) + (gameField.getPlayer1().getObjWidth() / 2);
+        double distancePlayer1Ball = Math.abs(this.getActualCdmX() - gameField.getPlayer1().getActualCdmX());
+        double distancePlayer2Ball = Math.abs(this.getActualCdmX() - gameField.getPlayer2().getActualCdmX());
+
+        System.out.println((distancePlayer1Ball <= collisionDistanceBallPlayer && distancePlayer2Ball <= collisionDistanceBallPlayer));
+
+        return (distancePlayer1Ball <= collisionDistanceBallPlayer && distancePlayer2Ball <= collisionDistanceBallPlayer);
+    }
+
 
     @Override
     public void createSkeleton() {
