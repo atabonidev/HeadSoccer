@@ -15,10 +15,12 @@ public class Player extends DinamicObject {
     private int playerID; //Indica il numero del player (1 => sinistra || 2 => destra)
     private boolean kickStatus;
     private boolean isWalking;    //indica se il player sta camminando oppure no
-
     private int currentIMG = 0;    //indice dell'immagine da visualizzare
-
     private Timer timerAnimation;
+
+    public Player() {
+
+    }
 
     public Player(int playerID, BufferedImage pngImg) {
         this.playerID = playerID;
@@ -242,14 +244,17 @@ public class Player extends DinamicObject {
         return playerID;
     }
 
-    public void setSpeed(int speedIndex, double newSpeed){
-        speed[speedIndex] = newSpeed;
-    }
-
-
     public Shape getSingleShapeTransformed(int shapeIndex) {
         AffineTransform t = new AffineTransform(); //inizialmente coincide con la matrice identità
         t.translate(this.position[0] + this.getObjWidth() / 2, position[1]); //applicazione della trasformata
         return t.createTransformedShape(this.getSingleShape(2));
+    }
+
+    public void setPlayerID(int playerID) {
+        this.playerID = playerID;
+    }
+
+    public void setSpeed(int speedIndex, double newSpeed){
+        speed[speedIndex] = newSpeed;
     }
 }

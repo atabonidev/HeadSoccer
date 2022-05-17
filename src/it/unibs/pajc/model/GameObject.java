@@ -4,9 +4,10 @@ import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class GameObject {
+public abstract class GameObject implements Serializable {
 
     protected double[] position = { 0, 0 };
     protected double[] cdm = {0, 0};  //centro di massa dell'oggetto

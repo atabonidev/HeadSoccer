@@ -13,7 +13,7 @@ import java.util.ArrayList;
  * Classe che rappresenta il model del campo di gioco, nel quale ci si occupa del controllo delle collisioni fra gli
  * oggetti di gioco.
  */
-public class GameField {
+public class GameField extends BaseModel {
 
     //I player è meglio averli privati in quanto reagiscono agli input dell'utente
     private FootballGoal leftFootballGoal;
@@ -112,6 +112,10 @@ public class GameField {
         //System.out.println(ball.speed[0] + " | " + ball.speed[1]);
 
         checkCollisions();
+    }
+
+    public ArrayList<GameObject> getGameObjects() {
+        return gameObjects;
     }
 
     public FootballGoal getLeftFootballGoal() { return leftFootballGoal; }
