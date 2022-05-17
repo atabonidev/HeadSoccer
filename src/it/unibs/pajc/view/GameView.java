@@ -8,13 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.awt.geom.AffineTransform;
-import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.BufferedImageFilter;
-import java.awt.image.ReplicateScaleFilter;
 import java.util.ArrayList;
 
 /*
@@ -33,7 +27,7 @@ public class GameView extends JPanel implements KeyListener {
     private ScoreView scoreView = new ScoreView(0, 0, 1000, 60, field.getScore());
 
     public GameView() {
-        importGameField();
+        importGameFieldImg();
         update();   //anche lui lo mette nel costruttore
     }
 
@@ -89,7 +83,7 @@ public class GameView extends JPanel implements KeyListener {
     }
 
 
-    private void importGameField() {
+    private void importGameFieldImg() {
         fieldBgImage = HelperClass.getCompleteGameField();
     }
 
