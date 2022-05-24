@@ -51,7 +51,6 @@ public class ServerInstanceForClient implements Runnable {
 
     private void receiveFromClient() {
         try {
-
             while(true) {
                 Player clientControlledPlayer = (Player) in.readObject();
                 Player modelCopyControlledPlayer = null;

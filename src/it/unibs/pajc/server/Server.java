@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class Server {
 
-    private static final int PORT = 1234;
+    public static final int PORT = 1234;
     private static GameField gameField = new GameField();
     private static ArrayList<ServerInstanceForClient> connectedClients = new ArrayList<>();
 

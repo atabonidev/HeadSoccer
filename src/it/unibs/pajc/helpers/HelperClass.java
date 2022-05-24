@@ -6,8 +6,24 @@ import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class HelperClass {
+
+    private static String[] imagesNames = new String[]{
+            "leftDoorRect.jpeg",
+            "rightDoorRect.jpeg",
+            "LeftMan.png",
+            "RightMan.png",
+            "KickLeftMan.png",
+            "KickRightMan.png",
+            "WalkingLeftMan.png",
+            "WalkingRightMan.png",
+            "Ball01.png"
+    };
+
+    public static HashMap<String, BufferedImage> gameImages = new HashMap<>();
 
     /**
      * metodo che ritorna l'array contenente le immagini utili per formare il campo completo con porte
@@ -36,4 +52,12 @@ public class HelperClass {
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
         return op.filter(image, null);
     }
+
+    public static void importImages() throws IOException {
+        for (String imagesName : imagesNames) {
+            gameImages.put(imagesName, ImageIO.read(HelperClass.class.getClassLoader().getResourceAsStream(imagesName)));
+        }
+    }
+
+
 }

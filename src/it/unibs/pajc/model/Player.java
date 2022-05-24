@@ -5,9 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 import javax.swing.Timer;
 
-public class Player extends DinamicObject {
+public class Player extends DinamicObject implements Serializable {
     public static final double DEFAULT_POS_X = 300; //posizione iniziale del giocatore e d
     public static final double JUMP_STRENGTH = 10;  //potenza del calcio, con quale velocità parte
     public static final double CONST_SPEED_X = 3.0;

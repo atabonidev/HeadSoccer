@@ -10,12 +10,12 @@ public class ScoreView {
     private ScoreBoard scorePl1;
     private ScoreBoard scorePl2;
 
-    public ScoreView(int x, int y, int width, int height, Score score) {
+    public ScoreView(int x, int y, int width, int height) {
         this.x = x;
         this.y = y;
         this.width = width;
         this.height = height;
-        this.score = score;
+        score = null;
         initScoreBoard();
     }
 
@@ -37,8 +37,7 @@ public class ScoreView {
 
     }
 
-
-
-
-
+    public void setScore(Score score) {
+        this.score = score;
+    }
 }
