@@ -14,7 +14,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.concurrent.Executors;
 
 public class Client {
     private Socket serverConnection;
@@ -70,7 +69,7 @@ public class Client {
 
         PlayerKeyboardListener kb = new PlayerKeyboardListener(controlledPlayer);
         kb.addChangeListener(this::sendToServer);
-        view.addKeyListener(kb);
+        gameView.addKeyListener(kb);
 
         frame.setContentPane(gameView);
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

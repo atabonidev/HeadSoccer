@@ -3,6 +3,8 @@ package it.unibs.pajc.client;
 import it.unibs.pajc.model.BaseModel;
 import it.unibs.pajc.model.Player;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -14,37 +16,34 @@ public class PlayerKeyboardListener extends BaseModel implements KeyListener {
      */
 
     private ArrayList<String> currentActiveKeys = new ArrayList<>();
+    private Player controlledPlayer;
+    private Timer controlsTimer;
 
-    private Player localPlayer;
-
-    public ClientKeyboard(Player p) {
-
-        localPlayer = p;
+    public PlayerKeyboardListener(Player controlledPlayer) {
+        this.controlledPlayer = controlledPlayer;
+        controlsTimer = new Timer(20, this::applyControls);
+        controlsTimer.start();
     }
 
-    private void applyControls() {
-        Player player1 = field.getPlayer1();
 
+    private void applyControls(ActionEvent actionEvent) {
         for(String strkeyCode: currentActiveKeys) {
-
             switch (Integer.parseInt(strkeyCode)) {
                 //se si preme il tasto sinistro la navicella viene ruotata di un tot a sinistra
                 case KeyEvent.VK_LEFT -> {
-                    player1.move(false);
-                    player1.startAnimation();
+                    controlledPlayer.move(false);
+                    controlledPlayer.startAnimation();
                 }
                 //identifica la pressione del tasto destro della tastiera
                 case KeyEvent.VK_RIGHT -> {
-                    player1.move(true);
-                    player1.startAnimation();
+                    controlledPlayer.move(true);
+                    controlledPlayer.startAnimation();
                 }
-                case KeyEvent.VK_UP -> player1.jump();
-                case KeyEvent.VK_SPACE -> player1.kick(true);
+                case KeyEvent.VK_UP -> controlledPlayer.jump();
+                case KeyEvent.VK_SPACE -> controlledPlayer.kick(true);
             }
         }
-
     }
-
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -61,12 +60,12 @@ public class PlayerKeyboardListener extends BaseModel implements KeyListener {
     @Override
     public void keyReleased(KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_RIGHT || e.getKeyCode() == KeyEvent.VK_LEFT) {    //si impone velocità in x nulla se si smette di premere i tasti
-            field.getPlayer1().setSpeed(0, 0);
-            field.getPlayer1().stopAnimation();
+            controlledPlayer.setSpeed(0, 0);
+            controlledPlayer.stopAnimation();
         }
 
         if(e.getKeyCode() == KeyEvent.VK_SPACE)    //se si ha appena calciato
-            field.getPlayer1().stopKicking();                       //si riporta la gamba nella posizione originale
+            controlledPlayer.stopKicking();                       //si riporta la gamba nella posizione originale
 
         String key = "" + e.getKeyCode();
         currentActiveKeys.remove(key);

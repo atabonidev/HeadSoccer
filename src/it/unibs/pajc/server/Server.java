@@ -1,6 +1,7 @@
 package it.unibs.pajc.server;
 
 import it.unibs.pajc.model.GameField;
+import it.unibs.pajc.model.GameStatus;
 
 import javax.swing.event.ChangeEvent;
 import java.io.IOException;
@@ -13,27 +14,33 @@ public class Server {
     public static final int PORT = 1234;
     private static GameField gameField = new GameField();
     private static ArrayList<ServerInstanceForClient> connectedClients = new ArrayList<>();
+    private static ServerInstanceForClient firstClient = null;
+    private static ServerInstanceForClient secondClient = null;
 
     public static void main(String[] args) {
 
         gameField.addChangeListener(Server::modelUpdated);
 
         try(
-                ServerSocket server = new ServerSocket(PORT);
+            ServerSocket server = new ServerSocket(PORT);
         ){
             int playerId = 1;
 
             while(true) {
                 Socket client = server.accept();
 
-                if(connectedClients.size() < 2) {
-                    ServerInstanceForClient p = new ServerInstanceForClient(client, gameField, playerId);
-                    connectedClients.add(p);
-                    playerId++;
-                    Thread clientThread = new Thread(p);
+                if(firstClient == null && secondClient == null) {
+                    firstClient = new ServerInstanceForClient(client, gameField, playerId);
+                    playerId = 2;
+                    Thread clientThread = new Thread(firstClient);
                     clientThread.start();
-                } else {
-                    client.close();
+                    GameStatus.SetGameState(GameStatus.LOADING);
+                }
+                else if(firstClient != null && secondClient == null) {
+                    secondClient = new ServerInstanceForClient(client, gameField, playerId);
+                    Thread clientThread = new Thread(secondClient);
+                    clientThread.start();
+                    GameStatus.SetGameState(GameStatus.PLAYING);
                 }
             }
 

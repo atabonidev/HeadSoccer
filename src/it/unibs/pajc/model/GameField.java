@@ -2,6 +2,7 @@ package it.unibs.pajc.model;
 
 import it.unibs.pajc.helpers.HelperClass;
 import javax.swing.*;
+import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
