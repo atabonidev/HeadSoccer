@@ -26,8 +26,8 @@ public class ServerInstanceForClient implements Runnable {
     @Override
     public void run() {
         try {
-            in = new ObjectInputStream(client.getInputStream());
             out = new ObjectOutputStream(client.getOutputStream());
+            in = new ObjectInputStream(client.getInputStream());
 
             //Mando i dati attuali al client
             //sendToClient(modelData);

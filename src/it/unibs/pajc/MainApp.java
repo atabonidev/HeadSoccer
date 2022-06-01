@@ -15,7 +15,6 @@ public class MainApp {
     private JFrame frame;
     private JPanel menu;
 
-
     public static void main(String[] args) {
         MainApp app = new MainApp();
     }
@@ -78,6 +77,9 @@ public class MainApp {
     private void joinGame(ActionEvent e) {
         clientController = new Client(frame);
         clientController.startServerConnection();
+
+        frame.revalidate();
+        frame.repaint();
     }
 
 }

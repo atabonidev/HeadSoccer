@@ -2,17 +2,19 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7acec6b0-c177-4a70-90e3-6041572d59d5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.classpath" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.classpath" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/.classpath" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/misc.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/modules.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/runConfigurations.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.project" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/HeadSoccer.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/controller/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/controller/Game.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/helpers/HelperClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/helpers/HelperClass.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Ball.class" afterDir="false" />
@@ -23,8 +25,7 @@
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameObject.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Player.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Score.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Score.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/ServerInstanceForClient.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/GameView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/GameView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/ScoreBoard.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/ScoreBoard.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/ScoreView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/ScoreView.class" afterDir="false" />
@@ -43,13 +44,8 @@
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/leftDoorRect.jpeg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/rightDoor.jpeg" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/rightDoorRect.jpeg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/controller/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/controller/Game.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/ExchangeDataClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/ExchangeDataClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameStatus.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/MainApp.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/server/ServerInstanceForClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/server/ServerInstanceForClient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,6 +79,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="ignore.preview.features.used" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../SpaceShooter" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.13908207" />
@@ -93,7 +90,7 @@
       <recent name="C:\Users\user\IdeaProjects\HeadSoccer\src\it\unibs\pajc\model" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.MainApp">
+  <component name="RunManager" selected="Application.Server">
     <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.unibs.pajc.controller.Game" />
       <module name="HeadSoccer" />
@@ -120,8 +117,27 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="it.unibs.pajc.server.Server" />
+      <module name="HeadSoccer" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="it.unibs.pajc.server.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Game" />
+      <item itemvalue="Application.MainApp" />
+      <item itemvalue="Application.Server" />
+    </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.Server" />
         <item itemvalue="Application.MainApp" />
         <item itemvalue="Application.Game" />
       </list>

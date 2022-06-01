@@ -1,5 +1,6 @@
 package it.unibs.pajc.server;
 
+import it.unibs.pajc.helpers.HelperClass;
 import it.unibs.pajc.model.ExchangeDataClass;
 import it.unibs.pajc.model.GameField;
 import javax.swing.event.ChangeEvent;
@@ -10,13 +11,21 @@ import java.net.Socket;
 public class Server {
 
     public static final int PORT = 1234;
-    private static GameField gameField = new GameField();
+    private static GameField gameField;
     //private static ArrayList<ServerInstanceForClient> connectedClients = new ArrayList<>();
     private static ServerInstanceForClient firstClient = null;
     private static ServerInstanceForClient secondClient = null;
     private static ExchangeDataClass modeldata = null;
 
     public static void main(String[] args) {
+
+        try {
+            HelperClass.importImages();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        gameField = new GameField();
 
         modeldata = new ExchangeDataClass(gameField);
 
@@ -26,6 +35,7 @@ public class Server {
             int playerId = 1;
 
             while(true) {
+                System.out.println("Prooooovaaaaaaaa...........");
                 Socket client = server.accept();
 
                 if(firstClient == null && secondClient == null) {

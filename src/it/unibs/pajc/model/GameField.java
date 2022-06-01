@@ -10,7 +10,6 @@ import java.util.ArrayList;
  * oggetti di gioco.
  */
 public class GameField extends BaseModel {
-
     //I player è meglio averli privati in quanto reagiscono agli input dell'utente
     public static final FootballGoal leftFootballGoal = new FootballGoal(true, HelperClass.gameImages.get("leftDoorRect.jpeg"));
     public static final FootballGoal rightFootballGoal = new FootballGoal(false, HelperClass.gameImages.get("rightDoorRect.jpeg"));

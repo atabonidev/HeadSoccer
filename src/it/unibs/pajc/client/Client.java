@@ -34,8 +34,8 @@ public class Client {
         try {
             serverConnection = new Socket("127.0.0.1", Server.PORT);
 
-            in = new ObjectInputStream(serverConnection.getInputStream());
             out = new ObjectOutputStream(serverConnection.getOutputStream());
+            in = new ObjectInputStream(serverConnection.getInputStream());
 
             clientConnection();
 
