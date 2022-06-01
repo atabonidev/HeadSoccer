@@ -2,7 +2,6 @@ package it.unibs.pajc.model;
 
 import it.unibs.pajc.helpers.HelperClass;
 import javax.swing.*;
-import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
@@ -23,6 +22,8 @@ public class GameField extends BaseModel {
 
     private ArrayList<GameObject> gameObjects = new ArrayList<>();  //array contenente tutti gli oggetti coinvolti nel gioco
     private Rectangle2D.Float borders; //bordi dell'area di gioco
+
+    private ExchangeDataClass modelData;
 
     //bisogna creare il player con le posizioni iniziali
     public GameField() {

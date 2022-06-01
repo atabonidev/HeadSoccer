@@ -1,5 +1,6 @@
 package it.unibs.pajc.server;
 
+import it.unibs.pajc.model.ExchangeDataClass;
 import it.unibs.pajc.model.GameField;
 import it.unibs.pajc.model.Player;
 
@@ -10,13 +11,15 @@ public class ServerInstanceForClient implements Runnable {
 
     private Socket client;
     private GameField gameField;
+    private ExchangeDataClass modelData;
     private ObjectInputStream in;
     private ObjectOutputStream out;
     private int controlledPlayerId;
 
-    public ServerInstanceForClient(Socket client, GameField gameField, int controlledPlayerId) {
+    public ServerInstanceForClient(Socket client, GameField gameField, ExchangeDataClass modelData, int controlledPlayerId) {
         this.client = client;
         this.gameField = gameField;
+        this.modelData = modelData;
         this.controlledPlayerId = controlledPlayerId;
     }
 
@@ -26,8 +29,8 @@ public class ServerInstanceForClient implements Runnable {
             in = new ObjectInputStream(client.getInputStream());
             out = new ObjectOutputStream(client.getOutputStream());
 
-            //Mando i dati attuai al client
-            sendToClient(gameField.getGameObjects());
+            //Mando i dati attuali al client
+            //sendToClient(modelData);
 
         } catch(Exception ex) {
             ex.printStackTrace();

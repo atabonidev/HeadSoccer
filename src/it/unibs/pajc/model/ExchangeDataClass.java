@@ -1,6 +1,8 @@
 package it.unibs.pajc.model;
 
-public class ExchangeDataClass {
+import java.io.Serializable;
+
+public class ExchangeDataClass implements Serializable {
     private Player player1;
     private Player player2;
     private Ball ball;

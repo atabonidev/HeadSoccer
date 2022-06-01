@@ -19,7 +19,7 @@ public class Game {
 
     private void initialize() {
         this.frame = new JFrame();
-        gameView = new GameView();
+        //gameView = new GameView();
 
         frame.setLayout(new BorderLayout());
 

@@ -22,25 +22,22 @@ public class Client {
     private JFrame frame;
     private GameView gameView;
     private Thread serverListener;
+    private Thread waitingThread;
     private Player controlledPlayer = new Player();
     private ExchangeDataClass modelData;
 
-    public static void main(String[] args) {
-        Client client = new Client();
+    public Client(JFrame frame) {
+        this.frame = frame;
     }
 
-    public Client() {
-        initialize();
-    }
-
-    private void initialize() {
+    public void startServerConnection() {
         try {
             serverConnection = new Socket("127.0.0.1", Server.PORT);
 
             in = new ObjectInputStream(serverConnection.getInputStream());
             out = new ObjectOutputStream(serverConnection.getOutputStream());
 
-            gameInitialization();
+            clientConnection();
 
         } catch(UnknownHostException e) {
 
@@ -53,8 +50,50 @@ public class Client {
         }
     }
 
+    private void clientConnection() {
+        frame.getContentPane().removeAll();
+
+        JPanel loadingPanel = new JPanel();
+
+        JLabel label = new JLabel("Waiting for the opponent connection...");
+        label.setFont(new Font("Arial Black", Font.PLAIN, 40));
+
+        loadingPanel.setLayout(new GridBagLayout());
+        loadingPanel.add(label);
+        loadingPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        frame.setContentPane(loadingPanel);
+        frame.getContentPane().setPreferredSize(new Dimension(1000, 561));
+        frame.pack();
+
+        waitingThread = new Thread(this::waitingForOtherClient);
+        waitingThread.start();
+    }
+
+    private void waitingForOtherClient() {
+        try {
+
+            while(true) {
+                if(in.readObject() instanceof ExchangeDataClass) {
+                    gameInitialization();
+                    break;
+                }
+            }
+
+        } catch (IOException e) {
+
+            System.out.println(e.toString());
+
+        } catch (ClassNotFoundException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+
+    }
+
+
     private void gameInitialization() {
-        this.frame = new JFrame();
+        frame.getContentPane().removeAll();
 
         frame.setLayout(new BorderLayout());
         frame.getContentPane().setPreferredSize(new Dimension(1000, 561));
@@ -64,7 +103,7 @@ public class Client {
 
         gameView.setModelData(modelData);
 
-        serverListener = new Thread(this::receiveFromServer); // crea un pool thread
+        serverListener = new Thread(this::receiveFromServer);
         serverListener.start();
 
         PlayerKeyboardListener kb = new PlayerKeyboardListener(controlledPlayer);
