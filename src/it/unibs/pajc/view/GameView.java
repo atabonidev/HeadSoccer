@@ -18,10 +18,10 @@ import java.util.ArrayList;
 public class GameView extends JPanel {
 
     private BufferedImage fieldBgImage;
-    private BufferedImage leftDoor;
 
     private FootballGoal leftFootballGoal;
     private FootballGoal rightFootballGoal;
+
     private ExchangeDataClass modelData;
 
     private ScoreView scoreView;

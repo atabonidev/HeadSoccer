@@ -36,7 +36,7 @@ public class Server {
 
             while(true) {
                 System.out.println("Prooooovaaaaaaaa...........");
-                Socket client = server.accept();
+                Socket client = server.accept(); //il server aspetta in ascolto di un client -> codice si ferma qui
 
                 if(firstClient == null && secondClient == null) {
                     firstClient = new ServerInstanceForClient(client, gameField, modeldata, playerId);

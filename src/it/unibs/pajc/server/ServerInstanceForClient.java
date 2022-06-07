@@ -4,6 +4,7 @@ import it.unibs.pajc.model.ExchangeDataClass;
 import it.unibs.pajc.model.GameField;
 import it.unibs.pajc.model.Player;
 
+import java.awt.event.ActionEvent;
 import java.io.*;
 import java.net.Socket;
 
@@ -52,7 +53,7 @@ public class ServerInstanceForClient implements Runnable {
         }
     }
 
-    private void receiveFromClient() {
+    public void receiveFromClient() {
         try {
             while(true) {
                 Player clientControlledPlayer = (Player) in.readObject();

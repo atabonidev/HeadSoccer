@@ -54,8 +54,8 @@ public class HelperClass {
     }
 
     public static void importImages() throws IOException {
-        for (String imagesName : imagesNames) {
-            gameImages.put(imagesName, ImageIO.read(HelperClass.class.getClassLoader().getResourceAsStream(imagesName)));
+        for (String imageName : imagesNames) {
+            gameImages.put(imageName, ImageIO.read(HelperClass.class.getClassLoader().getResourceAsStream(imageName)));
         }
     }
 

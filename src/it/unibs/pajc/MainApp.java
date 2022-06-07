@@ -32,10 +32,7 @@ public class MainApp {
         frame.getContentPane().setPreferredSize(new Dimension(1000, 561));
         frame.pack();
 
-        menu.setLayout(new BorderLayout());
-        menu.setBorder(new EmptyBorder(10, 10, 10, 10));
         menu.setLayout(new GridBagLayout());
-
 
         GridBagConstraints gbc = new GridBagConstraints();
 
