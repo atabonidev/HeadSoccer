@@ -9,7 +9,6 @@ import it.unibs.pajc.view.GameView;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -25,7 +24,7 @@ public class Client {
     private Thread serverListener;
     private Thread waitingThread;
     private Player controlledPlayer = new Player();
-    private ExchangeDataClass modelData;
+    private ExchangeDataClass modelData = new ExchangeDataClass();
 
     public Client(JFrame frame) {
         this.frame = frame;
@@ -76,6 +75,8 @@ public class Client {
 
             while(!serverConnection.isClosed()) {
                 if(in.readObject() instanceof ExchangeDataClass) {
+                    System.out.println("fatto");
+                    modelData = (ExchangeDataClass) in.readObject();
                     gameInitialization();
                     break;
                 }
@@ -95,6 +96,7 @@ public class Client {
 
 
     private void gameInitialization() {
+
         frame.getContentPane().removeAll();
 
         frame.setLayout(new BorderLayout());
@@ -117,8 +119,6 @@ public class Client {
         frame.setLocationRelativeTo(null);
         frame.setResizable(false);
         frame.setVisible(true);
-
-
     }
 
     private void sendToServer(ChangeEvent e) {

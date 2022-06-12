@@ -1,6 +1,8 @@
 package it.unibs.pajc.model;
 
-public class Score {
+import java.io.Serializable;
+
+public class Score implements Serializable {
 
     private static final int MAX_SCORE = 3;
 

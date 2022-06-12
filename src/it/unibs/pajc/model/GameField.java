@@ -1,18 +1,18 @@
 package it.unibs.pajc.model;
 
-import it.unibs.pajc.helpers.HelperClass;
 import javax.swing.*;
 import java.awt.geom.Rectangle2D;
+import java.io.Serializable;
 import java.util.ArrayList;
 
 /**
  * Classe che rappresenta il model del campo di gioco, nel quale ci si occupa del controllo delle collisioni fra gli
  * oggetti di gioco.
  */
-public class GameField extends BaseModel {
+public class GameField extends BaseModel implements Serializable {
     //I player è meglio averli privati in quanto reagiscono agli input dell'utente
-    public static final FootballGoal leftFootballGoal = new FootballGoal(true, HelperClass.gameImages.get("leftDoorRect.jpeg"));
-    public static final FootballGoal rightFootballGoal = new FootballGoal(false, HelperClass.gameImages.get("rightDoorRect.jpeg"));
+    public static final FootballGoal leftFootballGoal = new FootballGoal(true);
+    public static final FootballGoal rightFootballGoal = new FootballGoal(false);
     private Player player1;
     private Player player2;
     private Ball ball;
@@ -22,21 +22,11 @@ public class GameField extends BaseModel {
     private ArrayList<GameObject> gameObjects = new ArrayList<>();  //array contenente tutti gli oggetti coinvolti nel gioco
     private Rectangle2D.Float borders; //bordi dell'area di gioco
 
-    private ExchangeDataClass modelData;
-
     //bisogna creare il player con le posizioni iniziali
     public GameField() {
-        this.player1 = new Player(1, HelperClass.gameImages.get("LeftMan.png"));
-        this.player2 = new Player(2, HelperClass.gameImages.get("RightMan.png"));
-        this.ball = new Ball(HelperClass.gameImages.get("Ball01.png"), this);
-
-        //aggiunta delle immagini dei player che camminano
-        player1.getImages().add(HelperClass.flipVerticallyImage(HelperClass.gameImages.get("WalkingLeftMan.png")));
-        player2.getImages().add(HelperClass.flipVerticallyImage(HelperClass.gameImages.get("WalkingRightMan.png")));
-
-        //aggiunta delle immagini dei player che calciano ai rispettivi arraylist di immaigni
-        player1.getImages().add(HelperClass.flipVerticallyImage(HelperClass.gameImages.get("KickLeftMan.png")));
-        player2.getImages().add(HelperClass.flipVerticallyImage(HelperClass.gameImages.get("KickRightMan.png")));
+        this.player1 = new Player(1);
+        this.player2 = new Player(2);
+        this.ball = new Ball(this);
 
         //Classe che rappresenta il punteggio
         this.score = new Score();

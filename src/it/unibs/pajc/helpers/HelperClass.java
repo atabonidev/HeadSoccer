@@ -59,5 +59,9 @@ public class HelperClass {
         }
     }
 
+    public static BufferedImage getImageFromName(String nameImage) {
+        return flipVerticallyImage(gameImages.get(nameImage));
+    }
+
 
 }

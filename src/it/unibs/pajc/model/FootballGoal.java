@@ -8,8 +8,7 @@ import java.awt.image.BufferedImage;
 public class FootballGoal extends GameObject {
     private boolean isLeft;
 
-    public FootballGoal(boolean isLeft ,BufferedImage image) {
-        this.images.add(HelperClass.flipVerticallyImage(image));
+    public FootballGoal(boolean isLeft) {
         this.isLeft = isLeft;
         setFootballGoalPosition(isLeft);
         createSkeleton();
@@ -22,10 +21,6 @@ public class FootballGoal extends GameObject {
         } else {
             this.setPosX(500-80);
         }
-    }
-
-    public BufferedImage getPngImg() {
-        return this.images.get(0);
     }
 
     //Vuoto perchè la porta è un oggetto statico (non reagisce a collisioni)

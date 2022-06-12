@@ -8,6 +8,10 @@ public class ExchangeDataClass implements Serializable {
     private Ball ball;
     private Score score;
 
+    public ExchangeDataClass() {
+
+    }
+
     public ExchangeDataClass(GameField gameField) {
         this.player1 = gameField.getPlayer1();
         this.player2 = gameField.getPlayer2();

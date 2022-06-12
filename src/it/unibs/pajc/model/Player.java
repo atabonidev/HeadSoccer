@@ -23,12 +23,10 @@ public class Player extends DinamicObject implements Serializable {
 
     }
 
-    public Player(int playerID, BufferedImage pngImg) {
+    public Player(int playerID) {
         this.playerID = playerID;
 
         setDefault();
-
-        this.images.add(HelperClass.flipVerticallyImage(pngImg));
 
         createSkeleton();
         calculateCdm();
@@ -49,19 +47,6 @@ public class Player extends DinamicObject implements Serializable {
         this.speed[1] = 0;
     }
 
-    /**
-     * metodo che ritorna l'immagine del giocatore relativa allo status in cui si trova
-     * @return
-     */
-    public BufferedImage getPngImg() {
-        if(kickStatus) {
-            this.timerAnimation.stop();
-            this.currentIMG = 2;
-        }
-
-        return this.images.get(this.currentIMG);
-
-    }
 
     public void startAnimation(){
         timerAnimation.start();
@@ -257,5 +242,15 @@ public class Player extends DinamicObject implements Serializable {
 
     public void setSpeed(int speedIndex, double newSpeed){
         speed[speedIndex] = newSpeed;
+    }
+
+    public int getCurrentImageIndex() {
+        if(kickStatus) {
+            this.timerAnimation.stop();
+            this.currentIMG = 2;
+        }
+
+        return this.currentIMG;
+
     }
 }

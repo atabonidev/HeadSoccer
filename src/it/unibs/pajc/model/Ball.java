@@ -7,8 +7,9 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
+import java.io.Serializable;
 
-public class Ball extends DinamicObject {
+public class Ball extends DinamicObject implements Serializable {
     private static final int DEFAULT_POS_Y = 356;
     private static final int[] KICK_STRENGHT = {20, 30};
     private static final double BOUNCING_FRICTION = 2.6;
@@ -16,10 +17,8 @@ public class Ball extends DinamicObject {
 
     private GameField gameField;
 
-    public Ball(BufferedImage pngImg, GameField gameField){
+    public Ball(GameField gameField){
         setDefault();
-
-        this.images.add(HelperClass.flipVerticallyImage(pngImg));
 
         this.gameField = gameField;
 
@@ -211,7 +210,7 @@ public class Ball extends DinamicObject {
         double distancePlayer1Ball = Math.abs(this.getActualCdmX() - gameField.getPlayer1().getActualCdmX());
         double distancePlayer2Ball = Math.abs(this.getActualCdmX() - gameField.getPlayer2().getActualCdmX());
 
-        System.out.println((distancePlayer1Ball <= collisionDistanceBallPlayer && distancePlayer2Ball <= collisionDistanceBallPlayer));
+        //System.out.println((distancePlayer1Ball <= collisionDistanceBallPlayer && distancePlayer2Ball <= collisionDistanceBallPlayer));
 
         return (distancePlayer1Ball <= collisionDistanceBallPlayer && distancePlayer2Ball <= collisionDistanceBallPlayer);
     }
@@ -228,8 +227,4 @@ public class Ball extends DinamicObject {
         speed[1] = KICK_STRENGHT[1];
     }
 
-    //dovremo toglierlo
-    public BufferedImage getPngImg() {
-        return this.images.get(0);
-    }
 }

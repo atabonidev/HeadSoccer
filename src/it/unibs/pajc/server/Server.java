@@ -66,6 +66,7 @@ public class Server {
      * Quando entrambi i client sono connessi invio i dati a entrambi e do inizio alla partita
      */
     private static void startGame() {
+        gameField.startGame();
         firstClient.sendToClient(modeldata);
         secondClient.sendToClient(modeldata);
         gameField.addChangeListener(Server::modelUpdated);
