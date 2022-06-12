@@ -77,6 +77,7 @@ public class GameView extends JPanel {
         g2.drawImage(modelData.getBall().getPngImg(), (int)modelData.getBall().getPosX(), (int)modelData.getBall().getPosY(), null);
 
         //DISEGNO PERSONAGGI
+
         g2.drawImage(modelData.getPlayer1().getPngImg(), (int)modelData.getPlayer1().getPosX(), (int)modelData.getPlayer1().getPosY(), null);
         g2.drawImage(modelData.getPlayer2().getPngImg(), (int)modelData.getPlayer2().getPosX(), (int)modelData.getPlayer2().getPosY(), null);
 

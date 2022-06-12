@@ -3,7 +3,6 @@ package it.unibs.pajc;
 import it.unibs.pajc.client.Client;
 import it.unibs.pajc.server.Server;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 

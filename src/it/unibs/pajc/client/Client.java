@@ -9,6 +9,7 @@ import it.unibs.pajc.view.GameView;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
+import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -73,14 +74,15 @@ public class Client {
     private void waitingForOtherClient() {
         try {
 
-            while(true) {
+            while(!serverConnection.isClosed()) {
                 if(in.readObject() instanceof ExchangeDataClass) {
                     gameInitialization();
                     break;
                 }
             }
 
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
 
             System.out.println(e.toString());
 
@@ -131,14 +133,13 @@ public class Client {
     private void receiveFromServer() {
         try {
 
-            while(true) {
+            while(!serverConnection.isClosed()) {
+                if(in.readObject() instanceof ExchangeDataClass serverModelData) {
+                    modelData.updateData(serverModelData);
 
-                ExchangeDataClass serverModelData = (ExchangeDataClass) in.readObject();
-
-                modelData.updateData(serverModelData);
-
-                gameView.revalidate();
-                gameView.repaint();
+                    gameView.revalidate();
+                    gameView.repaint();
+                }
             }
 
         } catch (IOException e) {
