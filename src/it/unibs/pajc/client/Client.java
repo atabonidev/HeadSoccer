@@ -1,5 +1,6 @@
 package it.unibs.pajc.client;
 
+import it.unibs.pajc.helpers.HelperClass;
 import it.unibs.pajc.model.ExchangeDataClass;
 import it.unibs.pajc.model.GameField;
 import it.unibs.pajc.model.Player;
@@ -34,13 +35,15 @@ public class Client {
     }
 
     public void startServerConnection() {
+
         try {
             serverConnection = new Socket("127.0.0.1", Server.PORT);
+            HelperClass.importImages();   //si scaricano le immagini necessarie
 
             ObjectOutputStream out = new ObjectOutputStream(serverConnection.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(serverConnection.getInputStream());
 
-            //playerID = in.readInt();      //come prima cosa riceviamo dal server l'ID del player
+            //playerID = (int) in.readUnshared();      //come prima cosa riceviamo dal server l'ID del player
             System.out.println("You are player #" + playerID);
 
             if(playerID == 1){
@@ -86,8 +89,10 @@ public class Client {
 
 
     private void gameInitialization() {
-        frame.getContentPane().removeAll();
+        //frame.getContentPane().removeAll();
+        frame.dispose();
 
+        frame = new JFrame();
         frame.setLayout(new BorderLayout());
         frame.getContentPane().setPreferredSize(new Dimension(1000, 561));
         frame.pack();
@@ -96,14 +101,14 @@ public class Client {
 
         if(modelData != null){
             gameView.setModelData(modelData);
-        }
 
-        //una volta che viene modificato il modeldata (mandato nuovo dal server) viene aggiornato quello della game view
-        modelData.addChangeListener(e -> {
-            gameView.setModelData(modelData);
-            gameView.revalidate();
-            gameView.repaint();
-        });
+            //una volta che viene modificato il modeldata (mandato nuovo dal server) viene aggiornato quello della game view
+            modelData.addChangeListener(e -> {
+                gameView.setModelData(modelData);
+                gameView.revalidate();
+                gameView.repaint();
+            });
+        }
 
         PlayerKeyboardListener kb = new PlayerKeyboardListener(controlledPlayer);
         kb.addChangeListener(writerTS::sentToServer);
@@ -155,7 +160,7 @@ public class Client {
          */
         public void waitForStartMsg(){
             try {
-                String startMsg = dataIn.readUTF();
+                String startMsg = (String) dataIn.readUnshared();
                 System.out.println("Message from server: " + startMsg);
 
                 //partenza thread di lettura e scrittura
@@ -163,7 +168,7 @@ public class Client {
                 readThread.start();
 
                 gameInitialization();   //partenza gioco
-            }catch (IOException e){
+            }catch (IOException | ClassNotFoundException e){
                 System.out.println("IOException from waitForStartMsg() || pl" + playerID);
             }
         }

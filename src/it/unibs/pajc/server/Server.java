@@ -38,7 +38,6 @@ public class Server {
 
         try {
             serverSocket =  new ServerSocket(PORT);
-            HelperClass.importImages();   //si scaricano le immagini necessarie
 
             gameField = new GameField();
             modeldata = new ExchangeDataClass(gameField);
@@ -61,7 +60,8 @@ public class Server {
                 ObjectInputStream in = new ObjectInputStream(client.getInputStream());
 
                 numPlayers++;
-                //out.writeInt(numPlayers); //di manda al player il suo ID  ---> usato per dare il titolo alla schermata
+                //out.writeUnshared((String) ("" + numPlayers)); //di manda al player il suo ID  ---> usato per dare il titolo alla schermata
+                //out.flush();
                 System.out.println("Player #" + numPlayers + "has connected.");
 
                 //creazione delle classi di lettura e scrittura
@@ -139,7 +139,7 @@ public class Server {
                 //impostazione del player che questa istanza del server prende in carico
 
                 while (true){
-                    Player clientControlledPlayer = (Player) dataIn.readObject();
+                    Player clientControlledPlayer = (Player) dataIn.readUnshared();
                     Player modelCopyControlledPlayer = null;
 
                     if(this.playerID == 1) {
@@ -186,7 +186,8 @@ public class Server {
                 Non per forza deve essere una stringa, può essere qualunque cosa. In ogni caso, il client si ferma finché
                 non riceve questo messaggio.
                  */
-                dataOut.writeUTF("We now have 2 players. Go!");
+                dataOut.writeUnshared("We now have 2 players. Go!");
+                dataOut.flush();
 
             }catch (IOException e){
                 System.out.println("IOException from RFC run() || pl" + playerID);
