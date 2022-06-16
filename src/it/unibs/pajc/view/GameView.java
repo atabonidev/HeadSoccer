@@ -35,7 +35,7 @@ public class GameView extends JPanel {
 
         focusOn();
 
-        this.setModelData(modelData);
+        //this.setModelData(modelData);
     }
 
     private void importGameFieldImg() {
@@ -75,27 +75,29 @@ public class GameView extends JPanel {
         g2.drawImage(HelperClass.getImageFromName("leftDoorRect.jpeg"), (int)leftFootballGoal.getPosX(), (int)leftFootballGoal.getPosY(), null);
         g2.drawImage(HelperClass.getImageFromName("rightDoorRect.jpeg"), (int)rightFootballGoal.getPosX(), (int)rightFootballGoal.getPosY(), null);
 
-        //DISEGNO PALLA
-        g2.drawImage(HelperClass.getImageFromName("Ball01.png"), (int)modelData.getBall().getPosX(), (int)modelData.getBall().getPosY(), null);
+        if(this.modelData != null) {
+            //DISEGNO PALLA
+            g2.drawImage(HelperClass.getImageFromName("Ball01.png"), (int) modelData.getBall().getPosX(), (int) modelData.getBall().getPosY(), null);
 
-        //DISEGNO PERSONAGGI
-        BufferedImage leftPlayerImage = null;
-        switch (modelData.getPlayer1().getCurrentImageIndex()) {
-            case 0 -> leftPlayerImage = HelperClass.getImageFromName("LeftMan.png");
-            case 1 -> leftPlayerImage = HelperClass.getImageFromName("WalkingLeftMan.png");
-            case 2 -> leftPlayerImage = HelperClass.getImageFromName("KickLeftMan.png");
-        };
+            //DISEGNO PERSONAGGI
+            BufferedImage leftPlayerImage = null;
+            switch (modelData.getPlayer1().getCurrentImageIndex()) {
+                case 0 -> leftPlayerImage = HelperClass.getImageFromName("LeftMan.png");
+                case 1 -> leftPlayerImage = HelperClass.getImageFromName("WalkingLeftMan.png");
+                case 2 -> leftPlayerImage = HelperClass.getImageFromName("KickLeftMan.png");
+            }
 
-        g2.drawImage(leftPlayerImage, (int)modelData.getPlayer1().getPosX(), (int)modelData.getPlayer1().getPosY(), null);
+            g2.drawImage(leftPlayerImage, (int) modelData.getPlayer1().getPosX(), (int) modelData.getPlayer1().getPosY(), null);
 
-        BufferedImage rightPlayerImage = null;
-        switch (modelData.getPlayer2().getCurrentImageIndex()) {
-            case 0 -> rightPlayerImage = HelperClass.getImageFromName("RightMan.png");
-            case 1 -> rightPlayerImage = HelperClass.getImageFromName("WalkingRightMan.png");
-            case 2 -> rightPlayerImage = HelperClass.getImageFromName("KickRightMan.png");
-        };
+            BufferedImage rightPlayerImage = null;
+            switch (modelData.getPlayer2().getCurrentImageIndex()) {
+                case 0 -> rightPlayerImage = HelperClass.getImageFromName("RightMan.png");
+                case 1 -> rightPlayerImage = HelperClass.getImageFromName("WalkingRightMan.png");
+                case 2 -> rightPlayerImage = HelperClass.getImageFromName("KickRightMan.png");
+            }
 
-        g2.drawImage(rightPlayerImage, (int)modelData.getPlayer2().getPosX(), (int)modelData.getPlayer2().getPosY(), null);
+            g2.drawImage(rightPlayerImage, (int) modelData.getPlayer2().getPosX(), (int) modelData.getPlayer2().getPosY(), null);
+        }
 
     }
 

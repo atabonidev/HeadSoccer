@@ -64,7 +64,6 @@ public class ServerInstanceForClient implements Runnable {
                     else if(this.controlledPlayerId == 2) {
                         modelCopyControlledPlayer = this.gameField.getPlayer2();
                     }
-
                     modelCopyControlledPlayer.setSpeed(0, clientControlledPlayer.getSpeed(0));
                     modelCopyControlledPlayer.setSpeed(1, clientControlledPlayer.getSpeed(1));
                 }
@@ -74,6 +73,5 @@ public class ServerInstanceForClient implements Runnable {
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
-
     }
 }

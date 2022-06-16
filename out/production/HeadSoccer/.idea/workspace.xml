@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7acec6b0-c177-4a70-90e3-6041572d59d5" name="Changes" comment="">
+    <list default="true" id="dc5ed66e-4091-46ed-9cd6-2e8af97c15a5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/client/Client.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/ExchangeDataClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/ExchangeDataClass.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/server/Server.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/server/ServerInstanceForClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/server/ServerInstanceForClient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/view/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/view/ScoreView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/view/ScoreView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Enum" />
-        <option value="Class" />
-      </list>
-    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -28,41 +25,17 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
-  <component name="ProjectId" id="291We0c1wstWARSgYbTP3DbtHha" />
+  <component name="ProjectId" id="2AWzKzWTWHRXm1EEwNqHohSpaI6" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="ignore.preview.features.used" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
-    <property name="project.structure.proportion" value="0.13908207" />
-    <property name="project.structure.side.proportion" value="0.2" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\user\IdeaProjects\HeadSoccer\src\it\unibs\pajc\model" />
-    </key>
   </component>
   <component name="RunManager" selected="Application.Server">
-    <configuration name="Game" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="it.unibs.pajc.controller.Game" />
-      <module name="HeadSoccer" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="it.unibs.pajc.controller.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="MainApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="MainApp" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.unibs.pajc.MainApp" />
       <module name="HeadSoccer" />
       <extension name="coverage">
@@ -75,7 +48,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Server" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration name="Server" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="it.unibs.pajc.server.Server" />
       <module name="HeadSoccer" />
       <extension name="coverage">
@@ -88,27 +61,32 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="Server+clients" type="CompoundRunConfigurationType">
+      <toRun name="MainApp" type="Application" />
+      <toRun name="MainApp" type="Application" />
+      <toRun name="Server" type="Application" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="CompoundRunConfigurationType">
+      <toRun name="MainApp" type="Application" />
+      <toRun name="MainApp" type="Application" />
+      <toRun name="Server" type="Application" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Application.Game" />
       <item itemvalue="Application.MainApp" />
       <item itemvalue="Application.Server" />
+      <item itemvalue="Compound.Server+clients" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.Server" />
-        <item itemvalue="Application.MainApp" />
-        <item itemvalue="Application.Game" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="7acec6b0-c177-4a70-90e3-6041572d59d5" name="Changes" comment="" />
-      <created>1652281167014</created>
+      <changelist id="dc5ed66e-4091-46ed-9cd6-2e8af97c15a5" name="Default Changelist" comment="" />
+      <created>1655140073622</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1652281167014</updated>
+      <updated>1655140073622</updated>
     </task>
     <servers />
   </component>
@@ -123,8 +101,5 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>

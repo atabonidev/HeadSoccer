@@ -20,16 +20,22 @@ public class ScoreView {
     }
 
     private void initScoreBoard() {
-        this.scorePl1 = new ScoreBoard(this.width / 2 - 100, 5, 100, 50, ""+this.score.getScorePl1() , Color.cyan);
-        this.scorePl2 = new ScoreBoard(this.width / 2 + 20, 5, 100, 50, ""+this.score.getScorePl2() , Color.red);
+        this.scorePl1 = new ScoreBoard(this.width / 2 - 100, 5, 100, 50, " X " , Color.cyan);
+        this.scorePl2 = new ScoreBoard(this.width / 2 + 20, 5, 100, 50, " X " , Color.red);
     }
 
     public void draw(Graphics2D g) {
         g.fillRect(x, y, width, height);
 
-        scorePl1.setText(""+score.getScorePl1());
+        if(score != null) {
+            scorePl1.setText("" + score.getScorePl1());
 
-        scorePl2.setText(""+score.getScorePl2());
+            scorePl2.setText("" + score.getScorePl2());
+        }else{
+            scorePl1.setText(" X ");
+
+            scorePl2.setText(" X ");
+        }
 
         scorePl1.draw(g);
 
