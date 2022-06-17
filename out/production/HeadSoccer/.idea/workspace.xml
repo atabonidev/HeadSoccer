@@ -2,19 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="dc5ed66e-4091-46ed-9cd6-2e8af97c15a5" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/ExchangeDataClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/ExchangeDataClass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/ServerInstanceForClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/ServerInstanceForClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/GameView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/GameView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/ScoreView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/ScoreView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/ExchangeDataClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/ExchangeDataClass.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/server/ServerInstanceForClient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/server/ServerInstanceForClient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/view/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/view/ScoreView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/view/ScoreView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +29,7 @@
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RunManager" selected="Application.Server">
     <configuration name="MainApp" type="Application" factoryName="Application" singleton="false" nameIsGenerated="true">
@@ -114,8 +104,8 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/src/it/unibs/pajc/client/Client.java</url>
-          <line>37</line>
-          <option name="timeStamp" value="4" />
+          <line>38</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

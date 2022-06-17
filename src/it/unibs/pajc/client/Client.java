@@ -10,7 +10,6 @@ import it.unibs.pajc.view.GameView;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import java.awt.*;
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -25,7 +24,7 @@ public class Client {
 
     private Player controlledPlayer = new Player();
     private int playerID;
-    private ExchangeDataClass modelData = null;
+    private ExchangeDataClass modelData = new ExchangeDataClass();
 
     private ReadFromServer readerFS;
     private WriteToServer writerTS;
@@ -43,7 +42,7 @@ public class Client {
             ObjectOutputStream out = new ObjectOutputStream(serverConnection.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(serverConnection.getInputStream());
 
-            //playerID = (int) in.readUnshared();      //come prima cosa riceviamo dal server l'ID del player
+            playerID = Integer.parseInt((String) in.readUnshared());      //come prima cosa riceviamo dal server l'ID del player
             System.out.println("You are player #" + playerID);
 
             if(playerID == 1){
@@ -64,10 +63,13 @@ public class Client {
 
             System.err.println("Error in creating socket: " + e.toString());
 
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
 
     private void clientConnection() {
+        //frame.setVisible(false);
         frame.getContentPane().removeAll();
 
         JPanel loadingPanel = new JPanel();
@@ -75,43 +77,43 @@ public class Client {
         JLabel label = new JLabel("Waiting for the opponent connection...");
         label.setFont(new Font("Arial Black", Font.PLAIN, 40));
 
+        frame.setTitle("Player #" + playerID);
         loadingPanel.setLayout(new GridBagLayout());
         loadingPanel.add(label);
         loadingPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        frame.setContentPane(loadingPanel);
+        frame.getContentPane().add(loadingPanel);
         frame.getContentPane().setPreferredSize(new Dimension(1000, 561));
         frame.pack();
+        frame.setVisible(true);
 
-        readerFS.waitForStartMsg();
+        frame.revalidate();
+        frame.repaint();
 
+        new Thread(() -> readerFS.waitForStartMsg()).start();
     }
 
 
     private void gameInitialization() {
-        //frame.getContentPane().removeAll();
-        frame.dispose();
-
-        frame = new JFrame();
+        frame.getContentPane().removeAll();
         frame.setLayout(new BorderLayout());
+        frame.setTitle("Player #" + playerID);
         frame.getContentPane().setPreferredSize(new Dimension(1000, 561));
         frame.pack();
 
         gameView = new GameView(GameField.leftFootballGoal, GameField.rightFootballGoal);
 
-        if(modelData != null){
-            gameView.setModelData(modelData);
+        gameView.setModelData(modelData, true);
 
             //una volta che viene modificato il modeldata (mandato nuovo dal server) viene aggiornato quello della game view
-            modelData.addChangeListener(e -> {
-                gameView.setModelData(modelData);
-                gameView.revalidate();
-                gameView.repaint();
-            });
-        }
+        /*modelData.addChangeListener(e -> {
+            gameView.setModelData(modelData, false);
+            gameView.revalidate();
+            gameView.repaint();
+        });*/
 
         PlayerKeyboardListener kb = new PlayerKeyboardListener(controlledPlayer);
-        kb.addChangeListener(writerTS::sentToServer);
+        kb.addChangeListener(writerTS::sendToServer);
         gameView.addKeyListener(kb);
 
         frame.setContentPane(gameView);
@@ -147,7 +149,12 @@ public class Client {
                  */
                 while (true){
                     ExchangeDataClass modelUpdated = (ExchangeDataClass) dataIn.readUnshared();
-                    modelData.updateData(modelUpdated);
+                    //modelData = modelUpdated;
+                    if(gameView != null) {
+                        gameView.setModelData(modelUpdated, false);
+                        gameView.revalidate();
+                        gameView.repaint();
+                    }
                 }
             }catch (ClassNotFoundException | IOException e){
                 System.out.println("IOException from RFC run() || pl" + playerID);
@@ -187,7 +194,7 @@ public class Client {
             System.out.println("WFS" + playerID + "\tRunnable created");
         }
 
-        public void sentToServer(ChangeEvent changeEvent){
+        public void sendToServer(ChangeEvent changeEvent){
             try {
                 dataOut.writeUnshared(controlledPlayer);
                 dataOut.flush();

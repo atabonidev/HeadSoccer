@@ -60,8 +60,8 @@ public class Server {
                 ObjectInputStream in = new ObjectInputStream(client.getInputStream());
 
                 numPlayers++;
-                //out.writeUnshared((String) ("" + numPlayers)); //di manda al player il suo ID  ---> usato per dare il titolo alla schermata
-                //out.flush();
+                out.writeUnshared((String) ("" + numPlayers)); //di manda al player il suo ID  ---> usato per dare il titolo alla schermata
+                out.flush();
                 System.out.println("Player #" + numPlayers + "has connected.");
 
                 //creazione delle classi di lettura e scrittura
@@ -86,7 +86,10 @@ public class Server {
                     readThreadPl1.start();
                     readThreadPl2.start();
 
-                    gameField.addChangeListener(this::modelUpdated);
+                    Thread writeThreadPl1 = new Thread(pl1Writer);
+                    Thread writeThreadPl2 = new Thread(pl2Writer);
+                    writeThreadPl1.start();
+                    writeThreadPl2.start();
                 }
             }
             System.out.println("No longer accepting connections");
@@ -109,10 +112,10 @@ public class Server {
      * Quando il model del server viene aggiornato allora tutti i client si aggiornano
      * @param e
      */
-    private  void modelUpdated(ChangeEvent e) {
+    /*private  void modelUpdated(ChangeEvent e) {
         pl1Writer.sendDataToClient(modeldata);
         pl2Writer.sendDataToClient(modeldata);
-    }
+    }*/
 
     //==================================================================================================================
     //GESTIONE INTERAZIONE CON SERVER (fra client e server)
@@ -163,7 +166,7 @@ public class Server {
      * Non è Runnable in quanto l'invio dei dati viene chiamato dal ChangeListener associato al gamefield, non c'è un invio
      * continuo dei dati ma solo "quando serve".
      */
-    private class WriteToClient{
+    private class WriteToClient implements Runnable{
 
         private int playerID;   //verrano create due istante di ReadFromClient, una per ogni player
         private ObjectOutputStream dataOut;
@@ -194,15 +197,24 @@ public class Server {
             }
         }
 
-        /**
-         * metodo che si occupa di mandare, appena c'è un cambiamento nel gamefield, i dati necessari a entrambi i client
-         */
-        public void sendDataToClient(ExchangeDataClass modelData){
+        @Override
+        public void run() {
+
             try {
-                dataOut.writeUnshared(modeldata);
-                dataOut.flush();
-            }catch (IOException  e){
-                System.out.println("IOException  from WTC run()");
+                while (true) {
+                    dataOut.writeUnshared(gameField.exportData());
+                    //dataOut.flush();
+                    dataOut.reset();
+
+                    //si stoppa momentaneamente il Thread
+                    try {
+                        Thread.sleep(25);
+                    } catch (InterruptedException e) {
+                        System.out.println("InterruptedException from WTC run()");
+                    }
+                }
+            } catch (IOException e) {
+                System.out.println("IOException from WRC run()");
             }
         }
     }

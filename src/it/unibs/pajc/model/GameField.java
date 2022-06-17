@@ -60,6 +60,10 @@ public class GameField extends BaseModel implements Serializable {
         checkCollisions();
     }
 
+    public ExchangeDataClass exportData(){
+        return new ExchangeDataClass(this);
+    }
+
     /**
      * reset degli oggetti dinamici di gioco
      */

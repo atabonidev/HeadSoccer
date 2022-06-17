@@ -26,6 +26,8 @@ public class GameView extends JPanel {
 
     private ScoreView scoreView;
 
+    private boolean firstIteration;    //permette di capire se il model è stato aggiornato con dati non nulli
+
     public GameView(FootballGoal leftFootballGoal, FootballGoal rightFootballGoal) {
         importGameFieldImg();
 
@@ -75,7 +77,8 @@ public class GameView extends JPanel {
         g2.drawImage(HelperClass.getImageFromName("leftDoorRect.jpeg"), (int)leftFootballGoal.getPosX(), (int)leftFootballGoal.getPosY(), null);
         g2.drawImage(HelperClass.getImageFromName("rightDoorRect.jpeg"), (int)rightFootballGoal.getPosX(), (int)rightFootballGoal.getPosY(), null);
 
-        if(this.modelData != null) {
+        if(!firstIteration) {
+            System.out.println("" + modelData.getBall().getPosY());
             //DISEGNO PALLA
             g2.drawImage(HelperClass.getImageFromName("Ball01.png"), (int) modelData.getBall().getPosX(), (int) modelData.getBall().getPosY(), null);
 
@@ -104,7 +107,8 @@ public class GameView extends JPanel {
     /* ===================
     GETTERS AND SETTERS
     ====================*/
-    public void setModelData(ExchangeDataClass modelData) {
+    public void setModelData(ExchangeDataClass modelData, boolean isFirstIteration) {
+        this.firstIteration = isFirstIteration;
         this.modelData = modelData;
         this.scoreView.setScore(modelData.getScore());
     }
