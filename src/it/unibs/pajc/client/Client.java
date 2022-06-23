@@ -105,15 +105,14 @@ public class Client {
 
         gameView.setModelData(modelData, true);
 
-            //una volta che viene modificato il modeldata (mandato nuovo dal server) viene aggiornato quello della game view
+        //una volta che viene modificato il modeldata (mandato nuovo dal server) viene aggiornato quello della game view
         /*modelData.addChangeListener(e -> {
             gameView.setModelData(modelData, false);
             gameView.revalidate();
             gameView.repaint();
         });*/
 
-        PlayerKeyboardListener kb = new PlayerKeyboardListener(controlledPlayer);
-        kb.addChangeListener(writerTS::sendToServer);
+        PlayerKeyboardListener kb = new PlayerKeyboardListener(writerTS);
         gameView.addKeyListener(kb);
 
         frame.setContentPane(gameView);
@@ -131,7 +130,7 @@ public class Client {
     /**
      * classe che si occupa della lettura dal server
      */
-    private class ReadFromServer implements Runnable{
+    class ReadFromServer implements Runnable{
         //non serve l'attributo playerID in quanto possiamo accedervi direttamente essendo questa una classe interna
         private ObjectInputStream dataIn;
 
@@ -184,7 +183,7 @@ public class Client {
     /**
      * classe che si occupa di mandare i dati al server
      */
-    private class WriteToServer{
+    class WriteToServer{
         //non serve l'attributo playerID in quanto possiamo accedervi direttamente essendo questa una classe interna
         private ObjectOutputStream dataOut;
 
@@ -194,9 +193,10 @@ public class Client {
             System.out.println("WFS" + playerID + "\tRunnable created");
         }
 
-        public void sendToServer(ChangeEvent changeEvent){
+        public void sendToServer(String commands){
             try {
-                dataOut.writeUnshared(controlledPlayer);
+                System.out.println(commands);
+                dataOut.writeUnshared(commands);
                 dataOut.flush();
             } catch (IOException e) {
                 e.printStackTrace();

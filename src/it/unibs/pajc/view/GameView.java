@@ -92,6 +92,10 @@ public class GameView extends JPanel {
 
             g2.drawImage(leftPlayerImage, (int) modelData.getPlayer1().getPosX(), (int) modelData.getPlayer1().getPosY(), null);
 
+            g2.setColor(Color.black);
+
+            g2.draw(modelData.getPlayer1().getShape());
+
             BufferedImage rightPlayerImage = null;
             switch (modelData.getPlayer2().getCurrentImageIndex()) {
                 case 0 -> rightPlayerImage = HelperClass.getImageFromName("RightMan.png");
@@ -100,6 +104,8 @@ public class GameView extends JPanel {
             }
 
             g2.drawImage(rightPlayerImage, (int) modelData.getPlayer2().getPosX(), (int) modelData.getPlayer2().getPosY(), null);
+
+            g2.draw(modelData.getPlayer2().getShape());
         }
 
     }

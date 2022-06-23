@@ -1,10 +1,6 @@
 package it.unibs.pajc.model;
-import it.unibs.pajc.helpers.HelperClass;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.geom.AffineTransform;
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 import javax.swing.Timer;
 
@@ -31,7 +27,7 @@ public class Player extends DinamicObject implements Serializable {
         createSkeleton();
         calculateCdm();
 
-        timerAnimation = new Timer(100, e -> {
+        this.timerAnimation = new Timer(100, e -> {
             setCurrentIMGIndex();
         });
     }
@@ -222,6 +218,14 @@ public class Player extends DinamicObject implements Serializable {
         return AffineTransform.getRotateInstance(radius, this.getSingleShape(2).getBounds().x + this.getSingleShape(2).getBounds().width /2.0,
                 this.getSingleShape(2).getBounds().height);
     }
+
+    /*
+    public void initializeTimerAnimation() {
+        this.timerAnimation = new Timer(100, e -> {
+            setCurrentIMGIndex();
+        });
+    }
+    */
 
     //GETTERS e SETTERS
     public boolean getKickStatus(){return kickStatus;}

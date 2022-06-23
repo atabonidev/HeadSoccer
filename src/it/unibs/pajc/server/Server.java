@@ -1,11 +1,6 @@
 package it.unibs.pajc.server;
 
-import it.unibs.pajc.helpers.HelperClass;
-import it.unibs.pajc.model.ExchangeDataClass;
 import it.unibs.pajc.model.GameField;
-import it.unibs.pajc.model.Player;
-
-import javax.swing.event.ChangeEvent;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -14,14 +9,13 @@ public class Server {
 
     public static final int PORT = 1234;
     ServerSocket serverSocket;
-    private Socket socketPl1;
-    private Socket socketPl2;
 
     private GameField gameField;
-    private ExchangeDataClass modeldata = null;
+    private CommandApplier commandApplierPl1;
+    private CommandApplier commandApplierPl2;
 
-    private int numPlayers;
-    private int maxPlayers = 2;   //massimo di giocatori permessi
+    private int numPlayers = 0;
+    private static final int maxPlayers = 2;   //massimo di giocatori permessi
 
     //istanze di lettura e scrittura relative ai singoli client gestiti
     private ReadFromClient pl1Reader;
@@ -33,14 +27,12 @@ public class Server {
     public Server(){
         System.out.println("=======GAME SERVER ========");
 
-        numPlayers = 0;
-        maxPlayers = 2;
-
         try {
             serverSocket =  new ServerSocket(PORT);
 
             gameField = new GameField();
-            modeldata = new ExchangeDataClass(gameField);
+            commandApplierPl1 = new CommandApplier(gameField.getPlayer1());
+            commandApplierPl2 = new CommandApplier(gameField.getPlayer2());
 
         }catch (IOException e){
             System.out.println(e.getMessage());
@@ -60,7 +52,7 @@ public class Server {
                 ObjectInputStream in = new ObjectInputStream(client.getInputStream());
 
                 numPlayers++;
-                out.writeUnshared((String) ("" + numPlayers)); //di manda al player il suo ID  ---> usato per dare il titolo alla schermata
+                out.writeUnshared("" + numPlayers); //di manda al player il suo ID  ---> usato per dare il titolo alla schermata
                 out.flush();
                 System.out.println("Player #" + numPlayers + "has connected.");
 
@@ -70,11 +62,9 @@ public class Server {
 
                 //assegnazione opportuna delle due istanze
                 if (numPlayers == 1) {
-                    socketPl1 = client;
                     pl1Reader = rfc;
                     pl1Writer = wtc;
                 } else {
-                    socketPl2 = client;
                     pl2Reader = rfc;
                     pl2Writer = wtc;
 
@@ -108,15 +98,6 @@ public class Server {
         pl2Writer.sendStartMsg();
     }
 
-    /**
-     * Quando il model del server viene aggiornato allora tutti i client si aggiornano
-     * @param e
-     */
-    /*private  void modelUpdated(ChangeEvent e) {
-        pl1Writer.sendDataToClient(modeldata);
-        pl2Writer.sendDataToClient(modeldata);
-    }*/
-
     //==================================================================================================================
     //GESTIONE INTERAZIONE CON SERVER (fra client e server)
     //==================================================================================================================
@@ -142,17 +123,17 @@ public class Server {
                 //impostazione del player che questa istanza del server prende in carico
 
                 while (true){
-                    Player clientControlledPlayer = (Player) dataIn.readUnshared();
-                    Player modelCopyControlledPlayer = null;
+                    String message = (String) dataIn.readUnshared();
 
-                    if(this.playerID == 1) {
-                        modelCopyControlledPlayer = gameField.getPlayer1();
-                    }
-                    else if(this.playerID == 2) {
-                        modelCopyControlledPlayer = gameField.getPlayer2();
-                    }
-                    modelCopyControlledPlayer.setSpeed(0, clientControlledPlayer.getSpeed(0));
-                    modelCopyControlledPlayer.setSpeed(1, clientControlledPlayer.getSpeed(1));
+                    System.out.println(message);
+
+                    String[] commands = message.split(", ");
+
+                    if(this.playerID == 1)
+                        commandApplierPl1.applyCommands(commands);
+                    else if(this.playerID == 2)
+                        commandApplierPl2.applyCommands(commands);
+
                 }
 
             }catch (IOException | ClassNotFoundException e){
@@ -203,7 +184,6 @@ public class Server {
             try {
                 while (true) {
                     dataOut.writeUnshared(gameField.exportData());
-                    //dataOut.flush();
                     dataOut.reset();
 
                     //si stoppa momentaneamente il Thread

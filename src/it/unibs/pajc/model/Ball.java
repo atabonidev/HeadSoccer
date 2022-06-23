@@ -102,11 +102,15 @@ public class Ball extends DinamicObject implements Serializable {
         //PALLA E GIOCATORE
         if(o instanceof Player player) {
             Area IntersectionLegBal = new Area(this.getShape());
-            IntersectionLegBal.intersect(new Area(player.getSingleShapeTransformed(2)));    //intersezione gamba palla
+
+            if(player.getPlayerID() == 1)
+                IntersectionLegBal.intersect(new Area(player.getSingleShapeTransformed(2)));    //intersezione gamba palla
+            else
+                IntersectionLegBal.intersect(new Area(player.getSingleShapeTransformed(1)));    //intersezione gamba palla
 
             //Player che calcia
             if(player.getKickStatus() && !(IntersectionLegBal.isEmpty())){
-                kicked();
+                kicked(player.getPlayerID());
             }
             else {
                 //controlli in X
@@ -222,9 +226,14 @@ public class Ball extends DinamicObject implements Serializable {
         super.objectShape.add(ballShape);
     }
 
-    public void kicked(){
-        speed[0] = KICK_STRENGHT[0];
-        speed[1] = KICK_STRENGHT[1];
+    public void kicked(int playerID){
+        if(playerID == 1) {
+            speed[0] = KICK_STRENGHT[0];
+            speed[1] = KICK_STRENGHT[1];
+        } else {
+            speed[0] = -KICK_STRENGHT[0];
+            speed[1] = KICK_STRENGHT[1];
+        }
     }
 
 }
