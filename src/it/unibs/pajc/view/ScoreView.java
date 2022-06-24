@@ -15,7 +15,6 @@ public class ScoreView {
         this.y = y;
         this.width = width;
         this.height = height;
-        score = new Score();
         initScoreBoard();
     }
 

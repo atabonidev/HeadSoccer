@@ -125,7 +125,8 @@ public class Server {
                 while (true){
                     String message = (String) dataIn.readUnshared();
 
-                    System.out.println(message);
+                    if(message.equals("CLOSE"))
+                        break;
 
                     String[] commands = message.split(", ");
 
@@ -136,8 +137,30 @@ public class Server {
 
                 }
 
+                this.close();
+
+
             }catch (IOException | ClassNotFoundException e){
                 System.out.println("IOException from RFC run()");
+            }
+        }
+
+        public void close(){
+            try {
+                System.out.println("\n\n----------------------------");
+
+                this.dataIn.close();
+
+                if(playerID == 1)
+                    pl1Writer.close();
+                else
+                    pl2Writer.close();
+
+                System.out.println("RFC" + playerID + "\tRunnable closed");
+                System.out.println("WTC" + playerID + "\tRunnable closed");
+                System.out.println("----------------------------");
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }
@@ -195,6 +218,14 @@ public class Server {
                 }
             } catch (IOException e) {
                 System.out.println("IOException from WRC run()");
+            }
+        }
+
+        public void close(){
+            try {
+                this.dataOut.close();
+            } catch (IOException e) {
+                e.printStackTrace();
             }
         }
     }

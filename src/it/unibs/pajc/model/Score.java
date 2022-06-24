@@ -6,50 +6,29 @@ public class Score implements Serializable {
 
     private static final int MAX_SCORE = 3;
 
-    private int scorePl1;
-    private int scorePl2;
-    private int winner;
+    private Player player1;
+    private Player player2;
     private boolean isFinished;
 
-    public Score() {
-        this.scorePl1 = 0;
-        this.scorePl2 = 0;
+    public Score(Player player1, Player player2) {
+        this.player1 = player1;
+        this.player2 = player2;
     }
 
     public void incrementScore(int playerId) {
-        if(playerId == 1) {
-            this.setScorePl1(this.scorePl1 + 1);
-        }
-        else if(playerId == 2) {
-            this.setScorePl2(this.scorePl2 + 1);
-        }
+        if(playerId == 1)
+            this.player1.incrementPlayerScore();
+        else
+            this.player2.incrementPlayerScore();
     }
 
 
     //GETTERS AND SETTERS
     public int getScorePl1() {
-        return scorePl1;
+        return player1.getPlayerScore();
     }
 
     public int getScorePl2() {
-        return scorePl2;
-    }
-
-    public void setScorePl1(int newScorePl1) {
-        if(newScorePl1 < MAX_SCORE) {
-            this.scorePl1 = newScorePl1;
-        } else {
-            this.isFinished = true;
-            this.winner = 1;
-        }
-    }
-
-    public void setScorePl2(int newScorePl2) {
-        if(newScorePl2 < MAX_SCORE) {
-            this.scorePl2 = newScorePl2;
-        } else {
-            this.isFinished = true;
-            this.winner = 2;
-        }
+        return player2.getPlayerScore();
     }
 }

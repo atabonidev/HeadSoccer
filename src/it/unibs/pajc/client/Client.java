@@ -6,9 +6,7 @@ import it.unibs.pajc.model.GameField;
 import it.unibs.pajc.model.Player;
 import it.unibs.pajc.server.Server;
 import it.unibs.pajc.view.GameView;
-
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
 import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -22,7 +20,6 @@ public class Client {
     private JFrame frame;
     private GameView gameView;
 
-    private Player controlledPlayer = new Player();
     private int playerID;
     private ExchangeDataClass modelData = new ExchangeDataClass();
 
@@ -69,7 +66,6 @@ public class Client {
     }
 
     private void clientConnection() {
-        //frame.setVisible(false);
         frame.getContentPane().removeAll();
 
         JPanel loadingPanel = new JPanel();
@@ -105,21 +101,66 @@ public class Client {
 
         gameView.setModelData(modelData, true);
 
-        //una volta che viene modificato il modeldata (mandato nuovo dal server) viene aggiornato quello della game view
-        /*modelData.addChangeListener(e -> {
-            gameView.setModelData(modelData, false);
-            gameView.revalidate();
-            gameView.repaint();
-        });*/
-
         PlayerKeyboardListener kb = new PlayerKeyboardListener(writerTS);
         gameView.addKeyListener(kb);
 
         frame.setContentPane(gameView);
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
+    }
+
+    private void printResultPanel() {
+        frame.getContentPane().removeAll();
+
+        JPanel resultPanel = new JPanel();
+
+        JLabel label = new JLabel("");
+        label.setFont(new Font("Arial Black", Font.PLAIN, 60));
+
+        boolean imWinner;
+
+        if(this.playerID == 1)
+            imWinner = modelData.getPlayer1().isWinner();
+        else
+            imWinner = modelData.getPlayer2().isWinner();
+
+
+        if(imWinner) {
+            resultPanel.setOpaque(true);
+            resultPanel.setBackground(Color.green);
+            label.setText("YOU WIN!");
+        }
+        else {
+            resultPanel.setOpaque(true);
+            resultPanel.setBackground(Color.red);
+            label.setText("YOU LOSE!");
+        }
+
+        resultPanel.setLayout(new GridBagLayout());
+        resultPanel.add(label);
+        resultPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+
+        frame.setContentPane(resultPanel);
+        frame.getContentPane().setPreferredSize(new Dimension(1000, 561));
+        frame.pack();
         frame.setVisible(true);
+
+        frame.revalidate();
+        frame.repaint();
+
+        writerTS.sendCloseMessage();
+
+        closeConnection();
+    }
+
+
+    //Chiude le connessioni col server
+    private void closeConnection() {
+        try {
+            readerFS.close();
+            writerTS.close();
+            serverConnection.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -147,17 +188,24 @@ public class Client {
                 Leggiamo le coordinate che ci vengono inviate dal server e sono quelle relative enemy che vengono settate.
                  */
                 while (true){
-                    ExchangeDataClass modelUpdated = (ExchangeDataClass) dataIn.readUnshared();
-                    //modelData = modelUpdated;
+                    modelData = (ExchangeDataClass) dataIn.readUnshared();
                     if(gameView != null) {
-                        gameView.setModelData(modelUpdated, false);
+                        gameView.setModelData(modelData, false);
                         gameView.revalidate();
                         gameView.repaint();
+                        if(checkWinner(modelData))
+                            break;
                     }
                 }
+
+                printResultPanel();
             }catch (ClassNotFoundException | IOException e){
                 System.out.println("IOException from RFC run() || pl" + playerID);
             }
+        }
+
+        private boolean checkWinner(ExchangeDataClass modelUpdated) {
+            return (modelUpdated.getPlayer1().isWinner() || modelUpdated.getPlayer2().isWinner());
         }
 
         /**
@@ -178,6 +226,10 @@ public class Client {
                 System.out.println("IOException from waitForStartMsg() || pl" + playerID);
             }
         }
+
+        public void close() throws IOException {
+            this.dataIn.close();
+        }
     }
 
     /**
@@ -189,19 +241,32 @@ public class Client {
 
         public WriteToServer(ObjectOutputStream dataOut){
             this.dataOut = dataOut;
-
             System.out.println("WFS" + playerID + "\tRunnable created");
         }
 
         public void sendToServer(String commands){
             try {
-                System.out.println(commands);
                 dataOut.writeUnshared(commands);
                 dataOut.flush();
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+
+        public void close() throws IOException {
+            this.dataOut.close();
+        }
+
+        public void sendCloseMessage() {
+            try {
+                dataOut.writeUnshared("CLOSE");
+                dataOut.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+
+
     }
 
 

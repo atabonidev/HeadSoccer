@@ -9,15 +9,15 @@ public class Player extends DinamicObject implements Serializable {
     public static final double JUMP_STRENGTH = 10;  //potenza del calcio, con quale velocità parte
     public static final double CONST_SPEED_X = 3.0;
 
+    private static final int MAX_SCORE = 3;
+
     private int playerID; //Indica il numero del player (1 => sinistra || 2 => destra)
     private boolean kickStatus;
-    private boolean isWalking;    //indica se il player sta camminando oppure no
+    private boolean isWinner;
     private int currentIMG = 0;    //indice dell'immagine da visualizzare
     private Timer timerAnimation;
+    private int playerScore = 0;
 
-    public Player() {
-
-    }
 
     public Player(int playerID) {
         this.playerID = playerID;
@@ -215,8 +215,18 @@ public class Player extends DinamicObject implements Serializable {
 
 
     private AffineTransform rotateLeg(double radius) {
-        return AffineTransform.getRotateInstance(radius, this.getSingleShape(2).getBounds().x + this.getSingleShape(2).getBounds().width /2.0,
-                this.getSingleShape(2).getBounds().height);
+        AffineTransform rotationTransform;
+
+        if(this.playerID == 1) {
+            rotationTransform = AffineTransform.getRotateInstance(radius, this.getSingleShape(2).getBounds().x + this.getSingleShape(2).getBounds().width /2.0,
+                    this.getSingleShape(2).getBounds().height);
+        }
+        else {
+            rotationTransform = AffineTransform.getRotateInstance(radius, this.getSingleShape(1).getBounds().x + this.getSingleShape(1).getBounds().width /2.0,
+                    this.getSingleShape(1).getBounds().height);
+        }
+
+        return rotationTransform;
     }
 
     /*
@@ -234,14 +244,32 @@ public class Player extends DinamicObject implements Serializable {
         return playerID;
     }
 
-    public Shape getSingleShapeTransformed(int shapeIndex) {
+    public Shape getKickLegTransformed() {
         AffineTransform t = new AffineTransform(); //inizialmente coincide con la matrice identità
-        t.translate(this.position[0] + this.getObjWidth() / 2, position[1]); //applicazione della trasformata
-        return t.createTransformedShape(this.getSingleShape(2));
+        Shape legTransformedShape;
+
+        if(playerID == 1) {
+            t.translate(position[0] + this.getObjWidth() / 2, position[1]); //applicazione della trasformata
+            legTransformedShape = t.createTransformedShape(this.getSingleShape(2));
+        }
+        else {
+            t.translate(position[0], position[1]); //applicazione della trasformata
+            legTransformedShape = t.createTransformedShape(this.getSingleShape(1));
+        }
+
+        return legTransformedShape;
     }
 
     public void setPlayerID(int playerID) {
         this.playerID = playerID;
+    }
+
+    public boolean isWinner() {
+        return this.isWinner;
+    }
+
+    public void setWinner(boolean isWinner) {
+        this.isWinner = isWinner;
     }
 
     public void setSpeed(int speedIndex, double newSpeed){
@@ -257,4 +285,19 @@ public class Player extends DinamicObject implements Serializable {
         return this.currentIMG;
 
     }
+
+    public int getPlayerScore() {
+        return playerScore;
+    }
+
+    private void setPlayerScore(int score) {
+        this.playerScore = score;
+        if(score == MAX_SCORE)
+            isWinner = true;
+    }
+
+    public void incrementPlayerScore() {
+        setPlayerScore(this.playerScore + 1);
+    }
+
 }

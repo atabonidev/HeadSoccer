@@ -2,35 +2,24 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7acec6b0-c177-4a70-90e3-6041572d59d5" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/runConfigurations.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/MainApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/MainApp.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client$ReadFromServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client$ReadFromServer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client$WriteToServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client$WriteToServer.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/PlayerKeyboardListener.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/PlayerKeyboardListener.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/controller/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/controller/Game.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/helpers/HelperClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/helpers/HelperClass.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Ball.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Ball.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/ExchangeDataClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/ExchangeDataClass.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/FootballGoal.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/FootballGoal.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameField.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameField.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameObject.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/GameObject.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Score.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Score.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server$ReadFromClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server$ReadFromClient.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server$WriteToClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server$WriteToClient.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/ServerInstanceForClient.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/GameView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/GameView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/ScoreView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/ScoreView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/client/PlayerKeyboardListener.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/client/PlayerKeyboardListener.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/Ball.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameField.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/Score.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/Score.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/server/ServerInstanceForClient.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/view/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/view/ScoreView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/view/ScoreView.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,5 +144,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/HeadSoccer$MainApp.ic" NAME="MainApp Coverage Results" MODIFIED="1656074953450" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>it.unibs.pajc.*</FILTER>
+    </SUITE>
   </component>
 </project>

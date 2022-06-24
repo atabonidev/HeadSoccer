@@ -1,12 +1,8 @@
 package it.unibs.pajc.model;
 
-import it.unibs.pajc.helpers.HelperClass;
-
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
-import java.awt.image.BufferedImage;
 import java.io.Serializable;
 
 public class Ball extends DinamicObject implements Serializable {
@@ -104,9 +100,9 @@ public class Ball extends DinamicObject implements Serializable {
             Area IntersectionLegBal = new Area(this.getShape());
 
             if(player.getPlayerID() == 1)
-                IntersectionLegBal.intersect(new Area(player.getSingleShapeTransformed(2)));    //intersezione gamba palla
+                IntersectionLegBal.intersect(new Area(player.getKickLegTransformed()));    //intersezione gamba palla
             else
-                IntersectionLegBal.intersect(new Area(player.getSingleShapeTransformed(1)));    //intersezione gamba palla
+                IntersectionLegBal.intersect(new Area(player.getKickLegTransformed()));    //intersezione gamba palla
 
             //Player che calcia
             if(player.getKickStatus() && !(IntersectionLegBal.isEmpty())){

@@ -29,7 +29,7 @@ public class GameField extends BaseModel implements Serializable {
         this.ball = new Ball(this);
 
         //Classe che rappresenta il punteggio
-        this.score = new Score();
+        this.score = new Score(this.player1, this.player2);
 
         gameObjects.add(leftFootballGoal);
         gameObjects.add(rightFootballGoal);

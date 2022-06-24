@@ -36,8 +36,6 @@ public class GameView extends JPanel {
         footballGoalsImport(leftFootballGoal, rightFootballGoal);
 
         focusOn();
-
-        //this.setModelData(modelData);
     }
 
     private void importGameFieldImg() {
@@ -78,7 +76,6 @@ public class GameView extends JPanel {
         g2.drawImage(HelperClass.getImageFromName("rightDoorRect.jpeg"), (int)rightFootballGoal.getPosX(), (int)rightFootballGoal.getPosY(), null);
 
         if(!firstIteration) {
-            System.out.println("" + modelData.getBall().getPosY());
             //DISEGNO PALLA
             g2.drawImage(HelperClass.getImageFromName("Ball01.png"), (int) modelData.getBall().getPosX(), (int) modelData.getBall().getPosY(), null);
 
@@ -103,7 +100,12 @@ public class GameView extends JPanel {
                 case 2 -> rightPlayerImage = HelperClass.getImageFromName("KickRightMan.png");
             }
 
-            g2.drawImage(rightPlayerImage, (int) modelData.getPlayer2().getPosX(), (int) modelData.getPlayer2().getPosY(), null);
+            if(!modelData.getPlayer2().getKickStatus()) {
+                g2.drawImage(rightPlayerImage, (int) modelData.getPlayer2().getPosX(), (int) modelData.getPlayer2().getPosY(), null);
+            }
+            else {
+                g2.drawImage(rightPlayerImage, (int) modelData.getPlayer2().getPosX() - 12, (int) modelData.getPlayer2().getPosY(), null);
+            }
 
             g2.draw(modelData.getPlayer2().getShape());
         }
