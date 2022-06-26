@@ -1,11 +1,11 @@
 package it.unibs.pajc.helpers;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -21,6 +21,11 @@ public class HelperClass {
             "WalkingLeftMan.png",
             "WalkingRightMan.png",
             "Ball01.png"
+    };
+
+    public static String[] customizedFontNames = new String[]{
+            "mario_style.ttf",
+            "High Speed.ttf"
     };
 
     public static HashMap<String, BufferedImage> gameImages = new HashMap<>();
@@ -62,6 +67,24 @@ public class HelperClass {
     public static BufferedImage getImageFromName(String nameImage) {
         return flipVerticallyImage(gameImages.get(nameImage));
     }
+
+    //importa font customizzati
+    /*public static void importFonts(){
+        try {
+            //create the font to use. Specify the size!
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            for (String fontName: customizedFontNames) {
+                //InputStream myStream = new BufferedInputStream(new FileInputStream(fontName));
+                InputStream myStream = HelperClass.class.getClassLoader().getResourceAsStream(fontName);
+                Font customFont = Font.createFont(Font.TRUETYPE_FONT, myStream);
+                //register the font
+                ge.registerFont(customFont);
+            }
+
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }
+    }*/
 
 
 }

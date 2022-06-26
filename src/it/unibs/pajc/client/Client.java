@@ -3,7 +3,6 @@ package it.unibs.pajc.client;
 import it.unibs.pajc.helpers.HelperClass;
 import it.unibs.pajc.model.ExchangeDataClass;
 import it.unibs.pajc.model.GameField;
-import it.unibs.pajc.model.Player;
 import it.unibs.pajc.server.Server;
 import it.unibs.pajc.view.GameView;
 import javax.swing.*;
@@ -35,6 +34,7 @@ public class Client {
         try {
             serverConnection = new Socket("127.0.0.1", Server.PORT);
             HelperClass.importImages();   //si scaricano le immagini necessarie
+            //HelperClass.importFonts();     //si scarica il font necessario
 
             ObjectOutputStream out = new ObjectOutputStream(serverConnection.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(serverConnection.getInputStream());

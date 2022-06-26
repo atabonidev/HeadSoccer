@@ -1,9 +1,10 @@
 package it.unibs.pajc.view;
 
+import it.unibs.pajc.model.BaseModel;
 import it.unibs.pajc.model.Score;
 import java.awt.*;
 
-public class ScoreView {
+public class ScoreView extends BaseModel {
 
     private int x, y, width, height;
     private Score score;
@@ -44,5 +45,13 @@ public class ScoreView {
 
     public void setScore(Score score) {
         this.score = score;
+    }
+
+    public boolean isGoal() {
+        return score.isGoal();
+    }
+
+    public void setIsGoal(boolean goal) {
+        this.score.setIsGoal(goal);
     }
 }
