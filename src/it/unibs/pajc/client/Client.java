@@ -70,6 +70,8 @@ public class Client {
 
         JPanel loadingPanel = new JPanel();
 
+        loadingPanel.setOpaque(false);
+
         JLabel label = new JLabel("Waiting for the opponent connection...");
         label.setFont(new Font("Arial Black", Font.PLAIN, 40));
 

@@ -24,12 +24,13 @@ public class GameView extends JPanel {
     private FootballGoal rightFootballGoal;
 
     private ExchangeDataClass modelData;
-
     private ScoreView scoreView;
-    private GoalAnimation goalAnimation;
-    private Thread animationThread;
 
     private boolean firstIteration;    //permette di capire se il model è stato aggiornato con dati non nulli
+
+    private Timer goalAnimation;
+    private int goalStringFontSize;
+    private boolean isGoal;
 
     public GameView(FootballGoal leftFootballGoal, FootballGoal rightFootballGoal) {
         importGameFieldImg();
@@ -94,8 +95,6 @@ public class GameView extends JPanel {
 
             g2.setColor(Color.black);
 
-            g2.draw(modelData.getPlayer1().getShape());
-
             BufferedImage rightPlayerImage = null;
             switch (modelData.getPlayer2().getCurrentImageIndex()) {
                 case 0 -> rightPlayerImage = HelperClass.getImageFromName("RightMan.png");
@@ -109,80 +108,65 @@ public class GameView extends JPanel {
             else {
                 g2.drawImage(rightPlayerImage, (int) modelData.getPlayer2().getPosX() - 12, (int) modelData.getPlayer2().getPosY(), null);
             }
-
-            g2.draw(modelData.getPlayer2().getShape());
         }
 
-        if(scoreView.isGoal()){
+        if(isGoal){
             g2.scale(1, -1);
+            g2.translate(0, -386/2); //sistema di riferimento con origine in centro
 
-            //goalAnimation = new GoalAnimation(g2);
-            animationThread = new Thread(goalAnimation);
-            animationThread.start();
+            g2.setFont(new Font("Helvetica", Font.BOLD, goalStringFontSize));
 
-            g2.setColor(Color.CYAN);
-            g2.drawString(GoalAnimation.GOAL_STRING, 0, 0);
-
-            g2.setFont(new Font("Helvetica", Font.BOLD, 120));
-            g2.drawString("GOAL", 0, 0);
-        }
-
-    }
-
-//======================================================================================================================
-//  Classe interna di gestione animazione scritta Goal
-//======================================================================================================================
-    private class GoalAnimation implements Runnable{
-        private Graphics2D g2;
-
-        public static final int MAX_SIZE = 120;
-        private int actualFontSize = 1;
-        private Timer timeAnimation;
-        public static final String GOAL_STRING = "Goal!";
-
-        public GoalAnimation(Graphics2D g2){
-            this.g2 = g2;
-
-            timeAnimation = new Timer(25, e -> {
-                System.out.println(actualFontSize);
-
-                if (actualFontSize >= MAX_SIZE){
-                    this.timeAnimation.stop();
-                    scoreView.setIsGoal(false);
-                    actualFontSize = 1;
-                }
-
-                actualFontSize = actualFontSize + 1;
-            });
-
-        }
-
-        @Override
-        public void run() {
-            timeAnimation.start();
-        }
-
-    /*public static int[] getStringCoordinates(){
             //disegno stringa
-            int w = g2.getFontMetrics().stringWidth(GOAL_STRING);
+            int w = g2.getFontMetrics().stringWidth("GOAL");
             int h = g2.getFontMetrics().getHeight();
 
             int textX = - w / 2;
-            int textY = - 386 + (h + g2.getFontMetrics().getAscent());    //asse y verso il basso
+            int textY = h / 2;    //asse y verso il basso
 
-            int[] stringCoordinates = {textX, textY};
+            //g2.setColor(Color.BLACK);
+            //g2.fillRect(textX-2, -textY-2, w+2, h+2);
 
-            return stringCoordinates;
-        }*/
-}
+            g2.setColor(Color.RED);
+            g2.drawString("GOAL", textX, textY);
+        }
+
+    }
 
     /* ===================
     GETTERS AND SETTERS
     ====================*/
-    public void setModelData(ExchangeDataClass modelData, boolean isFirstIteration) {
+    public void setModelData(ExchangeDataClass newModelData, boolean isFirstIteration) {
         this.firstIteration = isFirstIteration;
-        this.modelData = modelData;
+        checkForGoal(newModelData);
+        this.modelData = newModelData;
         this.scoreView.setScore(modelData.getScore());
     }
+
+    /**
+     * Metodo per controllare se c'e stato un goal, e in caso avvia il timer che si occupa dell'animazione
+     * @param newModelData
+     */
+    private void checkForGoal(ExchangeDataClass newModelData) {
+        if(modelData != null && modelData.getScore() != null) {
+            if(this.modelData.getScore().getScorePl1() != newModelData.getScore().getScorePl1() || this.modelData.getScore().getScorePl2() != newModelData.getScore().getScorePl2()) {
+                isGoal = true;
+
+                goalAnimation = new Timer(15, (e) -> {
+                    if (goalStringFontSize == 120){
+                        goalAnimation.stop();
+                        isGoal = false;
+                        goalStringFontSize = 0;
+                    }
+                    else {
+                        goalStringFontSize++;
+                    }
+                    //System.out.println(goalStringFontSize);
+                });
+
+                goalAnimation.start();
+            }
+        }
+    }
+
 
 }

@@ -46,12 +46,4 @@ public class ScoreView extends BaseModel {
     public void setScore(Score score) {
         this.score = score;
     }
-
-    public boolean isGoal() {
-        return score.isGoal();
-    }
-
-    public void setIsGoal(boolean goal) {
-        this.score.setIsGoal(goal);
-    }
 }

@@ -8,8 +8,6 @@ public class Score implements Serializable {
 
     private Player player1;
     private Player player2;
-    private boolean isFinished;
-    private boolean isGoal;
 
     public Score(Player player1, Player player2) {
         this.player1 = player1;
@@ -22,7 +20,6 @@ public class Score implements Serializable {
         else
             this.player2.incrementPlayerScore();
 
-        isGoal = true;
     }
 
     //GETTERS AND SETTERS
@@ -34,11 +31,5 @@ public class Score implements Serializable {
         return player2.getPlayerScore();
     }
 
-    public boolean isGoal() {
-        return isGoal;
-    }
 
-    public void setIsGoal(boolean goal) {
-        this.isGoal = goal;
-    }
 }

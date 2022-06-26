@@ -1,18 +1,16 @@
 package it.unibs.pajc;
 
 import it.unibs.pajc.client.Client;
-import it.unibs.pajc.server.Server;
+import it.unibs.pajc.view.StarterMenuView;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 
-public class MainApp {
+public class MainApp extends JFrame {
 
     private Client clientController;
-    private Server serverController;
-
-    private JFrame frame;
-    private JPanel menu;
+    private StarterMenuView menu;
 
     public static void main(String[] args) {
         MainApp app = new MainApp();
@@ -23,13 +21,11 @@ public class MainApp {
     }
 
     private void initialize() {
+        this.menu = new StarterMenuView();
 
-        this.frame = new JFrame();
-        this.menu = new JPanel();
-
-        frame.setContentPane(this.menu);
-        frame.getContentPane().setPreferredSize(new Dimension(1000, 561));
-        frame.pack();
+        this.setContentPane(this.menu);
+        this.getContentPane().setPreferredSize(new Dimension(1000, 561));
+        this.pack();
 
         menu.setLayout(new GridBagLayout());
 
@@ -45,6 +41,7 @@ public class MainApp {
 
 
         JPanel buttons = new JPanel(new GridBagLayout());
+        buttons.setOpaque(false);
 
         Insets padding = new Insets(10,40,10,40);
 
@@ -54,6 +51,7 @@ public class MainApp {
 
         JButton exit = new JButton("Exit");
         exit.setMargin(padding);
+        exit.addActionListener(this::exit);
 
         gbc.insets = new Insets(10, 0, 10, 0);
 
@@ -63,19 +61,23 @@ public class MainApp {
         gbc.weighty = 1;
         menu.add(buttons, gbc);
 
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setLocationRelativeTo(null);
-        frame.setResizable(false);
-        frame.setVisible(true);
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setVisible(true);
 
     }
 
     private void joinGame(ActionEvent e) {
-        clientController = new Client(frame);
+        clientController = new Client(this);
         clientController.startServerConnection();
 
-        frame.revalidate();
-        frame.repaint();
+        this.revalidate();
+        this.repaint();
+    }
+
+    private void exit(ActionEvent e) {
+        System.exit(0);
     }
 
 }

@@ -24,6 +24,7 @@ public class ExchangeDataClass extends BaseModel implements Serializable{
         this.player2 = newData.getPlayer2();
         this.ball = newData.getBall();
         this.score = newData.getScore();
+
     }
 
     /* ===================
