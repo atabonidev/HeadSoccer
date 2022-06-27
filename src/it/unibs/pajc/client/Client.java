@@ -70,17 +70,17 @@ public class Client {
 
         JPanel loadingPanel = new JPanel();
 
+        frame.getContentPane().add(loadingPanel);
         loadingPanel.setOpaque(false);
 
         JLabel label = new JLabel("Waiting for the opponent connection...");
         label.setFont(new Font("Arial Black", Font.PLAIN, 40));
 
         frame.setTitle("Player #" + playerID);
-        loadingPanel.setLayout(new GridBagLayout());
+        frame.getContentPane().setLayout(new GridBagLayout());
         loadingPanel.add(label);
         loadingPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        frame.getContentPane().add(loadingPanel);
         frame.getContentPane().setPreferredSize(new Dimension(1000, 561));
         frame.pack();
         frame.setVisible(true);

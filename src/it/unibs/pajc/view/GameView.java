@@ -81,7 +81,7 @@ public class GameView extends JPanel {
 
         if(!firstIteration) {
             //DISEGNO PALLA
-            g2.drawImage(HelperClass.getImageFromName("Ball01.png"), (int) modelData.getBall().getPosX(), (int) modelData.getBall().getPosY(), null);
+            g2.drawImage(HelperClass.getImageFromName("Ball.png"), (int) modelData.getBall().getPosX(), (int) modelData.getBall().getPosY(), null);
 
             //DISEGNO PERSONAGGI
             BufferedImage leftPlayerImage = null;

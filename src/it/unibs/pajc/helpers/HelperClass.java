@@ -20,7 +20,7 @@ public class HelperClass {
             "KickRightMan.png",
             "WalkingLeftMan.png",
             "WalkingRightMan.png",
-            "Ball01.png"
+            "Ball.png"
     };
 
     public static String[] customizedFontNames = new String[]{
