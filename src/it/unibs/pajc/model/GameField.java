@@ -96,8 +96,29 @@ public class GameField extends BaseModel implements Serializable {
             for(int j = i+1; j<nobjs; j++) {
                 if(gameObjects.get(i).checkCollision(gameObjects.get(j))) {
                     //si informano gli oggetti che si ha avuto un urto
-                    gameObjects.get(i).collisionDetected(gameObjects.get(j));
-                    gameObjects.get(j).collisionDetected(gameObjects.get(i));
+                    if(gameObjects.get(i) instanceof Player pl1 && gameObjects.get(j) instanceof Player pl2){
+
+                        if(pl1.getSpeed(0) != 0 && pl2.getSpeed(0) == 0) {
+                            pl1.collisionDetected(pl2);
+                        }else if(pl1.getSpeed(0) == 0 && pl2.getSpeed(0) != 0){
+                            pl2.collisionDetected(pl1);
+                        }else {
+                            if(pl1.getActualCdmY() >= pl2.getActualCdmY())
+                                pl1.collisionDetected(pl2);
+                            else
+                                pl2.collisionDetected(pl1);
+                        }
+
+                        /*
+                        Esempio: pl1 sopra pl2.
+                        Il pl1 entra nell'if sul cdm ed è giusto ma il pl2 entrerebbe nell'if sotto, che lo fa spostare in x e non va bene
+                        ne va eseguito uno alla volta se sono fermi!!
+                         */
+
+                    }else {
+                        gameObjects.get(i).collisionDetected(gameObjects.get(j));
+                        gameObjects.get(j).collisionDetected(gameObjects.get(i));
+                    }
                 }
             }
 

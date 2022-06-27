@@ -172,27 +172,27 @@ public class Player extends DinamicObject implements Serializable {
 
         //collisione giocatore e giocatore
         if(o instanceof Player otherPlayer){
-            if(this.playerID == 1) {
-                if(Math.abs(this.getActualCdmY() - otherPlayer.getActualCdmY()) + Math.abs(speed[1]) > this.getObjHeight()) {
-                    if(this.getActualCdmY() > otherPlayer.getActualCdmY()) {
-                        this.position[1] = otherPlayer.getPosY() + otherPlayer.getObjHeight();
-                    }
-                    else if(this.getActualCdmY() < otherPlayer.getActualCdmY()) {
-                        this.position[1] = this.getPosY();
-                    }
-                    this.speed[1] = 0;
+            if(Math.abs(this.getActualCdmY() - otherPlayer.getActualCdmY()) + Math.abs(speed[1]) > this.getObjHeight()) {
+                if(this.getActualCdmY() > otherPlayer.getActualCdmY()) {
+                    this.position[1] = otherPlayer.getPosY() + otherPlayer.getObjHeight();
                 }
-                else {
-                    if(this.getActualCdmX() < otherPlayer.getActualCdmX()) {
-                        this.position[0] = otherPlayer.position[0] - otherPlayer.getObjWidth();
-                    }
-                    else if(this.getActualCdmX() > otherPlayer.getActualCdmX()) {
-                        this.position[0] = otherPlayer.position[0] + otherPlayer.getObjWidth();
-                    }
+                else if(this.getActualCdmY() < otherPlayer.getActualCdmY()) {
+                    this.position[1] = this.getPosY();
                 }
+                this.speed[1] = 0;
+            }
+            else {
+                if(this.getActualCdmX() + this.speed[0] < otherPlayer.getActualCdmX()) {
+                    this.position[0] = otherPlayer.position[0] - otherPlayer.getObjWidth();
+                }
+                else if(this.getActualCdmX() - speed[0] > otherPlayer.getActualCdmX()) {
+                    this.position[0] = otherPlayer.position[0] + otherPlayer.getObjWidth();
+                }
+
+                //se entrambi si stanno muovendo in x si potrebbe annullare la velocità di entrambi, oppure continuare a decrementare
+                //la pos attuale della speed. (che alla fine penso sia quello che intende tabo con ritornare all'update precedente)
             }
         }
-
     }
 
     /*
