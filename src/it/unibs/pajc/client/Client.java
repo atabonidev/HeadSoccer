@@ -117,6 +117,9 @@ public class Client {
         gameView.addKeyListener(kb);
 
         frame.setContentPane(gameView);
+
+        frame.getContentPane().setFocusable(true);
+        frame.getContentPane().requestFocusInWindow();
     }
 
     private void printResultPanel() {

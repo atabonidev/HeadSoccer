@@ -38,8 +38,6 @@ public class GameView extends JPanel {
         this.scoreView = new ScoreView(0, 0, 1000, 60);
 
         footballGoalsImport(leftFootballGoal, rightFootballGoal);
-
-        focusOn();
     }
 
     private void importGameFieldImg() {
@@ -50,12 +48,6 @@ public class GameView extends JPanel {
         this.leftFootballGoal = leftFootballGoal;
         this.rightFootballGoal = rightFootballGoal;
     }
-
-    private void focusOn() {
-        this.setFocusable(true);
-        this.requestFocusInWindow();
-    }
-
 
     /**
      * dubbione -> il campo rimane fisso, non dovrebbe essere messo qui
