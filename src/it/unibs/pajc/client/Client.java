@@ -1,22 +1,26 @@
 package it.unibs.pajc.client;
 
+import it.unibs.pajc.MainApp;
 import it.unibs.pajc.helpers.HelperClass;
 import it.unibs.pajc.model.ExchangeDataClass;
 import it.unibs.pajc.model.GameField;
 import it.unibs.pajc.server.Server;
 import it.unibs.pajc.view.GameView;
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class Client {
     private Socket serverConnection;
+    private String serverIp;
 
-    private JFrame frame;
+    private MainApp frame;
     private GameView gameView;
 
     private int playerID;
@@ -25,16 +29,19 @@ public class Client {
     private ReadFromServer readerFS;
     private WriteToServer writerTS;
 
-    public Client(JFrame frame) {
+    public Client(MainApp frame, String serverIp) {
         this.frame = frame;
+        this.serverIp = serverIp;
     }
 
     public void startServerConnection() {
 
         try {
-            serverConnection = new Socket("127.0.0.1", Server.PORT);
+            //serverConnection = new Socket(serverIp, Server.PORT);
+            serverConnection = new Socket();
+            serverConnection.connect(new InetSocketAddress(serverIp, Server.PORT), 1000);
+
             HelperClass.importImages();   //si scaricano le immagini necessarie
-            //HelperClass.importFonts();     //si scarica il font necessario
 
             ObjectOutputStream out = new ObjectOutputStream(serverConnection.getOutputStream());
             ObjectInputStream in = new ObjectInputStream(serverConnection.getInputStream());
@@ -59,6 +66,9 @@ public class Client {
         } catch(IOException e) {
 
             System.err.println("Error in creating socket: " + e.toString());
+            frame.getTextIP().setBorder(new LineBorder(Color.RED, 2));
+            frame.getTextIP().setForeground(Color.RED);
+            frame.getTextIP().setText("< NON-EXISTENT SERVER >");
 
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

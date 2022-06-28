@@ -86,14 +86,6 @@ public class MainApp extends JFrame {
         
         btnExit.addActionListener(this::exit);
         
-        
-        this.pack();
-
-        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        this.setLocationRelativeTo(null);
-        this.setResizable(false);
-        this.setVisible(true);
-        
         //abilitazione bottone CONNECT -> quanto i jTecxt vengono riempiti
         
         jTextListener = new DocumentListener() {
@@ -117,8 +109,13 @@ public class MainApp extends JFrame {
 		
 	    txtPlayerName.getDocument().addDocumentListener(jTextListener);
         textIP.getDocument().addDocumentListener(jTextListener);
-        
-        
+
+
+        this.pack();
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setLocationRelativeTo(null);
+        this.setResizable(false);
+        this.setVisible(true);
         
     }
 
@@ -127,7 +124,7 @@ public class MainApp extends JFrame {
     	String ipString = textIP.getText();
     	
     	if(checkIPvalidValidity(ipString)) {
-    		clientController = new Client(this);
+    		clientController = new Client(this, ipString);
             clientController.startServerConnection();
 
             this.revalidate();
@@ -168,5 +165,12 @@ public class MainApp extends JFrame {
             btnConnect.setEnabled(true);
         }
     }
-    
+
+
+    /* ===================
+    GETTERS AND SETTERS
+    ====================*/
+    public JTextField getTextIP() {
+        return textIP;
+    }
 }
