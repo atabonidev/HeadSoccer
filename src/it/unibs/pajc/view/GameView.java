@@ -23,6 +23,7 @@ public class GameView extends JPanel {
     private ScoreView scoreView;
 
     private boolean firstIteration;    //permette di capire se il model è stato aggiornato con dati non nulli
+    private Sound sound = new Sound();
 
     private Timer goalAnimation;
     private int goalStringFontSize;
@@ -125,6 +126,15 @@ public class GameView extends JPanel {
     ====================*/
     public void setModelData(ExchangeDataClass newModelData, boolean isFirstIteration) {
         this.firstIteration = isFirstIteration;
+
+        if(modelData != null) {
+            if(newModelData.getSoundClipIdentifier().isClipActive()) {
+                if(newModelData.getSoundClipIdentifier().getClipNumber() == Sound.KICK_BALL) {
+                    this.playSoundEffect(Sound.KICK_BALL);
+                }
+            }
+        }
+
         checkForGoal(newModelData);
         this.modelData = newModelData;
         this.scoreView.setScore(modelData.getScore());
@@ -151,9 +161,31 @@ public class GameView extends JPanel {
                 });
 
                 goalAnimation.start();
+                this.playSoundEffect(Sound.KICK_OFF);
             }
         }
     }
 
+
+
+
+    /* ===================
+    GESTIONE SUONI
+    ====================*/
+
+    public void playMusic(int i) {
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+
+    public void stopMusic() {
+        sound.stop();
+    }
+
+    public void playSoundEffect(int i) {
+        sound.setFile(i);
+        sound.play();
+    }
 
 }

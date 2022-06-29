@@ -2,6 +2,7 @@ package it.unibs.pajc.client;
 
 import it.unibs.pajc.MainApp;
 import it.unibs.pajc.helpers.HelperClass;
+import it.unibs.pajc.helpers.Sound;
 import it.unibs.pajc.model.ExchangeDataClass;
 import it.unibs.pajc.model.GameField;
 import it.unibs.pajc.server.Server;

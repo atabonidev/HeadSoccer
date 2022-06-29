@@ -7,6 +7,7 @@ public class ExchangeDataClass extends BaseModel implements Serializable{
     private Player player2;
     private Ball ball;
     private Score score;
+    private SoundClipIdentifier soundClipIdentifier;
 
     public ExchangeDataClass() {
 
@@ -17,6 +18,7 @@ public class ExchangeDataClass extends BaseModel implements Serializable{
         this.player2 = gameField.getPlayer2();
         this.ball = gameField.getBall();
         this.score = gameField.getScore();
+        this.soundClipIdentifier = gameField.getSoundClipIdentifier();
     }
 
     public void updateData(ExchangeDataClass newData) {
@@ -24,7 +26,7 @@ public class ExchangeDataClass extends BaseModel implements Serializable{
         this.player2 = newData.getPlayer2();
         this.ball = newData.getBall();
         this.score = newData.getScore();
-
+        this.soundClipIdentifier = newData.getSoundClipIdentifier();
     }
 
     /* ===================
@@ -45,5 +47,9 @@ public class ExchangeDataClass extends BaseModel implements Serializable{
 
     public Score getScore() {
         return score;
+    }
+
+    public SoundClipIdentifier getSoundClipIdentifier() {
+        return soundClipIdentifier;
     }
 }

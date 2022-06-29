@@ -1,5 +1,6 @@
 package it.unibs.pajc.server;
 
+import it.unibs.pajc.model.ExchangeDataClass;
 import it.unibs.pajc.model.GameField;
 import java.io.*;
 import java.net.ServerSocket;
@@ -226,8 +227,13 @@ public class Server {
 
             try {
                 while (true) {
-                    dataOut.writeUnshared(gameField.exportData());
+                    ExchangeDataClass modelData = gameField.exportData();
+                    dataOut.writeUnshared(modelData);
                     dataOut.reset();
+
+                    if(modelData.getSoundClipIdentifier().isClipActive()) {
+                        gameField.setClipActive(false);
+                    }
 
                     //si stoppa momentaneamente il Thread
                     try {

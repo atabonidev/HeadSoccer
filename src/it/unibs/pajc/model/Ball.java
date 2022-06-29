@@ -1,5 +1,7 @@
 package it.unibs.pajc.model;
 
+import it.unibs.pajc.helpers.Sound;
+
 import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
@@ -107,6 +109,8 @@ public class Ball extends DinamicObject implements Serializable {
             //Player che calcia
             if(player.getKickStatus() && !(IntersectionLegBal.isEmpty())){
                 kicked(player.getPlayerID());
+                gameField.setClipNumber(Sound.KICK_BALL);
+                gameField.setClipActive(true);
             }
             else {
                 //controlli in X

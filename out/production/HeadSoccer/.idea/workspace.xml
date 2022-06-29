@@ -2,27 +2,65 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7acec6b0-c177-4a70-90e3-6041572d59d5" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/HeadSoccer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/HeadSoccer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/MainApp.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/MainApp.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client$ReadFromServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client$ReadFromServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client$WriteToServer.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client$WriteToServer.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/client/Client.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/controller/Game.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Score.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/model/Score.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server$ReadFromClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server$ReadFromClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server$WriteToClient.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server$WriteToClient.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/server/Server.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/GameView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/GameView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/ScoreView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/view/ScoreView.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/MainApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/MainApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/Score.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/Score.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/view/GameView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/view/ScoreBoard.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/view/ScoreLabel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/view/ScoreView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/view/ScoreView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/HeadSoccer.iml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/HeadSoccer.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/High Speed.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/KickLeftMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/KickRightMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/LeftMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/RightMan.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/RightMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/WalkingLeftMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/WalkingRightMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/gameField.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/gameField1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/gameFieldDoors.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/gamefield-blured.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/helpers/HelperClass.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/it/unibs/pajc/helpers/HelperClass.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/leftDoor.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/leftDoorRect.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/mario_style.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/Ball.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/High Speed.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/KickLeftMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/KickRightMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/LeftMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/RightMan.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/RightMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/WalkingLeftMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/WalkingRightMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/gameField.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/gameField1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/gameFieldDoors.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/gamefield-blured.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/leftDoor.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/leftDoorRect.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/mario_style.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/rightDoor.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/resources/rightDoorRect.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/rightDoor.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/rightDoorRect.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/Ball.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/High Speed.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/KickLeftMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/KickRightMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/LeftMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/RightMan.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/RightMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/WalkingLeftMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/WalkingRightMan.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/gameField.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/gameField1.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/gameFieldDoors.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/gamefield-blured.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/leftDoor.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/leftDoorRect.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/mario_style.ttf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/rightDoor.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resources/rightDoorRect.jpeg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/helpers/HelperClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/helpers/HelperClass.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,7 +98,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="ignore.preview.features.used" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.13908207" />
     <property name="project.structure.side.proportion" value="0.2" />
   </component>

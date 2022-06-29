@@ -23,11 +23,6 @@ public class HelperClass {
             "Ball.png"
     };
 
-    public static String[] customizedFontNames = new String[]{
-            "mario_style.ttf",
-            "High Speed.ttf"
-    };
-
     public static HashMap<String, BufferedImage> gameImages = new HashMap<>();
 
     /**
@@ -67,24 +62,6 @@ public class HelperClass {
     public static BufferedImage getImageFromName(String nameImage) {
         return flipVerticallyImage(gameImages.get(nameImage));
     }
-
-    //importa font customizzati
-    /*public static void importFonts(){
-        try {
-            //create the font to use. Specify the size!
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            for (String fontName: customizedFontNames) {
-                //InputStream myStream = new BufferedInputStream(new FileInputStream(fontName));
-                InputStream myStream = HelperClass.class.getClassLoader().getResourceAsStream(fontName);
-                Font customFont = Font.createFont(Font.TRUETYPE_FONT, myStream);
-                //register the font
-                ge.registerFont(customFont);
-            }
-
-        } catch (IOException | FontFormatException e) {
-            e.printStackTrace();
-        }
-    }*/
 
 
 }

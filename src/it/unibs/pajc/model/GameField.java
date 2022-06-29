@@ -1,5 +1,7 @@
 package it.unibs.pajc.model;
 
+import it.unibs.pajc.helpers.Sound;
+
 import javax.swing.*;
 import java.awt.geom.Rectangle2D;
 import java.io.Serializable;
@@ -18,6 +20,8 @@ public class GameField extends BaseModel implements Serializable {
     private Ball ball;
     private Score score;
     private Timer updateTimer;
+
+    private SoundClipIdentifier soundClipIdentifier = new SoundClipIdentifier();
 
     private ArrayList<GameObject> gameObjects = new ArrayList<>();  //array contenente tutti gli oggetti coinvolti nel gioco
     private Rectangle2D.Float borders; //bordi dell'area di gioco
@@ -82,6 +86,9 @@ public class GameField extends BaseModel implements Serializable {
         } else {
             score.incrementScore(player1.getPlayerID());
         }
+
+        this.setClipNumber(Sound.GOAL);
+        this.setClipActive(true);
     }
 
 
@@ -168,4 +175,23 @@ public class GameField extends BaseModel implements Serializable {
         return score;
     }
 
+    public SoundClipIdentifier getSoundClipIdentifier() {
+        return soundClipIdentifier;
+    }
+
+    public int getClipNumber() {
+        return this.soundClipIdentifier.getClipNumber();
+    }
+
+    public void setClipNumber(int clipNumber) {
+        this.soundClipIdentifier.setClipNumber(clipNumber);
+    }
+
+    public boolean isClipActive() {
+        return this.soundClipIdentifier.isClipActive();
+    }
+
+    public void setClipActive(boolean isActive) {
+        this.soundClipIdentifier.setClipActive(isActive);
+    }
 }
