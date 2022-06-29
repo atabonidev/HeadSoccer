@@ -231,8 +231,11 @@ public class Server {
                     dataOut.writeUnshared(modelData);
                     dataOut.reset();
 
-                    if(modelData.getSoundClipIdentifier().isClipActive()) {
-                        gameField.setClipActive(false);
+                    if(playerID == 1) {
+                        gameField.setClipActivePl1(false);
+                    }
+                    else {
+                        gameField.setClipActivePl2(false);
                     }
 
                     //si stoppa momentaneamente il Thread

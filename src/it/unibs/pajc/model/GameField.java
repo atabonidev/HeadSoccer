@@ -21,7 +21,8 @@ public class GameField extends BaseModel implements Serializable {
     private Score score;
     private Timer updateTimer;
 
-    private SoundClipIdentifier soundClipIdentifier = new SoundClipIdentifier();
+    private SoundClipIdentifier soundClipIdentifierPl1 = new SoundClipIdentifier();
+    private SoundClipIdentifier soundClipIdentifierPl2 = new SoundClipIdentifier();
 
     private ArrayList<GameObject> gameObjects = new ArrayList<>();  //array contenente tutti gli oggetti coinvolti nel gioco
     private Rectangle2D.Float borders; //bordi dell'area di gioco
@@ -87,14 +88,15 @@ public class GameField extends BaseModel implements Serializable {
             score.incrementScore(player1.getPlayerID());
         }
 
-        this.setClipNumber(Sound.GOAL);
-        this.setClipActive(true);
+        this.setClipNumberPl1(Sound.KICK_OFF);
+        this.setClipActivePl1(true);
+        this.setClipNumberPl2(Sound.KICK_OFF);
+        this.setClipActivePl2(true);
     }
 
 
     /**
      * controlla le collisioni fra le varie coppie di elementi di gioco.
-     * (copiato spudoratamente da redmax)
      */
     public void checkCollisions(){
         int nobjs = gameObjects.size();
@@ -175,23 +177,43 @@ public class GameField extends BaseModel implements Serializable {
         return score;
     }
 
-    public SoundClipIdentifier getSoundClipIdentifier() {
-        return soundClipIdentifier;
+    public SoundClipIdentifier getSoundClipIdentifierPl1() {
+        return soundClipIdentifierPl1;
     }
 
-    public int getClipNumber() {
-        return this.soundClipIdentifier.getClipNumber();
+    public SoundClipIdentifier getSoundClipIdentifierPl2() {
+        return soundClipIdentifierPl2;
     }
 
-    public void setClipNumber(int clipNumber) {
-        this.soundClipIdentifier.setClipNumber(clipNumber);
+    public int getClipNumberPl1() {
+        return this.soundClipIdentifierPl1.getClipNumber();
     }
 
-    public boolean isClipActive() {
-        return this.soundClipIdentifier.isClipActive();
+    public int getClipNumberPl2() {
+        return this.soundClipIdentifierPl2.getClipNumber();
     }
 
-    public void setClipActive(boolean isActive) {
-        this.soundClipIdentifier.setClipActive(isActive);
+    public void setClipNumberPl1(int clipNumber) {
+        this.soundClipIdentifierPl1.setClipNumber(clipNumber);
+    }
+
+    public void setClipNumberPl2(int clipNumber) {
+        this.soundClipIdentifierPl2.setClipNumber(clipNumber);
+    }
+
+    public boolean isClipActivePl1() {
+        return this.soundClipIdentifierPl1.isClipActive();
+    }
+
+    public boolean isClipActivePl2() {
+        return this.soundClipIdentifierPl2.isClipActive();
+    }
+
+    public void setClipActivePl1(boolean isActive) {
+        this.soundClipIdentifierPl1.setClipActive(isActive);
+    }
+
+    public void setClipActivePl2(boolean isActive) {
+        this.soundClipIdentifierPl2.setClipActive(isActive);
     }
 }

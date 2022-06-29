@@ -8,8 +8,8 @@ public class SoundClipIdentifier implements Serializable {
     private boolean isClipActive;
 
     public SoundClipIdentifier() {
-        clipNumber = 0;
-        isClipActive = false;
+        clipNumber = -1;
+        isClipActive = true;
     }
 
     public SoundClipIdentifier(int clipNumber, boolean isClipActive) {

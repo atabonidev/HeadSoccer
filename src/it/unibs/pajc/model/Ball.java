@@ -9,7 +9,7 @@ import java.io.Serializable;
 
 public class Ball extends DinamicObject implements Serializable {
     private static final int DEFAULT_POS_Y = 356;
-    private static final int[] KICK_STRENGHT = {20, 30};
+    private static final int[] KICK_STRENGHT = {10, 20};
     private static final double BOUNCING_FRICTION = 2.6;
     private static final double AIR_FRICTION = 0.02;
 
@@ -109,8 +109,10 @@ public class Ball extends DinamicObject implements Serializable {
             //Player che calcia
             if(player.getKickStatus() && !(IntersectionLegBal.isEmpty())){
                 kicked(player.getPlayerID());
-                gameField.setClipNumber(Sound.KICK_BALL);
-                gameField.setClipActive(true);
+                gameField.setClipNumberPl1(Sound.KICK_BALL);
+                gameField.setClipActivePl1(true);
+                gameField.setClipNumberPl2(Sound.KICK_BALL);
+                gameField.setClipActivePl2(true);
             }
             else {
                 //controlli in X

@@ -29,12 +29,16 @@ public class GameView extends JPanel {
     private int goalStringFontSize;
     private boolean isGoal;
 
-    public GameView(FootballGoal leftFootballGoal, FootballGoal rightFootballGoal) {
+    private int playerId;
+
+    public GameView(FootballGoal leftFootballGoal, FootballGoal rightFootballGoal, int playerId) {
         importGameFieldImg();
 
         this.scoreView = new ScoreView(0, 0, 1000, 60);
 
         footballGoalsImport(leftFootballGoal, rightFootballGoal);
+
+        this.playerId = playerId;
     }
 
     private void importGameFieldImg() {
@@ -121,71 +125,68 @@ public class GameView extends JPanel {
 
     }
 
-    /* ===================
-    GETTERS AND SETTERS
-    ====================*/
+    /* ===================================================================================================
+    GESTIONE ANIMAZIONI ED SUONI
+    ====================================================================================================*/
+
     public void setModelData(ExchangeDataClass newModelData, boolean isFirstIteration) {
         this.firstIteration = isFirstIteration;
+        checkAnimationsAndSounds(newModelData);
+        this.modelData = newModelData;
+        this.scoreView.setScore(modelData.getScore());
+    }
 
-        if(modelData != null) {
-            if(newModelData.getSoundClipIdentifier().isClipActive()) {
-                if(newModelData.getSoundClipIdentifier().getClipNumber() == Sound.KICK_BALL) {
+    private void checkAnimationsAndSounds(ExchangeDataClass newModelData) {
+        if(modelData != null && modelData.getScore() != null) {
+            SoundClipIdentifier soundClipIdentifier;
+
+            if(playerId == 1)
+                soundClipIdentifier = newModelData.getSoundClipIdentifierPl1();
+            else {
+                soundClipIdentifier = newModelData.getSoundClipIdentifierPl2();
+            }
+
+
+
+            if(soundClipIdentifier.isClipActive()) {
+                if(soundClipIdentifier.getClipNumber() == Sound.KICK_BALL) {
                     this.playSoundEffect(Sound.KICK_BALL);
+                    System.out.println(playerId);
+                }
+                else if(soundClipIdentifier.getClipNumber() == Sound.KICK_OFF) {
+                    this.startGoalAnimation(newModelData);
+                    this.playSoundEffect(Sound.KICK_OFF);
+                    System.out.println(playerId);
                 }
             }
         }
-
-        checkForGoal(newModelData);
-        this.modelData = newModelData;
-        this.scoreView.setScore(modelData.getScore());
     }
 
     /**
      * Metodo per controllare se c'e stato un goal, e in caso avvia il timer che si occupa dell'animazione
      * @param newModelData
      */
-    private void checkForGoal(ExchangeDataClass newModelData) {
-        if(modelData != null && modelData.getScore() != null) {
-            if(this.modelData.getScore().getScorePl1() != newModelData.getScore().getScorePl1() || this.modelData.getScore().getScorePl2() != newModelData.getScore().getScorePl2()) {
-                isGoal = true;
+    private void startGoalAnimation(ExchangeDataClass newModelData) {
+        isGoal = true;
 
-                goalAnimation = new Timer(15, (e) -> {
-                    if (goalStringFontSize == 120){
-                        goalAnimation.stop();
-                        isGoal = false;
-                        goalStringFontSize = 0;
-                    }
-                    else {
-                        goalStringFontSize++;
-                    }
-                });
-
-                goalAnimation.start();
-                this.playSoundEffect(Sound.KICK_OFF);
+        goalAnimation = new Timer(15, (e) -> {
+            if (goalStringFontSize == 120){
+                goalAnimation.stop();
+                isGoal = false;
+                goalStringFontSize = 0;
             }
-        }
-    }
+            else {
+                goalStringFontSize++;
+            }
+        });
 
-
-
-
-    /* ===================
-    GESTIONE SUONI
-    ====================*/
-
-    public void playMusic(int i) {
-        sound.setFile(i);
-        sound.play();
-        sound.loop();
-    }
-
-    public void stopMusic() {
-        sound.stop();
+        goalAnimation.start();
     }
 
     public void playSoundEffect(int i) {
         sound.setFile(i);
         sound.play();
     }
+
 
 }

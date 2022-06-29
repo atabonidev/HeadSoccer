@@ -114,7 +114,7 @@ public class Client {
         frame.getContentPane().setPreferredSize(new Dimension(1000, 561));
         frame.pack();
 
-        gameView = new GameView(GameField.leftFootballGoal, GameField.rightFootballGoal);
+        gameView = new GameView(GameField.leftFootballGoal, GameField.rightFootballGoal, playerID);
         gameView.setModelData(modelData, true);
 
         PlayerKeyboardListener kb = new PlayerKeyboardListener(writerTS);

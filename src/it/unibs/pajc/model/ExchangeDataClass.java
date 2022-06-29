@@ -7,7 +7,8 @@ public class ExchangeDataClass extends BaseModel implements Serializable{
     private Player player2;
     private Ball ball;
     private Score score;
-    private SoundClipIdentifier soundClipIdentifier;
+    private SoundClipIdentifier soundClipIdentifierPl1;
+    private SoundClipIdentifier soundClipIdentifierPl2;
 
     public ExchangeDataClass() {
 
@@ -18,7 +19,8 @@ public class ExchangeDataClass extends BaseModel implements Serializable{
         this.player2 = gameField.getPlayer2();
         this.ball = gameField.getBall();
         this.score = gameField.getScore();
-        this.soundClipIdentifier = gameField.getSoundClipIdentifier();
+        this.soundClipIdentifierPl1 = gameField.getSoundClipIdentifierPl1();
+        this.soundClipIdentifierPl2 = gameField.getSoundClipIdentifierPl2();
     }
 
     public void updateData(ExchangeDataClass newData) {
@@ -26,7 +28,8 @@ public class ExchangeDataClass extends BaseModel implements Serializable{
         this.player2 = newData.getPlayer2();
         this.ball = newData.getBall();
         this.score = newData.getScore();
-        this.soundClipIdentifier = newData.getSoundClipIdentifier();
+        this.soundClipIdentifierPl1 = newData.getSoundClipIdentifierPl1();
+        this.soundClipIdentifierPl2 = newData.getSoundClipIdentifierPl2();
     }
 
     /* ===================
@@ -49,7 +52,10 @@ public class ExchangeDataClass extends BaseModel implements Serializable{
         return score;
     }
 
-    public SoundClipIdentifier getSoundClipIdentifier() {
-        return soundClipIdentifier;
+    public SoundClipIdentifier getSoundClipIdentifierPl1() {
+        return soundClipIdentifierPl1;
+    }
+    public SoundClipIdentifier getSoundClipIdentifierPl2() {
+        return soundClipIdentifierPl2;
     }
 }
