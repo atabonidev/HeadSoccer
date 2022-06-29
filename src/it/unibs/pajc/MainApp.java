@@ -170,6 +170,11 @@ public class MainApp extends JFrame {
     /* ===================
     GETTERS AND SETTERS
     ====================*/
+
+    public JTextField getTxtPlayerName() {
+        return txtPlayerName;
+    }
+
     public JTextField getTextIP() {
         return textIP;
     }

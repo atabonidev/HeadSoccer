@@ -12,6 +12,7 @@ public class Player extends DinamicObject implements Serializable {
     private static final int MAX_SCORE = 3;
 
     private int playerID; //Indica il numero del player (1 => sinistra || 2 => destra)
+    private String playerName;
     private boolean kickStatus;
     private boolean isWinner;
     private int currentIMG = 0;    //indice dell'immagine da visualizzare
@@ -300,4 +301,11 @@ public class Player extends DinamicObject implements Serializable {
         setPlayerScore(this.playerScore + 1);
     }
 
+    public String getPlayerName() {
+        return playerName;
+    }
+
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
+    }
 }

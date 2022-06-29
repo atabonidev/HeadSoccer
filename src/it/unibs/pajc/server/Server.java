@@ -24,6 +24,9 @@ public class Server {
     private WriteToClient pl1Writer;
     private WriteToClient pl2Writer;
 
+    private String pl1Name;
+    private String pl2Name;
+
     public Server(){
         System.out.println("=======GAME SERVER ========");
 
@@ -31,6 +34,7 @@ public class Server {
             serverSocket =  new ServerSocket(PORT);
 
             gameField = new GameField();
+
             commandApplierPl1 = new CommandApplier(gameField.getPlayer1());
             commandApplierPl2 = new CommandApplier(gameField.getPlayer2());
 
@@ -64,11 +68,15 @@ public class Server {
                 if (numPlayers == 1) {
                     pl1Reader = rfc;
                     pl1Writer = wtc;
+                    pl1Name = pl1Reader.receivePlayerName();
                 } else {
                     pl2Reader = rfc;
                     pl2Writer = wtc;
+                    pl2Name = pl2Reader.receivePlayerName();
 
                     //solo in questo momento, ossia quando il secondo player si è connesso si fa partire il gioco
+                    gameField.getPlayer1().setPlayerName(pl1Name);
+                    gameField.getPlayer2().setPlayerName(pl2Name);
                     startGame();
 
                     Thread readThreadPl1 = new Thread(pl1Reader);
@@ -115,6 +123,18 @@ public class Server {
             this.dataIn = dataIn;
 
             System.out.println("RFC" + playerID + "\tRunnable created");
+        }
+
+        public String receivePlayerName(){
+            try {
+                String playerName = (String) dataIn.readUnshared();
+                return playerName;
+
+            }catch (IOException | ClassNotFoundException e){
+                System.out.println("IOException from RFC run() || pl" + playerID);
+            }
+
+            return null;
         }
 
         @Override

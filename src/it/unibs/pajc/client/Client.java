@@ -6,6 +6,8 @@ import it.unibs.pajc.model.ExchangeDataClass;
 import it.unibs.pajc.model.GameField;
 import it.unibs.pajc.server.Server;
 import it.unibs.pajc.view.GameView;
+import it.unibs.pajc.view.ScoreView;
+
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
@@ -56,6 +58,8 @@ public class Client {
             //creazione classi di scrittura e lettura
             readerFS = new ReadFromServer(in);
             writerTS = new WriteToServer(out);
+
+            writerTS.sendPlayerName(frame.getTxtPlayerName().getText());
 
             clientConnection();
 
@@ -110,7 +114,6 @@ public class Client {
         frame.pack();
 
         gameView = new GameView(GameField.leftFootballGoal, GameField.rightFootballGoal);
-
         gameView.setModelData(modelData, true);
 
         PlayerKeyboardListener kb = new PlayerKeyboardListener(writerTS);
@@ -204,13 +207,15 @@ public class Client {
                  */
                 while (true){
                     modelData = (ExchangeDataClass) dataIn.readUnshared();
+
                     if(gameView != null) {
                         gameView.setModelData(modelData, false);
                         gameView.revalidate();
                         gameView.repaint();
-                        if(checkWinner(modelData))
-                            break;
                     }
+
+                    if(checkWinner(modelData))
+                        break;
                 }
 
                 printResultPanel();
@@ -267,6 +272,16 @@ public class Client {
                 e.printStackTrace();
             }
         }
+
+       public void sendPlayerName(String playerName) {
+           try {
+               dataOut.writeUnshared(playerName);
+               dataOut.flush();
+
+           }catch (IOException e){
+               System.out.println("IOException from RFC run() || pl" + playerID);
+           }
+       }
 
         public void close() throws IOException {
             this.dataOut.close();

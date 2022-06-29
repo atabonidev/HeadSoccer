@@ -7,9 +7,10 @@ import java.awt.*;
 public class ScoreView extends BaseModel {
 
     private int x, y, width, height;
-    private Score score;
-    private ScoreBoard scorePl1;
-    private ScoreBoard scorePl2;
+    private ScoreLabel namePl1;
+    private ScoreLabel namePl2;
+    private ScoreLabel scorePl1;
+    private ScoreLabel scorePl2;
 
     public ScoreView(int x, int y, int width, int height) {
         this.x = x;
@@ -20,30 +21,32 @@ public class ScoreView extends BaseModel {
     }
 
     private void initScoreBoard() {
-        this.scorePl1 = new ScoreBoard(this.width / 2 - 100, 5, 100, 50, " X " , Color.cyan);
-        this.scorePl2 = new ScoreBoard(this.width / 2 + 20, 5, 100, 50, " X " , Color.red);
+        this.namePl1 = new ScoreLabel(10, 10, 322, 40, "Player1", new Color(2,171,255), 2, 16);
+        this.namePl2 = new ScoreLabel(668, 10, 322, 40, "Player2", Color.RED, 2, 16);
+        this.scorePl1 = new ScoreLabel(380, 4, 110, 52, "0" , Color.LIGHT_GRAY, 0, 28);
+        this.scorePl2 = new ScoreLabel(510, 4, 110, 52, "0" , Color.LIGHT_GRAY, 0, 28);
     }
 
     public void draw(Graphics2D g) {
+        g.setColor(Color.WHITE);
         g.fillRect(x, y, width, height);
 
-        if(score != null) {
-            scorePl1.setText("" + score.getScorePl1());
-
-            scorePl2.setText("" + score.getScorePl2());
-        }else{
-            scorePl1.setText(" X ");
-
-            scorePl2.setText(" X ");
-        }
-
+        namePl1.draw(g);
+        namePl2.draw(g);
         scorePl1.draw(g);
-
         scorePl2.draw(g);
 
     }
 
     public void setScore(Score score) {
-        this.score = score;
+        if(score != null) {
+            if(!score.getPlayer1().getPlayerName().equals(namePl1.getText())) {
+                namePl1.setText(score.getPlayer1().getPlayerName());
+                namePl2.setText(score.getPlayer2().getPlayerName());
+            }
+
+            scorePl1.setText(""+score.getScorePl1());
+            scorePl2.setText(""+score.getScorePl2());
+        }
     }
 }

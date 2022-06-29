@@ -23,6 +23,14 @@ public class Score implements Serializable {
     }
 
     //GETTERS AND SETTERS
+    public Player getPlayer1() {
+        return player1;
+    }
+
+    public Player getPlayer2() {
+        return player2;
+    }
+
     public int getScorePl1() {
         return player1.getPlayerScore();
     }
