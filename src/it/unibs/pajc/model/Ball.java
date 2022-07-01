@@ -25,9 +25,8 @@ public class Ball extends DinamicObject implements Serializable {
         calculateCdm();
     }
 
-    /**
-     * Metodo che reimposta la palla alla posizione di default
-     */
+    //Metodo che reimposta la palla alla posizione di default
+    @Override
     public void setDefault() {
         this.position[0] = -this.getTotalShape().getBounds().width / 2.0;
         this.position[1] = DEFAULT_POS_Y;
@@ -138,7 +137,7 @@ public class Ball extends DinamicObject implements Serializable {
 
                     }
                     else
-                        speed[0] = -speed[0] + player.getSpeed(0);   //versi opposti di spostamento
+                        speed[0] = -speed[0] + player.getSpeedX();   //versi opposti di spostamento
                 }
 
 

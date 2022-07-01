@@ -44,9 +44,7 @@ public class Server {
         }
     }
 
-    /**
-     * metodo che avvia il server e permette di accettare le connessioni con i client
-     */
+    //metodo che avvia il server e permette di accettare le connessioni con i client
     public void startServer() {
         try {
 
@@ -57,7 +55,7 @@ public class Server {
                 ObjectInputStream in = new ObjectInputStream(client.getInputStream());
 
                 numPlayers++;
-                out.writeUnshared("" + numPlayers); //di manda al player il suo ID  ---> usato per dare il titolo alla schermata
+                out.writeUnshared("" + numPlayers); //Si manda al player il suo ID  ---> usato per dare il titolo alla schermata
                 out.flush();
                 System.out.println("Player #" + numPlayers + "has connected.");
 
@@ -98,9 +96,7 @@ public class Server {
         }
     }
 
-    /**
-     * Quando entrambi i client sono connessi invio i dati a entrambi e do inizio alla partita
-     */
+    //Quando entrambi i client sono connessi invio i dati a entrambi e do inizio alla partita
     private  void startGame() {
         gameField.startGame();
         pl1Writer.sendStartMsg();
@@ -141,8 +137,6 @@ public class Server {
         @Override
         public void run() {
             try {
-                //impostazione del player che questa istanza del server prende in carico
-
                 while (true){
                     String message = (String) dataIn.readUnshared();
 
@@ -155,11 +149,9 @@ public class Server {
                         commandApplierPl1.applyCommands(commands);
                     else if(this.playerID == 2)
                         commandApplierPl2.applyCommands(commands);
-
                 }
 
                 this.close();
-
 
             }catch (IOException | ClassNotFoundException e){
                 System.out.println("IOException from RFC run()");
@@ -180,6 +172,7 @@ public class Server {
                 System.out.println("RFC" + playerID + "\tRunnable closed");
                 System.out.println("WTC" + playerID + "\tRunnable closed");
                 System.out.println("----------------------------");
+
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -193,7 +186,7 @@ public class Server {
      */
     private class WriteToClient implements Runnable{
 
-        private int playerID;   //verrano create due istante di ReadFromClient, una per ogni player
+        private int playerID;
         private ObjectOutputStream dataOut;
 
         public WriteToClient(int playerID, ObjectOutputStream dataOut){
@@ -210,10 +203,6 @@ public class Server {
         public void sendStartMsg(){
             try {
 
-                /*
-                Non per forza deve essere una stringa, può essere qualunque cosa. In ogni caso, il client si ferma finché
-                non riceve questo messaggio.
-                 */
                 dataOut.writeUnshared("We now have 2 players. Go!");
                 dataOut.flush();
 
@@ -231,16 +220,14 @@ public class Server {
                     dataOut.writeUnshared(modelData);
                     dataOut.reset();
 
-                    if(playerID == 1) {
+                    if(playerID == 1)
                         gameField.setClipActivePl1(false);
-                    }
-                    else {
+                    else
                         gameField.setClipActivePl2(false);
-                    }
 
-                    //si stoppa momentaneamente il Thread
+                    //si stoppa momentaneamente il Thread per evitare il sovraccaricamento del socket
                     try {
-                        Thread.sleep(25);
+                        Thread.sleep(20);
                     } catch (InterruptedException e) {
                         System.out.println("InterruptedException from WTC run()");
                     }

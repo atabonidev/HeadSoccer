@@ -2,10 +2,14 @@ package it.unibs.pajc.model;
 
 import java.io.Serializable;
 
+/**
+ * Classe che gestisce il singolo suono tra client e server.
+ */
+
 public class SoundClipIdentifier implements Serializable {
 
-    private int clipNumber;
-    private boolean isClipActive;
+    private int clipNumber; //identifica il suono fra quelli presenti nel gioco
+    private boolean isClipActive; //indica se il suono è attualmente attivo
 
     public SoundClipIdentifier() {
         clipNumber = -1;

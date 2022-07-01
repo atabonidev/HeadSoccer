@@ -4,35 +4,39 @@ import java.awt.geom.AffineTransform;
 import java.io.Serializable;
 import javax.swing.Timer;
 
-public class Player extends DinamicObject implements Serializable {
-    public static final double DEFAULT_POS_X = 300; //posizione iniziale del giocatore e d
-    public static final double JUMP_STRENGTH = 10;  //potenza del calcio, con quale velocità parte
-    public static final double CONST_SPEED_X = 3.0;
+/**
+ * Classe che rappresenta il player.
+ */
 
-    private static final int MAX_SCORE = 3;
+public class Player extends DinamicObject implements Serializable {
+
+    public static final double DEFAULT_POS_X = 300; //posizione iniziale del giocatore
+    public static final double JUMP_STRENGTH = 10;  //potenza del calcio
+    public static final double CONST_SPEED_X = 3.0; //velocità costante di movimento del player in x
+
+    private static final int MAX_SCORE = 3;  //punteggio massimo raggiungibile (vittoria)
 
     private int playerID; //Indica il numero del player (1 => sinistra || 2 => destra)
     private String playerName;
-    private boolean kickStatus;
+    private boolean kickStatus; //indica se il player sta attualmente calciando
     private boolean isWinner;
-    private int currentIMG = 0;    //indice dell'immagine da visualizzare
-    private Timer timerAnimation;
+    private int currentIMG = 0; //indice dell'immagine da visualizzare
+    private Timer timerImageAnimation; //scandisce l'animazione delle immagini
     private int playerScore = 0;
-
 
     public Player(int playerID) {
         this.playerID = playerID;
-
         setDefault();
-
         createSkeleton();
         calculateCdm();
 
-        this.timerAnimation = new Timer(100, e -> {
+        this.timerImageAnimation = new Timer(100, e -> {
             setCurrentIMGIndex();
         });
     }
 
+    //Setta la posizione iniziale del player al suo valore di default (usato)
+    @Override
     public void setDefault() {
         if(playerID == 1) {
             this.position[0] = -DEFAULT_POS_X;
@@ -44,19 +48,17 @@ public class Player extends DinamicObject implements Serializable {
         this.speed[1] = 0;
     }
 
-
     public void startAnimation(){
-        timerAnimation.start();
+        timerImageAnimation.start();
     }
 
     public void stopAnimation() {
-        this.timerAnimation.stop();
+        this.timerImageAnimation.stop();
         this.currentIMG = 0;
     }
 
-    /*
-    in base allo stato in cui si trova il player.
-     */
+
+    //setta l'indice dell'immagine corrente in base allo stato in cui si trova il player
     public void setCurrentIMGIndex(){
         if(this.currentIMG == 0)
             this.currentIMG = 1;
@@ -64,10 +66,11 @@ public class Player extends DinamicObject implements Serializable {
             this.currentIMG = 0;
     }
 
+    //gestione del calcio
     public void kick(boolean isKicking) {
-        if(!kickStatus && isKicking) {  //viene reimpostato a false in key released, serve per le collisioni nella palla
-            kickStatus = isKicking;  //viene reimpostato a false in key released, serve per le collisioni nella palla
-            legRotation(1);   //posizione del calcio
+        if(!kickStatus && isKicking) {
+            kickStatus = isKicking;  //viene reimpostato a false in keyReleased(), serve per le collisioni nella palla
+            legRotation(1);
         }
     }
 
@@ -78,8 +81,10 @@ public class Player extends DinamicObject implements Serializable {
         this.currentIMG = 0;
     }
 
-    /*
-    ruota la gamba in base al giocatore che si sta usando, se il coefficiente è 1 -> si calcia, se è -1 ri riporta la gamba alla posizione originale
+    /**
+     * ruota la gamba in base al giocatore che si sta usando:
+     *     - se il coefficiente è 1 -> si calcia,
+     *     - se è -1 si riporta la gamba alla posizione originale
      */
     private void legRotation(int rotationCoefficient){
 
@@ -113,6 +118,7 @@ public class Player extends DinamicObject implements Serializable {
         }
     }
 
+    //incrementa la posizione x del player di un valore pari alla speed
     public void move(boolean isMovingRight) {
         if(isMovingRight) {
             speed[0] = CONST_SPEED_X;
@@ -128,10 +134,6 @@ public class Player extends DinamicObject implements Serializable {
         }
     }
 
-    /**
-     * Si nota che il metodo move() viene richiamatosì solo in presenza di un input, altrimenti si muoverebbe a caso
-     * anche senza premere tasti.
-     */
     @Override
     public void update() {
         if(position[1] == 0 && speed[1] < 0) {
@@ -144,34 +146,31 @@ public class Player extends DinamicObject implements Serializable {
 
     @Override
     public void collisionDetected(GameObject o) {
+        //================ PALLA E GIOCATORE ================
         if(o instanceof Ball ball){
-            //se la palla è ferma in qualsiasi posto
-            if(ball.getSpeedY() == 0) {
-                if (this.speed[1] < 0) {   //se il giocatore salta sulla palla mentre è ferma
-                    this.speed[1] = 0;  //si ferma sulla palla
-                    this.setPosY(ball.getPosY() + ball.getObjHeight());
-                }
-            }
-        }
-        /*
-        controllo collisioni player e porta -> nel primo if sottraiamo la velocità in Y perché altrimenti succedono macelli: quando il player atterra sulla porta in realtà gli
-        viene sottratta ancora la velocità e quindi risulterebbe in ogni caso più in basso rispetto all'altezza effettiva della porta. Per questo settiamo anche la posizione
-        oltre che impostare la velocità in Y = 0.
-         */
-        if(o instanceof FootballGoal footballGoal) {
-            if(this.getPosY() - speed[1] < footballGoal.getTotalShape().getBounds().height) {    //controlla se il giocatore sta al di sotto della porta
-                if(footballGoal.isLeft())
-                    this.setPosX(footballGoal.getPosX() + footballGoal.getTotalShape().getBounds().width);
-                else
-                    this.setPosX(footballGoal.getPosX() - this.getTotalShape().getBounds().width);
-            }
-            else{
-                this.speed[1] = 0;
-                this.setPosY(footballGoal.getTotalShape().getBounds().height);
+            //se il giocatore salta sulla palla mentre è ferma
+            if(ball.getSpeedY() == 0 && this.speed[1] < 0) {
+                this.speed[1] = 0;  //si ferma sulla palla
+                this.setPosY(ball.getPosY() + ball.getObjHeight());
             }
         }
 
-        //collisione giocatore e giocatore
+        //================ PLAYER E PORTA ================
+        if(o instanceof FootballGoal footballGoal) {
+            //controlla se il giocatore sta al di sotto della porta
+            if(this.getPosY() - speed[1] < footballGoal.getObjHeight()) {
+                if(footballGoal.isLeft())
+                    this.setPosX(footballGoal.getPosX() + footballGoal.getObjWidth());
+                else
+                    this.setPosX(footballGoal.getPosX() - this.getObjWidth());
+            }
+            else{
+                this.speed[1] = 0;
+                this.setPosY(footballGoal.getObjHeight());
+            }
+        }
+
+        //================ PLAYER E PLAYER ================
         if(o instanceof Player otherPlayer){
             if(Math.abs(this.getActualCdmY() - otherPlayer.getActualCdmY()) + Math.abs(speed[1]) > this.getObjHeight()) {
                 if(this.getActualCdmY() > otherPlayer.getActualCdmY()) {
@@ -189,20 +188,10 @@ public class Player extends DinamicObject implements Serializable {
                 else if(this.getActualCdmX() - speed[0] > otherPlayer.getActualCdmX()) {
                     this.position[0] = otherPlayer.position[0] + otherPlayer.getObjWidth();
                 }
-
-                //se entrambi si stanno muovendo in x si potrebbe annullare la velocità di entrambi, oppure continuare a decrementare
-                //la pos attuale della speed. (che alla fine penso sia quello che intende tabo con ritornare all'update precedente)
             }
         }
     }
 
-    /*
-    Altro metodo che anzi ché usare una forma singola ne usa 3: una per il busto e le altre due per le gambe.
-    All'array viene aggiunta prima la gamba sinistra e poi la gamba destra (dal punto di vista dell'osservatore esterno).
-    Il player1 (a sinistra) utilizzerà la gamba destra per calciare
-    viceversa.
-    Considero la gamba scheletro come metà porzione dell rettangolo in basso che identifica la parte bassa del corpo
-     */
     @Override
     public void createSkeleton() {
         Shape body = new Rectangle(0, 32 , 30, 48);   //busto (19 = altezza gambe)
@@ -214,7 +203,7 @@ public class Player extends DinamicObject implements Serializable {
         super.objectShape.add(rightLeg);
     }
 
-
+    //ruota la singola shape della gamba che sta calciando, in base al particolare player
     private AffineTransform rotateLeg(double radius) {
         AffineTransform rotationTransform;
 
@@ -230,21 +219,15 @@ public class Player extends DinamicObject implements Serializable {
         return rotationTransform;
     }
 
-    /*
-    public void initializeTimerAnimation() {
-        this.timerAnimation = new Timer(100, e -> {
-            setCurrentIMGIndex();
-        });
-    }
-    */
-
-    //GETTERS e SETTERS
+    /* ===================
+    GETTERS AND SETTERS
+    ====================*/
     public boolean getKickStatus(){return kickStatus;}
-
     public int getPlayerID() {
         return playerID;
     }
 
+    //ritorna la singola shape della gamba calciante trasformata rispetto all'attuale posizione del player
     public Shape getKickLegTransformed() {
         AffineTransform t = new AffineTransform(); //inizialmente coincide con la matrice identità
         Shape legTransformedShape;
@@ -261,50 +244,35 @@ public class Player extends DinamicObject implements Serializable {
         return legTransformedShape;
     }
 
-    public void setPlayerID(int playerID) {
-        this.playerID = playerID;
-    }
-
     public boolean isWinner() {
         return this.isWinner;
     }
-
-    public void setWinner(boolean isWinner) {
-        this.isWinner = isWinner;
-    }
-
     public void setSpeed(int speedIndex, double newSpeed){
         speed[speedIndex] = newSpeed;
     }
-
     public int getCurrentImageIndex() {
         if(kickStatus) {
-            this.timerAnimation.stop();
+            this.timerImageAnimation.stop();
             this.currentIMG = 2;
         }
 
         return this.currentIMG;
 
     }
-
     public int getPlayerScore() {
         return playerScore;
     }
-
     private void setPlayerScore(int score) {
         this.playerScore = score;
         if(score == MAX_SCORE)
             isWinner = true;
     }
-
     public void incrementPlayerScore() {
         setPlayerScore(this.playerScore + 1);
     }
-
     public String getPlayerName() {
         return playerName;
     }
-
     public void setPlayerName(String playerName) {
         this.playerName = playerName;
     }

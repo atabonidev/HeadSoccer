@@ -2,7 +2,7 @@ package it.unibs.pajc.model;
 
 
 /**
- * classe base per ogni oggetto che si muove all'interno del gioco: palla, giocatore.
+ * Classe base per ogni oggetto che si muove all'interno del gioco: palla, giocatore.
  */
 
 public abstract class DinamicObject extends GameObject{
@@ -11,21 +11,7 @@ public abstract class DinamicObject extends GameObject{
 
     protected double[] speed = { 0, 0 };
 
-    //Per la gestione della gravità
-    public void accelerateY(double accelerationY) {
-        if((speed[1] > 0 && accelerationY < 0 && (speed[1] + accelerationY) < 0)) {
-            speed[1] = 0;
-        } else {
-            this.speed[1] = this.speed[1] + accelerationY;
-        }
-    }
-
-    public void gravityApplication() {
-        if(speed[1] != 0 || position[1] != 0) {
-            this.speed[1] = this.speed[1] -GRAVITY;
-        }
-    }
-
+    //applicazione delle accelerazioni subite dall'oggetto in x
     public void accelerateX(double accelerationX){
         if(speed[0] > 0 && accelerationX < 0 && (speed[0] + accelerationX) < 0) {
             speed[0] = 0;
@@ -36,19 +22,35 @@ public abstract class DinamicObject extends GameObject{
         }
     }
 
+    //applicazione delle accelerazioni subite dall'oggetto in y
+    public void accelerateY(double accelerationY) {
+        //se la palla tocca il soffitto con una velocità molto prossima a 0 potrebbe rimanere bloccata in alto
+        if((speed[1] > 0 && accelerationY < 0 && (speed[1] + accelerationY) < 0)) {
+            speed[1] = 0;
+        } else {
+            this.speed[1] = this.speed[1] + accelerationY;
+        }
+    }
+
+    //applicazione della gravità all'oggetto
+    public void gravityApplication() {
+        if(speed[1] != 0 || position[1] != 0) {
+            this.speed[1] = this.speed[1] -GRAVITY;
+        }
+    }
+
+    //setta i parametri ai valori di default
+    public abstract void setDefault();
+
     public abstract void update();
 
-    //getters e setters
+    /* ===================
+    GETTERS AND SETTERS
+    ====================*/
     public double getSpeedX() {
         return speed[0];
     }
-
     public double getSpeedY() {
         return speed[1];
     }
-
-    public double getSpeed(int speedComponent){
-        return speed[speedComponent];
-    }
-
 }

@@ -6,6 +6,11 @@ import it.unibs.pajc.model.Player;
 import java.awt.event.KeyEvent;
 import java.util.HashMap;
 
+/**
+ * Classe che identifica il protocollo di comunicazione fra client e server.
+ * Mappa una serie di stringhe (comandi inviati dal client al server) ad azioni specifiche da attuare sul model
+ */
+
 public class CommandApplier {
 
     private Player player;

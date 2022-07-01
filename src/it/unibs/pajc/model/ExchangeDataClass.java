@@ -2,7 +2,12 @@ package it.unibs.pajc.model;
 
 import java.io.Serializable;
 
+/**
+ * Sottoparte del model. Rappresenta il pacchetto dati che viene mandata dal server al client.
+ */
+
 public class ExchangeDataClass extends BaseModel implements Serializable{
+
     private Player player1;
     private Player player2;
     private Ball ball;
@@ -21,15 +26,6 @@ public class ExchangeDataClass extends BaseModel implements Serializable{
         this.score = gameField.getScore();
         this.soundClipIdentifierPl1 = gameField.getSoundClipIdentifierPl1();
         this.soundClipIdentifierPl2 = gameField.getSoundClipIdentifierPl2();
-    }
-
-    public void updateData(ExchangeDataClass newData) {
-        this.player1 = newData.getPlayer1();
-        this.player2 = newData.getPlayer2();
-        this.ball = newData.getBall();
-        this.score = newData.getScore();
-        this.soundClipIdentifierPl1 = newData.getSoundClipIdentifierPl1();
-        this.soundClipIdentifierPl2 = newData.getSoundClipIdentifierPl2();
     }
 
     /* ===================

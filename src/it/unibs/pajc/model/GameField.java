@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * oggetti di gioco.
  */
 public class GameField extends BaseModel implements Serializable {
-    //I player è meglio averli privati in quanto reagiscono agli input dell'utente
+
     public static final FootballGoal leftFootballGoal = new FootballGoal(true);
     public static final FootballGoal rightFootballGoal = new FootballGoal(false);
     private Player player1;
@@ -27,13 +27,12 @@ public class GameField extends BaseModel implements Serializable {
     private ArrayList<GameObject> gameObjects = new ArrayList<>();  //array contenente tutti gli oggetti coinvolti nel gioco
     private Rectangle2D.Float borders; //bordi dell'area di gioco
 
-    //bisogna creare il player con le posizioni iniziali
+    //Creazione campo da gioco con posizioni di default per tutti gli oggetti
     public GameField() {
         this.player1 = new Player(1);
         this.player2 = new Player(2);
         this.ball = new Ball(this);
 
-        //Classe che rappresenta il punteggio
         this.score = new Score(this.player1, this.player2);
 
         gameObjects.add(leftFootballGoal);
@@ -49,10 +48,7 @@ public class GameField extends BaseModel implements Serializable {
         updateTimer.start();
     }
 
-
-    /**
-     * metodo che richiama gli update dei singoli oggetti di gioco
-     */
+    //metodo che richiama gli update dei singoli oggetti di gioco
     public void update(){
 
         for (GameObject o : gameObjects) {
@@ -65,22 +61,19 @@ public class GameField extends BaseModel implements Serializable {
         checkCollisions();
     }
 
+    //Metodo che esporta i dati del model da inviare al client
     public ExchangeDataClass exportData(){
         return new ExchangeDataClass(this);
     }
 
-    /**
-     * reset degli oggetti dinamici di gioco
-     */
+    //reset degli oggetti dinamici di gioco (quando avviene un goal o la palla va fuori campo)
     public void reset() {
         this.player1.setDefault();
         this.player2.setDefault();
         this.ball.setDefault();
     }
 
-    /**
-     * Metodo che si occupa della gestione di un goal
-     */
+    //Metodo che si occupa della gestione di un goal
     public void incrementScore(FootballGoal footballGoal) {
         if(footballGoal.isLeft()) {
             score.incrementScore(player2.getPlayerID());
@@ -88,6 +81,7 @@ public class GameField extends BaseModel implements Serializable {
             score.incrementScore(player1.getPlayerID());
         }
 
+        //attivazione dei suoni
         this.setClipNumberPl1(Sound.KICK_OFF);
         this.setClipActivePl1(true);
         this.setClipNumberPl2(Sound.KICK_OFF);
@@ -95,9 +89,7 @@ public class GameField extends BaseModel implements Serializable {
     }
 
 
-    /**
-     * controlla le collisioni fra le varie coppie di elementi di gioco.
-     */
+    //controlla le collisioni fra le varie coppie di elementi di gioco.
     public void checkCollisions(){
         int nobjs = gameObjects.size();
 
@@ -134,9 +126,7 @@ public class GameField extends BaseModel implements Serializable {
         }
     }
 
-    /**
-     * controlla che tutti gli elementi di gioco non escano dall'area di gioco
-     */
+    //controlla che tutti gli elementi di gioco non escano dall'area di gioco
     private void applyCloseField(DinamicObject o){
         borders = new Rectangle2D.Float(-500, 0, 1000, 386);   //bordi del campo di gioco (secondo il nostro sistema di rif.)
         if(o.getPosY() < borders.getMinY()){
@@ -157,62 +147,33 @@ public class GameField extends BaseModel implements Serializable {
     /* ===================
     GETTERS AND SETTERS
     ====================*/
-    public ArrayList<GameObject> getGameObjects() {
-        return gameObjects;
-    }
-
     public Player getPlayer1() {
         return this.player1;
     }
-
     public Player getPlayer2() {
         return this.player2;
     }
-
     public Ball getBall() {
         return this.ball;
     }
-
     public Score getScore() {
         return score;
     }
-
     public SoundClipIdentifier getSoundClipIdentifierPl1() {
         return soundClipIdentifierPl1;
     }
-
     public SoundClipIdentifier getSoundClipIdentifierPl2() {
         return soundClipIdentifierPl2;
     }
-
-    public int getClipNumberPl1() {
-        return this.soundClipIdentifierPl1.getClipNumber();
-    }
-
-    public int getClipNumberPl2() {
-        return this.soundClipIdentifierPl2.getClipNumber();
-    }
-
     public void setClipNumberPl1(int clipNumber) {
         this.soundClipIdentifierPl1.setClipNumber(clipNumber);
     }
-
     public void setClipNumberPl2(int clipNumber) {
         this.soundClipIdentifierPl2.setClipNumber(clipNumber);
     }
-
-    public boolean isClipActivePl1() {
-        return this.soundClipIdentifierPl1.isClipActive();
-    }
-
-    public boolean isClipActivePl2() {
-        return this.soundClipIdentifierPl2.isClipActive();
-    }
-
     public void setClipActivePl1(boolean isActive) {
         this.soundClipIdentifierPl1.setClipActive(isActive);
     }
-
     public void setClipActivePl2(boolean isActive) {
         this.soundClipIdentifierPl2.setClipActive(isActive);
     }

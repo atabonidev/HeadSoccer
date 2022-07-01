@@ -2,7 +2,9 @@ package it.unibs.pajc.model;
 
 import javax.swing.event.*;
 
-/// attenzione a non infragere (troppo) il "single responsibility principle"
+/**
+ * classe base da cui derivano tutte le altre
+ */
 
 public class BaseModel {
 
