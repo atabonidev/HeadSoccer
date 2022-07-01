@@ -38,6 +38,14 @@ public class FootballGoal extends GameObject {
         super.objectShape.add(net);
     }
 
+    public double getCrossBarY() {
+        return this.getSingleShape(0).getBounds().y;
+    }
+
+    public double getCrossBarHeight() {
+        return this.getSingleShape(0).getBounds().height;
+    }
+
     public boolean isLeft() {
         return isLeft;
     }

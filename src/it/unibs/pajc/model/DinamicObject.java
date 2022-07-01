@@ -39,6 +39,14 @@ public abstract class DinamicObject extends GameObject{
     public abstract void update();
 
     //getters e setters
+    public double getSpeedX() {
+        return speed[0];
+    }
+
+    public double getSpeedY() {
+        return speed[1];
+    }
+
     public double getSpeed(int speedComponent){
         return speed[speedComponent];
     }

@@ -13,6 +13,7 @@ public class Ball extends DinamicObject implements Serializable {
     private static final double BOUNCING_FRICTION = 2.6;
     private static final double AIR_FRICTION = 0.02;
 
+
     private GameField gameField;
 
     public Ball(GameField gameField){
@@ -24,6 +25,9 @@ public class Ball extends DinamicObject implements Serializable {
         calculateCdm();
     }
 
+    /**
+     * Metodo che reimposta la palla alla posizione di default
+     */
     public void setDefault() {
         this.position[0] = -this.getTotalShape().getBounds().width / 2.0;
         this.position[1] = DEFAULT_POS_Y;
@@ -33,26 +37,25 @@ public class Ball extends DinamicObject implements Serializable {
 
     //Controlla se la palla finisce contro uno dei bordi
     private boolean isBordersChecked() {
-        if((position[1] == 0 && speed[1] < 0) || (position[0] == -500 && speed[0] < 0) || (position[0] == 477 && speed[0] > 0) || (
-                (position[1] + getShape().getBounds().height) == 386  && speed[1] > 0))
-            return true;
-        return false;
+        return (position[1] == 0 || position[0] == -500 || (position[0] + this.getObjWidth()) == 500 || (position[1] + this.getObjHeight()) == 386);
     }
 
+    /**
+     * gestione fisica della palla
+     */
     @Override
     public void update() {
         if(isBordersChecked()) {
             if((position[1] == 0 && speed[1] < 0)) {
                 bouncingY(-1, BOUNCING_FRICTION); //Rimbalzo della palla in basso
             }
-            if((position[1] + this.getTotalShape().getBounds().height == 386 && speed[1] > 0)) {
-                //bouncingY(1, BOUNCING_FRICTION); //Rimbalzo della palla in alto
-                bouncingY(0, 0); //pezza al codice
+            if((position[1] + this.getObjHeight() == 386 && speed[1] > 0)) {
+                bouncingY(0, 0); //Rimbalzo della palla in alto
             }
             if((position[0] == -500 && speed[0] < 0)) {
                 bouncingX(-1, BOUNCING_FRICTION); //Rimbalzo della palla sul bordo sinistro
             }
-            if((position[0] == 477 && speed[0] > 0)) {
+            if((position[0] + this.getObjWidth() == 500 && speed[0] > 0)) {
                 bouncingX(1, BOUNCING_FRICTION); //Rimbalzo della palla sul bordo destro
             }
         }
@@ -75,15 +78,12 @@ public class Ball extends DinamicObject implements Serializable {
 
         position[0] += speed[0];
         position[1] += speed[1];
-
-
-        //System.out.println(this.speed[0] + " | " + this.speed[1]);
     }
 
     /**
      * metodo che fa rimbalzare (e fermare la palla)
      * @param acceleration
-     * @param accelerationSign   segno dell'accelerazione
+     * @param accelerationSign segno dell'accelerazione
      */
     private void bouncingX(int accelerationSign, double acceleration){
         speed[0] = -speed[0];
@@ -95,86 +95,100 @@ public class Ball extends DinamicObject implements Serializable {
         accelerateY(accelerationSign * acceleration);
     }
 
+    /**
+     * Gestione delle collisioni tra la palla e gli altri oggetti presenti nel gioco
+     * @param o
+     */
     @Override
     public void collisionDetected(GameObject o) {
-        //PALLA E GIOCATORE
+        //================ PALLA E GIOCATORE ================
         if(o instanceof Player player) {
-            Area IntersectionLegBal = new Area(this.getShape());
+            Area IntersectionLegBal = new Area(this.getShape()); //prende la shape gia' trasformata della palla
+            IntersectionLegBal.intersect(new Area(player.getKickLegTransformed())); //intersezione gamba palla
 
-            if(player.getPlayerID() == 1)
-                IntersectionLegBal.intersect(new Area(player.getKickLegTransformed()));    //intersezione gamba palla
-            else
-                IntersectionLegBal.intersect(new Area(player.getKickLegTransformed()));    //intersezione gamba palla
-
-            //Player che calcia
+            //Se il player sta calciando e l'intersezione tra palla e gamba calciante del player non e'vuota
             if(player.getKickStatus() && !(IntersectionLegBal.isEmpty())){
-                kicked(player.getPlayerID());
-                gameField.setClipNumberPl1(Sound.KICK_BALL);
-                gameField.setClipActivePl1(true);
-                gameField.setClipNumberPl2(Sound.KICK_BALL);
-                gameField.setClipActivePl2(true);
+                this.kicked(player.getPlayerID());
             }
             else {
-                //controlli in X
-                if (speed[0] == 0) { // se la palla è ferma
-                    speed[0] = player.getSpeed(0);
-                }
-                //stesso verso di spostamento
-                if (speed[0] > 0 && player.getSpeed(0) > 0) {   //entrambi ->
-                    if (position[0] < player.getPosX()) { //palla da dietro e verso ->
-                        speed[0] = -speed[0];   //non va bene perché se la palla colpisse il player dall'alto non dovrebbe cambiare direzione
-                    } else
-                        speed[0] += player.getSpeed(0);
-                } else if (speed[0] < 0 && player.getSpeed(0) < 0) {  //embtrambi <-
-                    if (position[0] > player.getPosX()) { //palla da dietro e verso <-
-                        speed[0] = -speed[0];
-                    } else
-                        speed[0] += player.getSpeed(0);
-                } else if (!(player.getPosY() > position[1] && player.getPosX() >= position[0] && player.getPosX() <= (position[0] + 23))) {  //si cambia velocità solo se la palla non è sotto il player
-                    speed[0] = -speed[0] + player.getSpeed(0);   //versi opposti di spostamento
+                //______________ CONTROLLI VELOCITA' IN X ______________
+                //Se non sei sopra la palla
+                if(!isPlayerOverBall(player)) {
+                    if (speed[0] == 0 && (player.getSpeedX() > 0 || player.getSpeedX() < 0)) { // se la palla è ferma
+                        speed[0] = player.getSpeedX();
+                    }
+                    //stesso verso di spostamento: entrambi verso destra (->)
+                    else if (speed[0] > 0 && player.getSpeedX() > 0) {
+
+                        //posizione palla minore della posizione player
+                        if (position[0] < player.getPosX())
+                            speed[0] = -speed[0];
+                        else
+                            speed[0] += player.getSpeedX();
+
+                    }
+                    //stesso verso di spostamento: entrambi verso sinistra (<-)
+                    else if (speed[0] < 0 && player.getSpeedX() < 0) {
+
+                        //posizione palla maggiore della posizione player
+                        if (position[0] > player.getPosX())
+                            speed[0] = -speed[0];
+                        else
+                            speed[0] += player.getSpeedX();
+
+                    }
+                    else
+                        speed[0] = -speed[0] + player.getSpeed(0);   //versi opposti di spostamento
                 }
 
 
-                //stesso discorso per i controlli in y
-                if (speed[1] > 0 && player.getSpeed(1) > 0) {   //entrambi su
-                    if (position[1] < player.getPosY()) { //palla da sotto
+                //______________ CONTROLLI VELOCITA' IN Y ______________
+                //stesso verso di spostamento: entrambi verso l'alto
+                if (speed[1] > 0 && player.getSpeedY() > 0) {
+
+                    //posizione palla minore della posizione player: palla sotto il player
+                    if (position[1] < player.getPosY()) {
                         speed[1] = -speed[1];
                     } else
-                        speed[1] += player.getSpeed(1);
-                } else if (speed[1] < 0 && player.getSpeed(1) < 0) {  //embtrambi giù
-                    if (position[1] > player.getPosY()) { //palla da sopra
+                        speed[1] += player.getSpeedY();
+
+                }
+                //stesso verso di spostamento: entrambi verso il basso
+                else if (speed[1] < 0 && player.getSpeedY() < 0) {
+
+                    //posizione palla maggiore della posizione player: palla sopra il player
+                    if (position[1] > player.getPosY()) {
                         speed[1] = -speed[1];
                     } else
-                        speed[1] += player.getSpeed(1);
-                } else
-                    speed[1] = -speed[1] + player.getSpeed(1);;//versi opposti di spostamento
+                        speed[1] += player.getSpeedY();
 
+                }
+                else
+                    speed[1] = -speed[1] + player.getSpeedY();
+
+
+                //______________ CUT OFF PALLA FERMA SOPRA PLAYER FERMA ______________
                 //palla rimbalza su giocatore fermo in y -> cut off per impedire che la palla entri nel giocatore quando è quasi ferma
-                if (Math.abs(this.speed[1]) <= 5.28 && this.speed[0] == 0 && this.getActualCdmY() >= player.getActualCdmY()) {
-                    this.speed[1] = 0;
-                    this.setPosY(player.getTotalShape().getBounds().height);
+                if (Math.abs(speed[1]) <= 5.28 && speed[0] == 0 && this.getActualCdmY() >= player.getActualCdmY()) {
+                    speed[1] = 0;
+                    this.setPosY(player.getObjHeight());
                 }
             }
         }
-        //PALLA - PORTA
 
-        /*
-            1) palla contro traversa -> cambio di direzione sia in x che y
-            2) palla dentro porta (nella seconda shape) (else) -> goal
-     */
+        //================ PALLA E PORTA ================
         else if(o instanceof  FootballGoal footballGoal){
             //lato superiore della traversa
-            if(this.getPosY() - speed[1] >= footballGoal.getSingleShape(0).getBounds().y + footballGoal.getSingleShape(0).getBounds().height){
-                if(this.speed[1] == -DinamicObject.GRAVITY && this.speed[0] == 0) {
+            if(this.getPosY() - speed[1] >= footballGoal.getCrossBarY() + footballGoal.getCrossBarHeight()){
+                if(this.speed[1] == -DinamicObject.GRAVITY && speed[0] == 0) {
                     this.gameField.reset();
                 } else {
-                    this.setPosY(footballGoal.getShape().getBounds().height);
+                    this.setPosY(footballGoal.getObjHeight());
                     bouncingY(-1, BOUNCING_FRICTION);
                 }
             }
             //lato della traversa (dx o sx)
-            else if(this.getPosY() + this.getTotalShape().getBounds().height - speed[1] >= footballGoal.getSingleShape(0).getBounds().y &&
-                    this.getPosY() - speed[1] <= footballGoal.getSingleShape(0).getBounds().y + footballGoal.getSingleShape(0).getBounds().height){
+            else if(this.getPosY() + this.getObjHeight() - speed[1] >= footballGoal.getCrossBarY() && this.getPosY() - speed[1] <= footballGoal.getCrossBarY() + footballGoal.getCrossBarHeight()){
                 bouncingX(0, 0);
             }
             //controllo nella rete
@@ -185,40 +199,10 @@ public class Ball extends DinamicObject implements Serializable {
         }
     }
 
-    /*
-    Metodo che si occupa della gestione della velocità della palla quanot questa si trova fra i due player che sono abbastanza vicini.
-    Serve per evitare che la palla continui a rimbalzare in maniera strana.
-     */
-    private void betweenPlayers(){
-        //player 1 a sinistra e player 2 a destra  ||  player 1 a destra e player 2 a sinistra
-        if(this.getActualCdmX() >= gameField.getPlayer1().getActualCdmX() && this.getActualCdmX() <= gameField.getPlayer2().getActualCdmX() ||
-                this.getActualCdmX()  <= gameField.getPlayer1().getActualCdmX()  && this.getActualCdmX()  >= gameField.getPlayer2().getActualCdmX() ){
 
-            System.out.println(Math.abs(gameField.getPlayer1().getActualCdmX()  - gameField.getPlayer2().getActualCdmX()));
-            //si controlla la distanza fra i due player
-            if(Math.abs(gameField.getPlayer1().getActualCdmX()  - gameField.getPlayer2().getActualCdmX()) <= 200){
-                this.speed[0] = speed[0] * 0.5;
-                System.out.println(true);
-
-            }
-        }
-    }
-
-    private void between2(){
-        //player 1 a sinistra e player 2 a destra  ||  player 1 a destra e player 2 a sinistra
-        if(isBetweenTwoPlayers()){
-            this.speed[0] = 0;
-        }
-    }
-
-    private boolean isBetweenTwoPlayers() {
-        double collisionDistanceBallPlayer = (this.getObjWidth() / 2) + (gameField.getPlayer1().getObjWidth() / 2);
-        double distancePlayer1Ball = Math.abs(this.getActualCdmX() - gameField.getPlayer1().getActualCdmX());
-        double distancePlayer2Ball = Math.abs(this.getActualCdmX() - gameField.getPlayer2().getActualCdmX());
-
-        //System.out.println((distancePlayer1Ball <= collisionDistanceBallPlayer && distancePlayer2Ball <= collisionDistanceBallPlayer));
-
-        return (distancePlayer1Ball <= collisionDistanceBallPlayer && distancePlayer2Ball <= collisionDistanceBallPlayer);
+    //Metodo che restituisce true se il player e' sopra la palla
+    private boolean isPlayerOverBall(Player player) {
+        return (player.getPosY() > position[1] && player.getPosX() > (position[0] - player.getObjWidth()) && player.getPosX() < (position[0] + this.getObjWidth() + player.getObjWidth()));
     }
 
 
@@ -236,6 +220,12 @@ public class Ball extends DinamicObject implements Serializable {
             speed[0] = -KICK_STRENGHT[0];
             speed[1] = KICK_STRENGHT[1];
         }
+
+        //Attivazione suono calcio palla
+        gameField.setClipNumberPl1(Sound.KICK_BALL);
+        gameField.setClipActivePl1(true);
+        gameField.setClipNumberPl2(Sound.KICK_BALL);
+        gameField.setClipActivePl2(true);
     }
 
 }

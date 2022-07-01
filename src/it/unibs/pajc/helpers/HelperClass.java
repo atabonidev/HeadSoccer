@@ -9,6 +9,10 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
+/**
+ * Classe che si occupa di importare le immagini del gioco
+ */
 public class HelperClass {
 
     private static String[] imagesNames = new String[]{
@@ -30,7 +34,7 @@ public class HelperClass {
      * @return
      */
     public static BufferedImage getCompleteGameField() {
-        InputStream field = HelperClass.class.getClassLoader().getResourceAsStream("gameField1.jpeg");
+        InputStream field = HelperClass.class.getClassLoader().getResourceAsStream("gameField.jpeg");
 
         try {
             return ImageIO.read(field);

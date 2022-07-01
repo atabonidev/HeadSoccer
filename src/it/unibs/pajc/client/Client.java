@@ -37,10 +37,11 @@ public class Client {
         this.serverIp = serverIp;
     }
 
+    /**
+     * Metodo che tenta di avviare la connessione al server di ip fornito dall'utente nel costruttore della classe Client
+     */
     public void startServerConnection() {
-
         try {
-            //serverConnection = new Socket(serverIp, Server.PORT);
             serverConnection = new Socket();
             serverConnection.connect(new InetSocketAddress(serverIp, Server.PORT), 1000);
 
@@ -69,7 +70,6 @@ public class Client {
             System.err.println("IP address of the host could not be determined : " + e.toString());
 
         } catch(IOException e) {
-
             System.err.println("Error in creating socket: " + e.toString());
             frame.getTextIP().setBorder(new LineBorder(Color.RED, 2));
             frame.getTextIP().setForeground(Color.RED);
@@ -80,6 +80,11 @@ public class Client {
         }
     }
 
+    /**
+     * ====== PRIMO PANNELLO - PANNELLO DI ATTESA ======
+     * pannello intermedio nel quale si rimane
+     * fino all connessione del avversario.
+     */
     private void clientConnection() {
         frame.getContentPane().removeAll();
 
@@ -106,7 +111,11 @@ public class Client {
         new Thread(() -> readerFS.waitForStartMsg()).start();
     }
 
-
+    /**
+     * ====== SECONDO PANNELLO - PANNELLO DI GIOCO ======
+     * Pannello di gioco nel quale si rimane fino a che un giocatore
+     * arriva a un punteggio pari a 3 (partita terminata).
+     */
     private void gameInitialization() {
         frame.getContentPane().removeAll();
         frame.setLayout(new BorderLayout());
@@ -126,6 +135,11 @@ public class Client {
         frame.getContentPane().requestFocusInWindow();
     }
 
+    /**
+     * ====== TERZO PANNELLO - PANNELLO RISULTATO ======
+     * Pannello finale che stampa il risultato a video del vincitore
+     * e del perdente.
+     */
     private void printResultPanel() {
         frame.getContentPane().removeAll();
 
@@ -171,7 +185,9 @@ public class Client {
     }
 
 
-    //Chiude le connessioni col server
+    /**
+     * Metodo che si occupa di effettuare la chiusura delle connessioni aperte col server
+     */
     private void closeConnection() {
         try {
             readerFS.close();
@@ -203,9 +219,7 @@ public class Client {
         @Override
         public void run() {
             try {
-                /*
-                Leggiamo le coordinate che ci vengono inviate dal server e sono quelle relative enemy che vengono settate.
-                 */
+                //continuiamo a leggere il model aggiornato dal server
                 while (true){
                     modelData = (ExchangeDataClass) dataIn.readUnshared();
 
@@ -231,7 +245,7 @@ public class Client {
 
         /**
         Metodo che mette in pausa il thread su cui gira il PlayerFrame finché non riceve dal server il comando per continuare.
-        Dopo che è stato ricevuto il messaggio iniziale si può procedere e far partire i threads di lettura e scrittura.
+        Dopo che è stato ricevuto il messaggio iniziale si può procedere e far partire i thread di lettura e scrittura.
          */
         public void waitForStartMsg(){
             try {
@@ -265,6 +279,12 @@ public class Client {
             System.out.println("WFS" + playerID + "\tRunnable created");
         }
 
+        /**
+         * Metodo usato per mandare i dati al server. I dati inviati corrispondono a comandi
+         * in formato stringa che verranno interpretati in maniera corretta dal server attraverso
+         * un protocollo condiviso.
+         * @param commands
+         */
         public void sendToServer(String commands){
             try {
                 dataOut.writeUnshared(commands);
@@ -274,20 +294,22 @@ public class Client {
             }
         }
 
-       public void sendPlayerName(String playerName) {
-           try {
+        //Metodo utilizzato per comunicare il nome utente all'avvio della connessione
+        public void sendPlayerName(String playerName) {
+            try {
                dataOut.writeUnshared(playerName);
                dataOut.flush();
 
-           }catch (IOException e){
+            }catch (IOException e){
                System.out.println("IOException from RFC run() || pl" + playerID);
-           }
-       }
+            }
+        }
 
         public void close() throws IOException {
             this.dataOut.close();
         }
 
+        //Metodo che dice al server di chiudere i canali di comunicazione col client
         public void sendCloseMessage() {
             try {
                 dataOut.writeUnshared("CLOSE");

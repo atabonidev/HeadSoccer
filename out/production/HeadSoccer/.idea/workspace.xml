@@ -2,13 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7acec6b0-c177-4a70-90e3-6041572d59d5" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/client/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/client/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/Ball.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/Ball.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/ExchangeDataClass.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/ExchangeDataClass.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameField.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/GameField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/model/SoundClipIdentifier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/model/SoundClipIdentifier.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/server/Server.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/server/Server.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/it/unibs/pajc/view/GameView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/it/unibs/pajc/view/GameView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/HeadSoccer/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

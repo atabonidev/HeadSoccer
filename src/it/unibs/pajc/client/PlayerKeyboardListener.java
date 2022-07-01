@@ -8,11 +8,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
 
+/**
+ * Classe che si occupa di intercettare gli input da tastiera, e di inviare al
+ * server i comandi relativi a quegli input.
+ */
 public class PlayerKeyboardListener extends BaseModel implements KeyListener {
 
-    /*
-     * aplica i controlli attualmente attivi
-     */
     public static final int STOP_ANIMATION = 1;
     public static final int STOP_KICKING = 2;
 
@@ -27,7 +28,11 @@ public class PlayerKeyboardListener extends BaseModel implements KeyListener {
         this.controlsTimer.start();
     }
 
-
+    /**
+     * Metodo richiato ogni 20 millisecondi che si occupa della formattazione dei comandi attivi
+     * in una string che successivamente invia al server;
+     * @param actionEvent
+     */
     private void applyControls(ActionEvent actionEvent) {
         for(String command: commands) {
             int actualCommand = 0;
@@ -48,7 +53,7 @@ public class PlayerKeyboardListener extends BaseModel implements KeyListener {
 
         if(!formattedData.isEmpty()) {
             writeToServer.sendToServer(formattedData.toString().substring(0, formattedData.length() -2));
-            formattedData.setLength(0);
+            formattedData.setLength(0); //svuota lo StringBuffer formattedData
         }
 
         if(commands.contains(""+STOP_ANIMATION))

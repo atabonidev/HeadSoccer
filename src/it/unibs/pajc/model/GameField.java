@@ -107,9 +107,9 @@ public class GameField extends BaseModel implements Serializable {
                     //si informano gli oggetti che si ha avuto un urto
                     if(gameObjects.get(i) instanceof Player pl1 && gameObjects.get(j) instanceof Player pl2){
 
-                        if(pl1.getSpeed(0) != 0 && pl2.getSpeed(0) == 0) {
+                        if(pl1.getSpeedX() != 0 && pl2.getSpeedX() == 0) {
                             pl1.collisionDetected(pl2);
-                        }else if(pl1.getSpeed(0) == 0 && pl2.getSpeed(0) != 0){
+                        }else if(pl1.getSpeedX() == 0 && pl2.getSpeedX() != 0){
                             pl2.collisionDetected(pl1);
                         }else {
                             if(pl1.getActualCdmY() >= pl2.getActualCdmY())

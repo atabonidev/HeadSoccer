@@ -146,10 +146,10 @@ public class Player extends DinamicObject implements Serializable {
     public void collisionDetected(GameObject o) {
         if(o instanceof Ball ball){
             //se la palla è ferma in qualsiasi posto
-            if(ball.getSpeed(1) == 0) {
+            if(ball.getSpeedY() == 0) {
                 if (this.speed[1] < 0) {   //se il giocatore salta sulla palla mentre è ferma
                     this.speed[1] = 0;  //si ferma sulla palla
-                    this.setPosY(ball.getPosY() + ball.getTotalShape().getBounds().height);
+                    this.setPosY(ball.getPosY() + ball.getObjHeight());
                 }
             }
         }
