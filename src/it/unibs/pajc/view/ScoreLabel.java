@@ -2,6 +2,9 @@ package it.unibs.pajc.view;
 
 import java.awt.*;
 
+/**
+ * Classe che rappresenta graficamente una label customizzata. Utilizzata per mostrare i nomi dei player e i punteggi.
+ */
 public class ScoreLabel {
     public int x, y, width, height;
     private String text;

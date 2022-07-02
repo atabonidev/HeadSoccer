@@ -7,6 +7,9 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * Classe che rappresenta lo sfondo del menu iniziale, appena viene avviato il gioco
+ */
 public class StarterMenuView extends JPanel {
 
     BufferedImage blurredFieldImage = null;

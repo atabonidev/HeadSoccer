@@ -11,8 +11,8 @@ public class FootballGoal extends GameObject {
 
     public FootballGoal(boolean isLeft) {
         this.isLeft = isLeft;
-        setFootballGoalPosition(isLeft);
         createSkeleton();
+        setFootballGoalPosition(isLeft);
     }
 
     private void setFootballGoalPosition(boolean isLeft) {

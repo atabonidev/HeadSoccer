@@ -13,6 +13,9 @@ import java.awt.event.ActionEvent;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Classe che consente di avviare il gioco. È la classe principale
+ */
 public class MainApp extends JFrame {
 
     private Client clientController;
@@ -20,8 +23,8 @@ public class MainApp extends JFrame {
     private JTextField textIP;
     private JTextField txtPlayerName;
     
-    private JButton btnConnect;
-    private JButton btnExit;
+    private JButton btnConnect;  //bottone che avvia la connessione con il server
+    private JButton btnExit; //provoca l'uscita dal gioco e la chiusura del frame
     
     private DocumentListener jTextListener;
 
@@ -39,11 +42,17 @@ public class MainApp extends JFrame {
         this.setContentPane(this.menu);
         this.getContentPane().setPreferredSize(new Dimension(1000, 561));
         getContentPane().setLayout(null);  //absolute layout
-        
-        JLabel lblNewLabel = new JLabel("<html><h1 style=\"font-size: 40px;\"><strong><i>Head Soccer</i></strong></h1><hr></html>");
-        lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
-        lblNewLabel.setBounds(10, 10, 990, 132);
-        getContentPane().add(lblNewLabel);
+
+        JLabel gameTitle = new JLabel(
+        "<html>" +
+                "<h1 style=\"font-size: 40px; color: #004d00; padding: 5px 10px; padding-top: 0; border-bottom: 3px solid #004d00;\">" +
+                    "<strong><i>Head Soccer</i></strong>" +
+                "</h1>" +
+            "</html>"
+        );
+        gameTitle.setHorizontalAlignment(SwingConstants.CENTER);
+        gameTitle.setBounds(10, 10, 990, 132);
+        getContentPane().add(gameTitle);
         
         //creazione label per immettere indirizzo ip del server al quale collegarsi
         textIP = new JTextField();
@@ -86,7 +95,7 @@ public class MainApp extends JFrame {
         
         btnExit.addActionListener(this::exit);
         
-        //abilitazione bottone CONNECT -> quanto i jTecxt vengono riempiti
+        //abilitazione bottone CONNECT -> solo quando i jText vengono modificati e riempiti
         
         jTextListener = new DocumentListener() {
 			
@@ -105,20 +114,18 @@ public class MainApp extends JFrame {
 				enableConnectBotton();
 			}
 		};
-		
-		
+
 	    txtPlayerName.getDocument().addDocumentListener(jTextListener);
         textIP.getDocument().addDocumentListener(jTextListener);
-
 
         this.pack();
         this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setVisible(true);
-        
     }
 
+    //metodo che, dopo aver controllato la validità dell'ip immesso, crea una nuova istanza del client da collegare al server
     private void connectToServer(ActionEvent e) {
     	//controllo validità IP
     	String ipString = textIP.getText();
@@ -135,12 +142,9 @@ public class MainApp extends JFrame {
     		textIP.setForeground(Color.RED);
     		textIP.setText("< INVALID IP >");
     	}
-    	
     }
 
-    /**
-     * controlla se l'IP inserito è valido attraverso una regex
-     */
+    //controlla se l'IP inserito è valido attraverso una regex
     private boolean checkIPvalidValidity(String ip) {
     	String IPv4Pattern = "^(([0-9]|[1-9][0-9]|1[0-9][0-9]|2[0-4][0-9]|25[0-5])(\\.(?!$)|$)){4}$";
     	
@@ -154,10 +158,7 @@ public class MainApp extends JFrame {
         System.exit(0);
     }
     
-    /**
-     * Controlla che i due JtextField non siano vuoti: solo quando vengono riempiti entrambi viene abilitato
-     * il bottone CONNECT
-     */
+    //Controlla che i due JtextField non siano vuoti: solo quando vengono riempiti entrambi viene abilitato il bottone CONNECT
     private void enableConnectBotton() {
     	if(textIP.getText().equals("") || txtPlayerName.getText().equals("")) {
             btnConnect.setEnabled(false);
@@ -166,7 +167,6 @@ public class MainApp extends JFrame {
         }
     }
 
-
     /* ===================
     GETTERS AND SETTERS
     ====================*/
@@ -174,7 +174,6 @@ public class MainApp extends JFrame {
     public JTextField getTxtPlayerName() {
         return txtPlayerName;
     }
-
     public JTextField getTextIP() {
         return textIP;
     }

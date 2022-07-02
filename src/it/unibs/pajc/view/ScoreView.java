@@ -4,6 +4,9 @@ import it.unibs.pajc.model.BaseModel;
 import it.unibs.pajc.model.Score;
 import java.awt.*;
 
+/**
+ * Classe che rappresenta la barra superiore del gioco, in cui sono visibili i nomi dei player e il punteggio
+ */
 public class ScoreView extends BaseModel {
 
     private int x, y, width, height;
@@ -35,7 +38,6 @@ public class ScoreView extends BaseModel {
         namePl2.draw(g);
         scorePl1.draw(g);
         scorePl2.draw(g);
-
     }
 
     public void setScore(Score score) {

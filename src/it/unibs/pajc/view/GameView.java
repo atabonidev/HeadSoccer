@@ -7,9 +7,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
-/*
-    RICORDATI CHE NON C'E NETTA DISTINZIONE TRA VIEW E CONTROLLER IN JAVA SWING QUINDI QUESTO
-    E' UN FOTTUTISSIMO CONTROLLER
+/**
+ * Classe che rappresenta la view principale del gioco
  */
 
 public class GameView extends JPanel {
@@ -50,10 +49,6 @@ public class GameView extends JPanel {
         this.rightFootballGoal = rightFootballGoal;
     }
 
-    /**
-     * dubbione -> il campo rimane fisso, non dovrebbe essere messo qui
-     * @param g
-     */
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -64,8 +59,8 @@ public class GameView extends JPanel {
         //disegno campo di gioco con porte
         g2.drawImage(fieldBgImage, 0, 0, null);
 
-        //sistema di rif spostato al centro all'altezza del campo da gioco.
-        g2.translate(500, 386); //sistema di riferimento con origine in centro
+        //sistema di riferimento spostato al centro, con origine all'altezza del terreno da gioco.
+        g2.translate(500, 386);
         g2.scale(1,-1);
 
         //DISEGNO PORTE
@@ -86,8 +81,6 @@ public class GameView extends JPanel {
 
             g2.drawImage(leftPlayerImage, (int) modelData.getPlayer1().getPosX(), (int) modelData.getPlayer1().getPosY(), null);
 
-            g2.setColor(Color.black);
-
             BufferedImage rightPlayerImage = null;
             switch (modelData.getPlayer2().getCurrentImageIndex()) {
                 case 0 -> rightPlayerImage = HelperClass.getImageFromName("RightMan.png");
@@ -104,20 +97,16 @@ public class GameView extends JPanel {
         }
 
         if(isGoal){
-            g2.scale(1, -1);
-            g2.translate(0, -386/2); //sistema di riferimento con origine in centro
+            g2.scale(1, -1); //si riscala il sistema di riferimento per disegnare correttamente la scritta "goal"
+            g2.translate(0, -386/2);
 
             g2.setFont(new Font("Helvetica", Font.BOLD, goalStringFontSize));
 
-            //disegno stringa
             int w = g2.getFontMetrics().stringWidth("GOAL");
             int h = g2.getFontMetrics().getHeight();
 
             int textX = - w / 2;
-            int textY = h / 2;    //asse y verso il basso
-
-            //g2.setColor(Color.BLACK);
-            //g2.fillRect(textX-2, -textY-2, w+2, h+2);
+            int textY = h / 2;
 
             g2.setColor(Color.RED);
             g2.drawString("GOAL", textX, textY);
@@ -129,6 +118,7 @@ public class GameView extends JPanel {
     GESTIONE ANIMAZIONI ED SUONI
     ====================================================================================================*/
 
+    //metodo utilizzato per aggiornare i dati della GameView ottenuti dal Server
     public void setModelData(ExchangeDataClass newModelData, boolean isFirstIteration) {
         this.firstIteration = isFirstIteration;
         checkAnimationsAndSounds(newModelData);
@@ -136,6 +126,7 @@ public class GameView extends JPanel {
         this.scoreView.setScore(modelData.getScore());
     }
 
+    //metodo che controlla se c'è un suono da far partire
     private void checkAnimationsAndSounds(ExchangeDataClass newModelData) {
         if(modelData != null && modelData.getScore() != null) {
             SoundClipIdentifier soundClipIdentifier;
@@ -145,8 +136,6 @@ public class GameView extends JPanel {
             else {
                 soundClipIdentifier = newModelData.getSoundClipIdentifierPl2();
             }
-
-
 
             if(soundClipIdentifier.isClipActive()) {
                 if(soundClipIdentifier.getClipNumber() == Sound.KICK_BALL) {
@@ -162,10 +151,7 @@ public class GameView extends JPanel {
         }
     }
 
-    /**
-     * Metodo per controllare se c'e stato un goal, e in caso avvia il timer che si occupa dell'animazione
-     * @param newModelData
-     */
+    //Metodo per controllare se c'è stato un goal, e in caso avvia il timer che si occupa dell'animazione
     private void startGoalAnimation(ExchangeDataClass newModelData) {
         isGoal = true;
 
@@ -187,6 +173,5 @@ public class GameView extends JPanel {
         sound.setFile(i);
         sound.play();
     }
-
 
 }
