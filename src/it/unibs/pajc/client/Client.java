@@ -145,8 +145,11 @@ public class Client {
 
         JPanel resultPanel = new JPanel();
 
-        JLabel label = new JLabel("");
-        label.setFont(new Font("Arial Black", Font.PLAIN, 60));
+        JLabel result = new JLabel("");
+        result.setFont(new Font("Arial Black", Font.PLAIN, 40));
+
+        int scorePl1 = modelData.getPlayer1().getPlayerScore();
+        int scorePl2 = modelData.getPlayer2().getPlayerScore();
 
         boolean imWinner;
 
@@ -155,20 +158,23 @@ public class Client {
         else
             imWinner = modelData.getPlayer2().isWinner();
 
+        String resultScore = "<html><h1 style=\"text-align: center; font-size: 40px\">" + scorePl1 + " - " + scorePl2;
+
+        resultPanel.setOpaque(true);
 
         if(imWinner) {
-            resultPanel.setOpaque(true);
             resultPanel.setBackground(Color.green);
-            label.setText("YOU WIN!");
+            resultScore += "<br>YOU WIN!</h1></html>";
         }
         else {
-            resultPanel.setOpaque(true);
             resultPanel.setBackground(Color.red);
-            label.setText("YOU LOSE!");
+            resultScore += "<br>YOU LOSE!</h1></html>";
         }
 
+        result.setText(resultScore);
+
         resultPanel.setLayout(new GridBagLayout());
-        resultPanel.add(label);
+        resultPanel.add(result);
         resultPanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
         frame.setContentPane(resultPanel);
