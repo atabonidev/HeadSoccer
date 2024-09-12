@@ -38,4 +38,4 @@ The following are the various phases of the game:
 - **Sound Management:** Sound handling to enhance the gameplay experience.
 
 ## More info
-for more detailed information see: [https://github.com/atabonidev/HeadSoccer/blob/main/Presentazione%20progetto.pdf](https://github.com/atabonidev/HeadSoccer/blob/main/Presentazione%20progetto.pdf))
+for more detailed information see the following presentation (in italian): [https://github.com/atabonidev/HeadSoccer/blob/main/Presentazione%20progetto.pdf](https://github.com/atabonidev/HeadSoccer/blob/main/Presentazione%20progetto.pdf))
